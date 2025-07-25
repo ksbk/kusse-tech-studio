@@ -1,16 +1,32 @@
 from flask import Flask, render_template
+from flask_mail import Mail
 import os
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
+# Initialize extensions
+mail = Mail()
+
 def create_app():
+    """Application factory pattern"""
     app = Flask(__name__)
     
-    # Load configuration from environment variables
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key-here')
-    app.config['DEBUG'] = os.getenv('DEBUG', 'False').lower() == 'true'
+    # Configuration
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+    app.config['DEBUG'] = os.environ.get('FLASK_ENV') == 'development'
+    
+    # Email configuration
+    app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+    app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+    app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() == 'true'
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+    
+    # Initialize extensions with app
+    mail.init_app(app)
     
     # Register blueprints
     from app.routes import main, home, portfolio, contact, projects, health

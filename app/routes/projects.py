@@ -2,79 +2,98 @@ from flask import Blueprint, render_template
 
 bp = Blueprint('projects', __name__)
 
+# Enhanced project data with real-world examples
+PROJECTS = [
+    {
+        'id': 1,
+        'title': 'E-commerce Price Monitor',
+        'description': 'Automated price tracking system that monitors products across major Icelandic retail websites, providing real-time alerts and comprehensive reporting for competitive analysis.',
+        'technologies': ['Python', 'BeautifulSoup', 'Selenium', 'PostgreSQL', 'Flask', 'Celery'],
+        'github_url': 'https://github.com/kussetechstudio/price-monitor',
+        'demo_url': None,
+        'image': 'price-monitor.jpg',
+        'featured': True,
+        'status': 'completed',
+        'client': 'Icelandic Retail Chain',
+        'date': '2024-12',
+        'category': 'Data Automation'
+    },
+    {
+        'id': 2,
+        'title': 'Business Intelligence Dashboard',
+        'description': 'Real-time analytics dashboard integrating data from multiple business systems to provide actionable insights for SMEs in Iceland.',
+        'technologies': ['Python', 'Flask', 'PostgreSQL', 'Chart.js', 'Redis', 'Docker'],
+        'github_url': 'https://github.com/kussetechstudio/bi-dashboard',
+        'demo_url': 'https://demo.kussetechstudio.com/bi-dashboard',
+        'image': 'bi-dashboard.jpg',
+        'featured': True,
+        'status': 'completed',
+        'client': 'Icelandic SME Network',
+        'date': '2024-11',
+        'category': 'Business Intelligence'
+    },
+    {
+        'id': 3,
+        'title': 'Document Processing Automation',
+        'description': 'OCR and NLP system for automated invoice and contract processing, supporting multiple languages including Icelandic.',
+        'technologies': ['Python', 'Tesseract OCR', 'spaCy', 'FastAPI', 'MongoDB', 'React'],
+        'github_url': None,  # Private repository
+        'demo_url': 'https://demo.kussetechstudio.com/doc-processor',
+        'image': 'doc-processing.jpg',
+        'featured': True,
+        'status': 'completed',
+        'client': 'Legal Services Firm',
+        'date': '2024-09',
+        'category': 'Document Automation'
+    },
+    {
+        'id': 4,
+        'title': 'API Integration Hub',
+        'description': 'Microservices platform for managing third-party API integrations with rate limiting, authentication, and comprehensive monitoring.',
+        'technologies': ['Python', 'FastAPI', 'Redis', 'PostgreSQL', 'Docker', 'Kubernetes'],
+        'github_url': 'https://github.com/kussetechstudio/api-hub',
+        'demo_url': None,
+        'image': 'api-hub.jpg',
+        'featured': False,
+        'status': 'in_progress',
+        'client': 'Tech Startup',
+        'date': '2024-12',
+        'category': 'API Development'
+    },
+    {
+        'id': 5,
+        'title': 'IoT Data Collection System',
+        'description': 'Real-time sensor data collection and analysis platform for industrial equipment monitoring and predictive maintenance.',
+        'technologies': ['Python', 'MQTT', 'InfluxDB', 'Grafana', 'Docker', 'Raspberry Pi'],
+        'github_url': 'https://github.com/kussetechstudio/iot-platform',
+        'demo_url': None,
+        'image': 'iot-system.jpg',
+        'featured': False,
+        'status': 'in_progress',
+        'client': 'Manufacturing Company',
+        'date': '2025-01',
+        'category': 'IoT Development'
+    }
+]
+
 @bp.route('/')
 def projects_list():
     """Projects listing page"""
-    # Sample project data - in a real app, this would come from a database
-    projects = [
-        {
-            'id': 1,
-            'title': 'Icelandic Tourism Data Scraper',
-            'description': 'Automated web scraping tool that collects and analyzes tourism data from Icelandic websites',
-            'technologies': ['Python', 'BeautifulSoup', 'Pandas', 'SQLite'],
-            'github_url': 'https://github.com/username/tourism-scraper',
-            'image': 'project1.jpg',
-            'featured': True
-        },
-        {
-            'id': 2,
-            'title': 'Business Process Automation',
-            'description': 'Streamlined business workflows using Python automation tools',
-            'technologies': ['Python', 'Selenium', 'Pandas', 'Email API'],
-            'github_url': 'https://github.com/username/business-automation',
-            'image': 'project2.jpg',
-            'featured': True
-        },
-        {
-            'id': 3,
-            'title': 'Data Pipeline Dashboard',
-            'description': 'Real-time data monitoring and visualization dashboard',
-            'technologies': ['Python', 'Flask', 'Chart.js', 'PostgreSQL'],
-            'github_url': 'https://github.com/username/data-dashboard',
-            'image': 'project3.jpg',
-            'featured': False
-        }
-    ]
-    
     return render_template('pages/projects/list.html', 
-                         projects=projects, 
+                         projects=PROJECTS, 
                          title='Projects - KusseTechStudio')
 
 @bp.route('/<int:project_id>')
 def project_detail(project_id):
     """Individual project detail page"""
-    # In a real app, fetch from database
-    project = {
-        'id': project_id,
-        'title': 'Icelandic Tourism Data Scraper',
-        'description': 'A comprehensive web scraping solution designed to collect and analyze tourism data from various Icelandic websites. This project helped local businesses understand market trends and optimize their offerings.',
-        'long_description': '''
-        This project involved building a robust web scraping infrastructure that could handle multiple tourism websites simultaneously. 
-        The system includes data validation, cleaning pipelines, and automated reporting features.
-        
-        Key features:
-        - Multi-threaded scraping for improved performance
-        - Data validation and cleaning pipelines
-        - Automated email reports with insights
-        - RESTful API for data access
-        - Real-time monitoring dashboard
-        ''',
-        'technologies': ['Python', 'BeautifulSoup', 'Scrapy', 'Pandas', 'SQLite', 'Flask'],
-        'github_url': 'https://github.com/username/tourism-scraper',
-        'live_url': 'https://demo.kussetechstudio.com/tourism-scraper',
-        'images': ['project1-1.jpg', 'project1-2.jpg', 'project1-3.jpg'],
-        'challenges': [
-            'Handling dynamic content loaded by JavaScript',
-            'Implementing respectful rate limiting',
-            'Data normalization across different site structures'
-        ],
-        'results': [
-            'Reduced manual data collection time by 95%',
-            'Improved data accuracy and consistency',
-            'Enabled real-time market insights for clients'
-        ]
-    }
+    # Find project by ID
+    project = next((p for p in PROJECTS if p['id'] == project_id), None)
+    
+    if not project:
+        # Return 404 if project not found
+        from flask import abort
+        abort(404)
     
     return render_template('pages/projects/detail.html', 
                          project=project, 
-                         title=f'{project["title"]} - KusseTechStudio')
+                         title=f"{project['title']} - KusseTechStudio")
