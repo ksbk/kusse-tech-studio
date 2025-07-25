@@ -1,0 +1,22 @@
+// Abstracts
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Tailwind (if using)
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Core
+@import 'layouts/containers';
+
+// Components
+@import 'components/buttons';
+@import 'components/cards';
+
+// Pages
+@import 'pages/home';
+@import 'pages/projects';
+
+// Utilities
+@import 'utilities/animations';

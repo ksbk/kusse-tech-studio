@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-12 px-4">
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Projects</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300">Showcasing Python automation and data solutions</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for project in projects %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition p-6">
+            <div class="mb-4">
+                {% if project.featured %}
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded">Featured</span>
+                {% endif %}
+            </div>
+            
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-3">{{ project.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">{{ project.description }}</p>
+            
+            <div class="mb-4">
+                <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-400 mb-2">Technologies:</h4>
+                <div class="flex flex-wrap gap-2">
+                    {% for tech in project.technologies %}
+                    <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="flex space-x-3">
+                <a href="{{ url_for('projects.project_detail', project_id=project.id) }}" 
+                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm">
+                    View Details
+                </a>
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank"
+                   class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition text-sm">
+                    <i class="fab fa-github mr-1"></i> Code
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not projects %}
+    <div class="text-center py-12">
+        <i class="fas fa-code text-6xl text-gray-400 mb-4"></i>
+        <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">No projects yet</h3>
+        <p class="text-gray-500 dark:text-gray-500">Check back soon for exciting Python projects!</p>
+    </div>
+    {% endif %}
+
+    <div class="mt-16 bg-blue-50 dark:bg-gray-800 p-8 rounded-lg text-center">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Have a Project in Mind?</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+            Let's discuss how Python automation can solve your business challenges.
+        </p>
+        <a href="{{ url_for('contact.contact') }}" 
+           class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+            Start a Conversation
+        </a>
+    </div>
+</div>
+{% endblock %}

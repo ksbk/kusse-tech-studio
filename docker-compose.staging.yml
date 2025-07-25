@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  web:
+    image: kussetechstudio/portfolio:develop
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=staging
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "8080:5000"
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+      - db
+    networks:
+      - kusse-network
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - kusse-network
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - kusse-network
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/staging.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./app/static:/var/www/static:ro
+    depends_on:
+      - web
+    networks:
+      - kusse-network
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  kusse-network:
+    driver: bridge

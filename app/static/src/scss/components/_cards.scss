@@ -1,0 +1,11 @@
+.project-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:-translate-y-1;
+
+  &__image {
+    @apply w-full h-48 object-cover;
+  }
+
+  &__content {
+    @apply p-6;
+  }
+}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">About KusseTechStudio</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300">Python development and data solutions from Iceland</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Who We Are</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                KusseTechStudio is a specialized Python development company based in Reykjavík, Iceland. 
+                We focus on creating efficient, automated solutions for businesses looking to streamline 
+                their data processes and operations.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300">
+                Our expertise lies in web scraping, data automation, and building robust Python applications 
+                that solve real-world business challenges.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">Our Mission</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                To empower businesses with intelligent automation solutions that save time, 
+                reduce manual work, and provide valuable insights from data.
+            </p>
+            <p class="text-gray-600 dark:text-gray-300">
+                We believe in clean, maintainable code and solutions that scale with your business needs.
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-12 bg-blue-50 dark:bg-gray-800 p-8 rounded-lg">
+        <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Why Choose Us?</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+                <i class="fas fa-code text-3xl text-blue-600 mb-3"></i>
+                <h3 class="font-semibold text-gray-800 dark:text-white">Expert Development</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">Years of Python expertise and best practices</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-clock text-3xl text-blue-600 mb-3"></i>
+                <h3 class="font-semibold text-gray-800 dark:text-white">Fast Delivery</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">Quick turnaround without compromising quality</p>
+            </div>
+            <div class="text-center">
+                <i class="fas fa-handshake text-3xl text-blue-600 mb-3"></i>
+                <h3 class="font-semibold text-gray-800 dark:text-white">Local Support</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">Based in Iceland, supporting Nordic businesses</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

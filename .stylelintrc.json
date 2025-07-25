@@ -1,0 +1,19 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "indentation": 2,
+    "max-nesting-depth": 4,
+    "selector-max-id": 1,
+    "declaration-no-important": true,
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": ["attribute", "class"]
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "node_modules/**/*",
+    "app/static/dist/**/*"
+  ]
+}
