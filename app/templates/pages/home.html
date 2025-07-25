@@ -1,112 +1,325 @@
 {% extends "base.html" %}
+
+{% block title %}KusseTechStudio - Python Development & Data Automation{% endblock %}
+
+{% block meta_description %}Professional Python development and data automation services in Iceland. Specializing in web scraping, process automation, and business intelligence solutions.{% endblock %}
+
 {% block content %}
-    <header class="max-w-4xl mx-auto py-20 px-4 text-center">
-        <h1 class="text-5xl font-bold text-gray-800">KusseTechStudio</h1>
-        <p class="mt-4 text-xl text-gray-600">
-            Python Development & Data Solutions
-            <span class="block text-sm mt-2">Reykjavík, Iceland</span>
-        </p>
-        <a href="#projects" class="mt-8 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition">
-            View Projects
-        </a>
-    </header>
-<!-- Updated Hero Section -->
-<section class="min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-blue-900 to-blue-700 text-white px-6">
-  <div class="max-w-6xl mx-auto text-center">
-    <!-- Animated Logo/SVG -->
-    <div class="w-24 h-24 mx-auto mb-8">
-      <svg><!-- Your logo SVG here --></svg>
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="12" cy="12" r="2"/><circle cx="36" cy="12" r="2"/><circle cx="12" cy="36" r="2"/><circle cx="36" cy="36" r="2"/></g></g></svg>'); background-size: 60px 60px;"></div>
     </div>
     
-    <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-      Transforming Ideas into <span class="text-orange-400">Python Solutions</span>
-    </h1>
-    
-    <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">
-      Hi, I'm [Your Name]. I build scalable automation tools and data pipelines for businesses in Iceland and beyond.
-    </p>
-    
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="#projects" class="btn-primary">
-        View My Work
-      </a>
-      <a href="#contact" class="btn-secondary">
-        Get in Touch
-      </a>
-    </div>
-  </div>
-</section>
-    <!-- Projects Section -->
-    <section id="projects" class="max-w-4xl mx-auto py-12 px-4">
-        <h2 class="text-3xl font-bold text-gray-800 mb-8">Featured Work</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <!-- Project 1 -->
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-semibold">Icelandic Tourism Scraper</h3>
-                <p class="mt-2 text-gray-600">Scraped and analyzed 1,000+ listings with Python.</p>
-                <a href="#" class="mt-4 inline-block text-blue-600 hover:text-blue-800">View Code →</a>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Animated Logo -->
+        <div class="w-20 h-20 mx-auto mb-8 animate-bounce">
+            <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl">
+                <span class="text-white font-bold text-2xl">KT</span>
             </div>
-            <!-- Add more projects -->
         </div>
-    </section>
-<!-- Services/Expertise -->
-<section class="py-20 bg-white dark:bg-gray-900 px-6">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">
-      How I Can Help You
-    </h2>
-    
-    <div class="grid md:grid-cols-3 gap-12">
-      <!-- Feature 1 -->
-      <div class="feature-card">
-        <div class="feature-icon bg-blue-100 text-blue-600">
-          <i class="fas fa-robot text-3xl"></i>
-        </div>
-        <h3 class="text-xl font-bold my-4">Process Automation</h3>
-        <p class="text-gray-600 dark:text-gray-300">
-          Eliminate repetitive tasks with custom Python scripts that save 10+ hours/week.
+        
+        <!-- Main Headline -->
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Transforming Ideas into 
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+                Python Solutions
+            </span>
+        </h1>
+        
+        <!-- Subheadline -->
+        <p class="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto opacity-90 leading-relaxed">
+            Professional Python development and data automation services in 
+            <span class="font-semibold text-blue-300">Iceland</span> and beyond
         </p>
-      </div>
-      
-      <!-- Feature 2 -->
-      <div class="feature-card">
-        <div class="feature-icon bg-green-100 text-green-600">
-          <i class="fas fa-database text-3xl"></i>
-        </div>
-        <h3 class="text-xl font-bold my-4">Data Engineering</h3>
-        <p class="text-gray-600 dark:text-gray-300">
-          Clean, analyze, and visualize complex datasets for actionable insights.
+        
+        <!-- Description -->
+        <p class="text-lg md:text-xl mb-12 max-w-3xl mx-auto opacity-80">
+            I help businesses streamline operations, automate repetitive tasks, and unlock insights from their data with custom Python solutions.
         </p>
-      </div>
-      
-      <!-- Feature 3 -->
-      <div class="feature-card">
-        <div class="feature-icon bg-purple-100 text-purple-600">
-          <i class="fas fa-globe text-3xl"></i>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="/projects/" class="inline-flex items-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <i class="fas fa-folder-open mr-2"></i>
+                View My Work
+            </a>
+            <a href="/contact/" class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-blue-900 font-semibold rounded-lg transition-all duration-300 hover:scale-105">
+                <i class="fas fa-envelope mr-2"></i>
+                Get in Touch
+            </a>
         </div>
-        <h3 class="text-xl font-bold my-4">Web Scraping</h3>
-        <p class="text-gray-600 dark:text-gray-300">
-          Extract and structure web data from any public source with ethical scraping.
-        </p>
-      </div>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-blue-600/30">
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-orange-400">5+</div>
+                <div class="text-sm md:text-base opacity-80">Years Experience</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-orange-400">50+</div>
+                <div class="text-sm md:text-base opacity-80">Projects Completed</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-orange-400">100%</div>
+                <div class="text-sm md:text-base opacity-80">Client Satisfaction</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-orange-400">24/7</div>
+                <div class="text-sm md:text-base opacity-80">Support Available</div>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#services" class="text-white/70 hover:text-white transition-colors">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </a>
+    </div>
 </section>
 
+<!-- Services Section -->
+<section id="services" class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                How I Can Help You
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Specialized Python development services designed to automate your processes and unlock the power of your data
+            </p>
+        </div>
+        
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-robot text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Process Automation
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Eliminate repetitive tasks with custom Python scripts. Save 10+ hours per week and reduce human error.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Task Scheduling</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>File Processing</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Email Automation</li>
+                </ul>
+            </div>
+            
+            <!-- Service 2 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-database text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Data Engineering
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Clean, analyze, and visualize complex datasets for actionable business insights and decision-making.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Data Pipelines</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>ETL Processes</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Data Visualization</li>
+                </ul>
+            </div>
+            
+            <!-- Service 3 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-globe text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Web Scraping
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Extract and structure web data from any public source with ethical, compliant scraping solutions.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Market Research</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Price Monitoring</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Content Aggregation</li>
+                </ul>
+            </div>
+            
+            <!-- Service 4 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Business Intelligence
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Transform raw data into strategic insights with custom dashboards and reporting solutions.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Custom Dashboards</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Automated Reports</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>KPI Tracking</li>
+                </ul>
+            </div>
+            
+            <!-- Service 5 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-code text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    API Integration
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Connect your systems with third-party services through robust API integrations and custom endpoints.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>REST APIs</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Webhook Integration</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Data Synchronization</li>
+                </ul>
+            </div>
+            
+            <!-- Service 6 -->
+            <div class="group bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 hover:scale-105">
+                <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-cogs text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Tech Consulting
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Strategic technology guidance to help you make informed decisions about your digital infrastructure.
+                </p>
+                <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Architecture Planning</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Technology Selection</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Process Optimization</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Add to templates/index.html -->
-<!-- <div class="mt-12 p-6 bg-white rounded-lg shadow">
-    <h3 class="text-2xl font-bold mb-4">Try Python in Your Browser</h3>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
-    <textarea id="code" class="w-full h-32 font-mono p-4 border" placeholder="print('Hello from Iceland!')"></textarea>
-    <button onclick="runPython()" class="mt-4 btn bg-blue-600 text-white">Run</button>
-    <div id="output" class="mt-4 p-4 bg-gray-100 font-mono"></div>
-    <script>
-        async function runPython() {
-            let pyodide = await loadPyodide();
-            document.getElementById('output').innerHTML = 
-                pyodide.runPython(document.getElementById('code').value);
-        }
-    </script>
-</div> -->
+<!-- Featured Projects Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                Featured Work
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Real-world solutions that have helped businesses automate processes and unlock data insights
+            </p>
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Project 1 -->
+            <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-chart-bar text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        Icelandic Tourism Analytics
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Automated data collection and analysis of 1,000+ tourism listings with real-time reporting dashboard.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">Python</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded-full">Pandas</span>
+                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded-full">Plotly</span>
+                    </div>
+                    <a href="/projects/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                        View Project <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="h-48 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                    <i class="fas fa-robot text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        Email Automation System
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Custom email marketing automation that increased client engagement by 300% and saved 15 hours/week.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">Python</span>
+                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs rounded-full">Flask</span>
+                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs rounded-full">Celery</span>
+                    </div>
+                    <a href="/projects/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                        View Project <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-database text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        Real Estate Data Pipeline
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Comprehensive data pipeline processing 10,000+ property listings daily with automated market analysis.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">Python</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded-full">BeautifulSoup</span>
+                        <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs rounded-full">PostgreSQL</span>
+                    </div>
+                    <a href="/projects/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                        View Project <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- View All Projects Button -->
+        <div class="text-center">
+            <a href="/projects/" class="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <i class="fas fa-folder-open mr-2"></i>
+                View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Automate Your Business?
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+            Let's discuss how Python automation can transform your operations and unlock your data's potential.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact/" class="inline-flex items-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105">
+                <i class="fas fa-envelope mr-2"></i>
+                Start Your Project
+            </a>
+            <a href="/services" class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold rounded-lg transition-all duration-300 hover:scale-105">
+                <i class="fas fa-info-circle mr-2"></i>
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}
