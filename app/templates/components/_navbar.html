@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuContent = mobileMenu.querySelector('div');
     
+    // Settings dropdown toggle
+    const settingsToggle = document.getElementById('settings-toggle');
+    const settingsMenu = document.getElementById('settings-menu');
+    
     if (mobileMenuToggle && mobileMenu) {
         mobileMenuToggle.addEventListener('click', function() {
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
@@ -28,13 +32,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Close mobile menu when clicking outside
+    // Settings dropdown functionality
+    if (settingsToggle && settingsMenu) {
+        settingsToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle dropdown
+            this.setAttribute('aria-expanded', !isExpanded);
+            settingsMenu.classList.toggle('hidden');
+        });
+    }
+    
+    // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
+        // Close mobile menu
         if (mobileMenu && !mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
             mobileMenuContent.classList.add('hidden');
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
             const icon = mobileMenuToggle.querySelector('svg');
             icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+        }
+        
+        // Close settings menu
+        if (settingsMenu && !settingsMenu.contains(event.target) && !settingsToggle.contains(event.target)) {
+            settingsMenu.classList.add('hidden');
+            settingsToggle.setAttribute('aria-expanded', 'false');
         }
     });
     
@@ -45,6 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
             const icon = mobileMenuToggle.querySelector('svg');
             icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            
+            // Also close settings menu
+            settingsMenu.classList.add('hidden');
+            settingsToggle.setAttribute('aria-expanded', 'false');
         }
     });
     
@@ -133,9 +160,35 @@ document.addEventListener('DOMContentLoaded', function() {
     transition: all 0.3s ease-in-out;
 }
 
-/* Logo hover effect */
+/* Logo hover effect - enhanced for KTS reveal */
 .group:hover .w-10 {
     transform: scale(1.05);
+}
+
+/* Settings dropdown animations */
+#settings-menu {
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    transform-origin: top right;
+}
+
+#settings-menu.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+#settings-menu:not(.hidden) {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Logo text reveal animation */
+.group .opacity-0 {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.group:hover .opacity-0 {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
 }
 
 /* Backdrop blur support check */

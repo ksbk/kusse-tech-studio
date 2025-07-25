@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Dark mode functionality
     const themeToggle = document.getElementById('theme-toggle');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
     const darkModeToggleAlt = document.getElementById('dark-mode-toggle');
     
     // Check for saved dark mode preference or default to system preference
@@ -23,31 +24,59 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update icons if needed
         updateThemeIcons();
+        
+        // Close settings menu after toggling
+        const settingsMenu = document.getElementById('settings-menu');
+        if (settingsMenu) {
+            settingsMenu.classList.add('hidden');
+            const settingsToggle = document.getElementById('settings-toggle');
+            if (settingsToggle) {
+                settingsToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
     }
     
     // Update theme toggle icons
     function updateThemeIcons() {
         const isDark = document.documentElement.classList.contains('dark');
         
-        // Update header theme toggle if it exists
-        if (themeToggle) {
-            const lightIcon = themeToggle.querySelector('.dark\\:hidden');
-            const darkIcon = themeToggle.querySelector('.hidden.dark\\:block');
-            
-            if (lightIcon && darkIcon) {
-                if (isDark) {
-                    lightIcon.classList.add('hidden');
-                    lightIcon.classList.remove('dark:hidden');
-                    darkIcon.classList.remove('hidden');
-                    darkIcon.classList.add('dark:block');
-                } else {
-                    lightIcon.classList.remove('hidden');
-                    lightIcon.classList.add('dark:hidden');
-                    darkIcon.classList.add('hidden');
-                    darkIcon.classList.remove('dark:block');
+        // Update all theme toggles
+        [themeToggle, mobileThemeToggle].forEach(toggle => {
+            if (toggle) {
+                const lightIcon = toggle.querySelector('.dark\\:hidden');
+                const darkIcon = toggle.querySelector('.hidden.dark\\:block');
+                const lightText = toggle.querySelector('.dark\\:hidden:not(svg)');
+                const darkText = toggle.querySelector('.hidden.dark\\:inline');
+                
+                if (lightIcon && darkIcon) {
+                    if (isDark) {
+                        lightIcon.classList.add('hidden');
+                        lightIcon.classList.remove('dark:hidden');
+                        darkIcon.classList.remove('hidden');
+                        darkIcon.classList.add('dark:block');
+                    } else {
+                        lightIcon.classList.remove('hidden');
+                        lightIcon.classList.add('dark:hidden');
+                        darkIcon.classList.add('hidden');
+                        darkIcon.classList.remove('dark:block');
+                    }
+                }
+                
+                if (lightText && darkText) {
+                    if (isDark) {
+                        lightText.classList.add('hidden');
+                        lightText.classList.remove('dark:hidden');
+                        darkText.classList.remove('hidden');
+                        darkText.classList.add('dark:inline');
+                    } else {
+                        lightText.classList.remove('hidden');
+                        lightText.classList.add('dark:hidden');
+                        darkText.classList.add('hidden');
+                        darkText.classList.remove('dark:inline');
+                    }
                 }
             }
-        }
+        });
         
         // Update alternative toggle if it exists
         if (darkModeToggleAlt) {
@@ -69,6 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleDarkMode);
+    }
+    
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', toggleDarkMode);
     }
     
     if (darkModeToggleAlt) {
