@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Welcome to Kusse Tech Studio</h1>
+                <p class="lead mb-4">We create innovative digital solutions that drive business growth and transform ideas into reality.</p>
+                <div class="d-flex gap-3">
+                    <a href="{{ url_for('portfolio.portfolio') }}" class="btn btn-light btn-lg">View Portfolio</a>
+                    <a href="{{ url_for('contact.contact') }}" class="btn btn-outline-light btn-lg">Get in Touch</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="{{ url_for('static', filename='src/img/hero-image.jpg') }}" alt="Tech Studio" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="display-5 fw-bold">Our Services</h2>
+                <p class="lead">Comprehensive digital solutions for modern businesses</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-code fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Web Development</h5>
+                        <p class="card-text">Custom web applications built with modern technologies and best practices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-line fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Data Analytics</h5>
+                        <p class="card-text">Transform your data into actionable insights with powerful analytics solutions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-mobile-alt fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title">Mobile Apps</h5>
+                        <p class="card-text">Native and cross-platform mobile applications for iOS and Android.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-lg-12 text-center">
+                <a href="{{ url_for('main.services') }}" class="btn btn-primary btn-lg">Learn More About Our Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Preview -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="display-5 fw-bold">Featured Projects</h2>
+                <p class="lead">Take a look at some of our recent work</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <img src="{{ url_for('static', filename='src/img/project1.jpg') }}" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">E-commerce Platform</h5>
+                        <p class="card-text">Modern e-commerce solution with advanced features and seamless user experience.</p>
+                        <a href="{{ url_for('portfolio.project_detail', project_id=1) }}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <img src="{{ url_for('static', filename='src/img/project2.jpg') }}" class="card-img-top" alt="Project 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Analytics Dashboard</h5>
+                        <p class="card-text">Real-time analytics dashboard providing comprehensive business intelligence.</p>
+                        <a href="{{ url_for('portfolio.project_detail', project_id=2) }}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-lg-12 text-center">
+                <a href="{{ url_for('portfolio.portfolio') }}" class="btn btn-outline-primary btn-lg">View All Projects</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+{% endblock %}

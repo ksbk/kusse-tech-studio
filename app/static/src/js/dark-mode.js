@@ -19,7 +19,7 @@ class AdvancedThemeManager {
         this.setupToggle();
         this.setupKeyboardShortcuts();
         this.setupSystemPreferenceListeners();
-        this.announceThemeChange();
+        // Don't announce theme change on initial load
     }
 
     registerDefaultThemes() {
@@ -71,10 +71,17 @@ class AdvancedThemeManager {
             activeTheme = this.theme;
         }
 
-        // Apply theme attributes
+        // Apply theme attributes for new components
         document.documentElement.setAttribute('data-theme', activeTheme);
         document.documentElement.setAttribute('data-reduced-motion', isReducedMotion);
         document.documentElement.setAttribute('data-high-contrast', isHighContrast);
+        
+        // Apply Tailwind dark class for existing components
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
         
         // Apply CSS custom properties for active theme
         const themeData = this.customThemes.get(activeTheme);
@@ -124,21 +131,35 @@ class AdvancedThemeManager {
     }
 
     updateToggleButton(isDark) {
-        const toggle = document.getElementById('theme-toggle');
-        if (toggle) {
-            const icon = toggle.querySelector('i, svg, .icon');
-            const label = `Switch to ${isDark ? 'light' : 'dark'} mode`;
-            
-            toggle.setAttribute('aria-label', label);
-            toggle.setAttribute('title', label);
-            
-            if (icon) {
-                icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        const toggles = [
+            document.getElementById('theme-toggle'),
+            document.getElementById('mobile-theme-toggle')
+        ];
+        
+        toggles.forEach(toggle => {
+            if (toggle) {
+                const label = `Switch to ${isDark ? 'light' : 'dark'} mode`;
+                toggle.setAttribute('aria-label', label);
+                toggle.setAttribute('title', label);
+                
+                // Update text content
+                const lightText = toggle.querySelector('.dark\\:hidden:not(svg)');
+                const darkText = toggle.querySelector('.hidden.dark\\:inline, .hidden.dark\\:inline-block');
+                
+                if (lightText && darkText) {
+                    if (isDark) {
+                        lightText.textContent = 'Light Mode';
+                        darkText.textContent = 'Dark Mode';
+                    } else {
+                        lightText.textContent = 'Dark Mode';
+                        darkText.textContent = 'Light Mode';
+                    }
+                }
+                
+                // Add ripple effect on click
+                toggle.addEventListener('click', this.addRippleEffect.bind(this), { once: true });
             }
-            
-            // Add ripple effect on click
-            toggle.addEventListener('click', this.addRippleEffect.bind(this));
-        }
+        });
     }
 
     addRippleEffect(event) {
@@ -171,10 +192,12 @@ class AdvancedThemeManager {
     }
 
     toggle() {
+        console.log('🔄 Toggling theme from:', this.theme);
         const themes = ['light', 'dark', 'auto'];
         const currentIndex = themes.indexOf(this.theme);
         this.theme = themes[(currentIndex + 1) % themes.length];
         
+        console.log('🔄 New theme:', this.theme);
         localStorage.setItem(THEME_KEY, this.theme);
         this.applyTheme();
         this.announceThemeChange();
@@ -191,10 +214,31 @@ class AdvancedThemeManager {
 
     setupToggle() {
         const toggle = document.getElementById('theme-toggle');
+        const mobileToggle = document.getElementById('mobile-theme-toggle');
+        
+        console.log('🔧 Setting up theme toggles...');
+        console.log('Desktop toggle found:', !!toggle);
+        console.log('Mobile toggle found:', !!mobileToggle);
+        
         if (toggle) {
             toggle.addEventListener('click', (e) => {
                 e.preventDefault();
+                console.log('🖱️ Desktop theme toggle clicked!');
                 this.toggle();
+            });
+        }
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('📱 Mobile theme toggle clicked!');
+                this.toggle();
+                
+                // Close mobile menu after toggling theme
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                }
             });
         }
     }
@@ -348,11 +392,16 @@ document.head.appendChild(style);
 
 // Initialize advanced theme manager
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎨 Initializing Advanced Theme Manager...');
     window.themeManager = new AdvancedThemeManager();
     
     // Expose theme manager methods globally for debugging and external use
     window.setTheme = (theme) => window.themeManager.setTheme(theme);
     window.getCurrentTheme = () => window.themeManager.theme;
     window.getAvailableThemes = () => Array.from(window.themeManager.customThemes.keys());
+    
+    console.log('🎨 Theme Manager initialized successfully!');
+    console.log('Current theme:', window.themeManager.theme);
+    console.log('Available themes:', window.getAvailableThemes());
 });
 

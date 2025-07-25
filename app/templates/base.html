@@ -239,14 +239,11 @@
     <!-- Professional Footer -->
     {% include 'components/_footer.html' %}
 
-    <!-- Dark Mode JavaScript -->
-    {% include 'components/_dark_mode_toggle.html' %}
-
-    <!-- Enhanced Analytics -->
+    <!-- Enhanced JavaScript Modules -->
     <script src="{{ url_for('static', filename='src/js/analytics.js') }}"></script>
-    
-    <!-- Animation System -->
+    <script src="{{ url_for('static', filename='src/js/dark-mode.js') }}"></script>
     <script src="{{ url_for('static', filename='src/js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='src/js/main.js') }}"></script>
 
     <!-- Additional page-specific scripts -->
     {% block scripts %}{% endblock %}

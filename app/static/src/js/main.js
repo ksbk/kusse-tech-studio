@@ -1,10 +1,5 @@
 // Advanced Main Application JavaScript
 
-// Import other modules
-import './analytics.js';
-import './dark-mode.js';
-import './animations.js';
-
 // Enhanced UI/UX Manager
 class AdvancedUIManager {
     constructor() {
