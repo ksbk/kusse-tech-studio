@@ -17,6 +17,21 @@ class AdvancedAnimations {
         this.initializePageTransitions();
     }
 
+    // Method to manually trigger animations for elements currently in viewport
+    triggerAnimationsInViewport() {
+        console.log('🎬 Manually triggering animations in viewport...');
+        const animateElements = document.querySelectorAll('.animate-on-scroll, [data-animate]');
+        animateElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible && el.style.opacity === '0') {
+                console.log('👁️ Making visible:', el);
+                this.animateIn(el);
+            }
+        });
+    }
+
     // Enhanced Intersection Observer for scroll animations
     initializeScrollAnimations() {
         const observerOptions = {
@@ -41,9 +56,12 @@ class AdvancedAnimations {
         // Observe elements with animation classes
         const animateElements = document.querySelectorAll('.animate-on-scroll, [data-animate]');
         animateElements.forEach(el => {
-            if (!this.isReducedMotion) {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
+            if (!this.isReducedMotion && !document.body.classList.contains('prefers-reduced-motion')) {
+                // Only hide elements if animations are enabled
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                }, 100); // Small delay to prevent flash
             }
             observer.observe(el);
         });
@@ -466,10 +484,28 @@ class AdvancedAnimations {
 
 // Initialize advanced animations
 document.addEventListener('DOMContentLoaded', function() {
+    // Add classes to enable animation system
+    document.body.classList.add('js-enabled');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.body.classList.add('prefers-reduced-motion');
+    }
+    
     window.advancedAnimations = new AdvancedAnimations();
     
     // Add required CSS animations
     const animationStyles = `
+        /* Fallback to ensure content is visible if animations fail */
+        .animate-on-scroll {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        /* Only hide for animation if not reduced motion and JS is working */
+        .js-enabled:not(.prefers-reduced-motion) .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
         @keyframes focusRipple {
             0% { transform: scale(0.8); opacity: 1; }
             100% { transform: scale(1.1); opacity: 0; }

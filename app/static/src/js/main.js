@@ -479,23 +479,63 @@ class AdvancedUIManager {
 
     initializeAdvancedNavigation() {
         // Smart navigation with history management
+        console.log('🧭 Initializing advanced navigation...');
         this.setupSmoothScrollNavigation();
         this.setupBreadcrumbNavigation();
+        console.log('✅ Advanced navigation initialized');
     }
 
     setupSmoothScrollNavigation() {
+        // Enhanced smooth scrolling with better error handling and debugging
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
+                console.log('🔗 Smooth scroll clicked:', anchor.getAttribute('href'));
+                
+                // Prevent default navigation immediately
                 e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
+                e.stopPropagation();
+                
+                const href = anchor.getAttribute('href');
+                const target = document.querySelector(href);
+                
+                console.log('🎯 Target element found:', target !== null, 'for selector:', href);
+                
                 if (target) {
                     const offset = 80; // Account for fixed header
                     const targetPosition = target.offsetTop - offset;
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: this.prefersReducedMotion ? 'auto' : 'smooth'
-                    });
+                    console.log('📐 Scrolling to position:', targetPosition);
+                    
+                    // Use both methods for maximum compatibility
+                    try {
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: this.prefersReducedMotion ? 'auto' : 'smooth'
+                        });
+                    } catch (error) {
+                        // Fallback for older browsers
+                        console.warn('Modern scroll failed, using fallback:', error);
+                        window.scrollTo(0, targetPosition);
+                    }
+                    
+                    // Ensure animations trigger after scroll
+                    setTimeout(() => {
+                        // Force trigger intersection observer check
+                        if (window.advancedAnimations && window.advancedAnimations.triggerAnimationsInViewport) {
+                            window.advancedAnimations.triggerAnimationsInViewport();
+                            console.log('🎬 Triggered viewport animations');
+                        }
+                        
+                        // Ensure target is visible
+                        const hiddenElements = target.querySelectorAll('[style*="opacity: 0"], .animate-on-scroll[style*="opacity: 0"]');
+                        if (hiddenElements.length > 0) {
+                            console.log('👁️ Found hidden elements after scroll, making visible:', hiddenElements.length);
+                            hiddenElements.forEach(el => {
+                                el.style.opacity = '1';
+                                el.style.transform = 'none';
+                            });
+                        }
+                    }, 1000); // Give time for smooth scroll to complete
                     
                     // Update focus for accessibility
                     target.focus();
@@ -503,9 +543,15 @@ class AdvancedUIManager {
                     // Track navigation
                     if (window.analytics) {
                         window.analytics.sendEvent('scroll_to_section', {
-                            section_id: anchor.getAttribute('href').substring(1)
+                            section_id: href.substring(1)
                         });
                     }
+                    
+                    console.log('✅ Smooth scroll completed');
+                } else {
+                    console.error('❌ Target element not found for:', href);
+                    // Still prevent navigation even if target not found
+                    return false;
                 }
             });
         });
@@ -559,7 +605,14 @@ class AdvancedUIManager {
 
 // Initialize the advanced UI manager
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 DOM Content Loaded - Initializing UI Manager...');
     window.uiManager = new AdvancedUIManager();
+    console.log('✅ UI Manager initialization complete');
+    
+    // Additional debugging for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    console.log('🔗 Found', anchorLinks.length, 'anchor links:', 
+        Array.from(anchorLinks).map(a => a.getAttribute('href')));
 });
 
 // Add required CSS for notifications and enhanced UI

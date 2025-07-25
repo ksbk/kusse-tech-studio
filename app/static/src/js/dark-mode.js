@@ -25,34 +25,46 @@ class AdvancedThemeManager {
     registerDefaultThemes() {
         this.customThemes.set('light', {
             name: 'Light',
-            primary: '#007acc',
+            primary: '#3b82f6',
             background: '#ffffff',
-            text: '#333333',
-            accent: '#ff6b35'
+            surface: '#f9fafb',
+            text: '#111827',
+            textSecondary: '#6b7280',
+            accent: '#10b981',
+            border: '#e5e7eb'
         });
 
         this.customThemes.set('dark', {
             name: 'Dark',
-            primary: '#4fc3f7',
-            background: '#121212',
-            text: '#ffffff',
-            accent: '#ff8a65'
+            primary: '#60a5fa',
+            background: '#111827',
+            surface: '#1f2937',
+            text: '#f9fafb',
+            textSecondary: '#d1d5db',
+            accent: '#34d399',
+            border: '#374151'
         });
 
         this.customThemes.set('high-contrast', {
             name: 'High Contrast',
             primary: '#0000ff',
             background: '#000000',
+            surface: '#000000',
             text: '#ffffff',
-            accent: '#ffff00'
+            textSecondary: '#ffffff',
+            accent: '#ffff00',
+            border: '#ffffff'
         });
 
         this.customThemes.set('warm', {
             name: 'Warm',
-            primary: '#d2691e',
-            background: '#fdf6e3',
-            text: '#5d4037',
-            accent: '#ff5722'
+            primary: '#f59e0b',
+            background: '#fef7ed',
+            surface: '#fed7aa',
+            text: '#92400e',
+            textSecondary: '#d97706',
+            accent: '#dc2626',
+            border: '#fdba74'
         });
     }
 
@@ -89,8 +101,8 @@ class AdvancedThemeManager {
             this.setCSSVariables(themeData);
         }
 
-        // Update toggle button state
-        this.updateToggleButton(isDark);
+        // Update theme selector UI
+        this.updateThemeSelector();
         
         // Smooth transition for theme changes (respecting reduced motion)
         if (!isReducedMotion) {
@@ -130,36 +142,47 @@ class AdvancedThemeManager {
         }, THEME_TRANSITION_DURATION);
     }
 
-    updateToggleButton(isDark) {
-        const toggles = [
-            document.getElementById('theme-toggle'),
-            document.getElementById('mobile-theme-toggle')
-        ];
+    updateThemeSelector() {
+        // Update desktop theme selector
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const mobileThemeOptions = document.querySelectorAll('.mobile-theme-option');
         
-        toggles.forEach(toggle => {
-            if (toggle) {
-                const label = `Switch to ${isDark ? 'light' : 'dark'} mode`;
-                toggle.setAttribute('aria-label', label);
-                toggle.setAttribute('title', label);
-                
-                // Update text content
-                const lightText = toggle.querySelector('.dark\\:hidden:not(svg)');
-                const darkText = toggle.querySelector('.hidden.dark\\:inline, .hidden.dark\\:inline-block');
-                
-                if (lightText && darkText) {
-                    if (isDark) {
-                        lightText.textContent = 'Light Mode';
-                        darkText.textContent = 'Dark Mode';
-                    } else {
-                        lightText.textContent = 'Dark Mode';
-                        darkText.textContent = 'Light Mode';
-                    }
+        themeOptions.forEach(option => {
+            const themeCheck = option.querySelector('.theme-check');
+            const isSelected = option.getAttribute('data-theme') === this.theme;
+            
+            if (themeCheck) {
+                if (isSelected) {
+                    themeCheck.classList.remove('hidden');
+                    option.classList.add('bg-blue-50', 'dark:bg-blue-900/20');
+                } else {
+                    themeCheck.classList.add('hidden');
+                    option.classList.remove('bg-blue-50', 'dark:bg-blue-900/20');
                 }
-                
-                // Add ripple effect on click
-                toggle.addEventListener('click', this.addRippleEffect.bind(this), { once: true });
             }
         });
+        
+        // Update mobile theme selector
+        mobileThemeOptions.forEach(option => {
+            const themeCheck = option.querySelector('.mobile-theme-check');
+            const isSelected = option.getAttribute('data-theme') === this.theme;
+            
+            if (themeCheck) {
+                if (isSelected) {
+                    themeCheck.classList.remove('hidden');
+                    option.classList.add('bg-blue-50', 'dark:bg-blue-900/20');
+                } else {
+                    themeCheck.classList.add('hidden');
+                    option.classList.remove('bg-blue-50', 'dark:bg-blue-900/20');
+                }
+            }
+        });
+    }
+
+    updateToggleButton(isDark) {
+        // Legacy method for backward compatibility
+        // The new theme selector doesn't need icon updates
+        console.log('🎨 Theme applied:', isDark ? 'dark' : 'light');
     }
 
     addRippleEffect(event) {
@@ -205,6 +228,7 @@ class AdvancedThemeManager {
 
     setTheme(themeName) {
         if (this.customThemes.has(themeName) || ['auto', 'light', 'dark'].includes(themeName)) {
+            console.log('🎯 Setting theme to:', themeName);
             this.theme = themeName;
             localStorage.setItem(THEME_KEY, this.theme);
             this.applyTheme();
@@ -213,34 +237,48 @@ class AdvancedThemeManager {
     }
 
     setupToggle() {
-        const toggle = document.getElementById('theme-toggle');
-        const mobileToggle = document.getElementById('mobile-theme-toggle');
+        // Setup theme selector options (desktop)
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const mobileThemeOptions = document.querySelectorAll('.mobile-theme-option');
         
-        console.log('🔧 Setting up theme toggles...');
-        console.log('Desktop toggle found:', !!toggle);
-        console.log('Mobile toggle found:', !!mobileToggle);
+        console.log('🔧 Setting up theme selector...');
+        console.log('Desktop theme options found:', themeOptions.length);
+        console.log('Mobile theme options found:', mobileThemeOptions.length);
         
-        if (toggle) {
-            toggle.addEventListener('click', (e) => {
+        // Handle desktop theme options
+        themeOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log('🖱️ Desktop theme toggle clicked!');
-                this.toggle();
-            });
-        }
-        
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('📱 Mobile theme toggle clicked!');
-                this.toggle();
+                const selectedTheme = option.getAttribute('data-theme');
+                console.log('🖱️ Desktop theme selected:', selectedTheme);
+                this.setTheme(selectedTheme);
                 
-                // Close mobile menu after toggling theme
+                // Close settings menu
+                const settingsMenu = document.getElementById('settings-menu');
+                if (settingsMenu) {
+                    settingsMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Handle mobile theme options
+        mobileThemeOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selectedTheme = option.getAttribute('data-theme');
+                console.log('📱 Mobile theme selected:', selectedTheme);
+                this.setTheme(selectedTheme);
+                
+                // Close mobile menu
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (mobileMenu) {
                     mobileMenu.classList.add('hidden');
                 }
             });
-        }
+        });
+        
+        // Update the UI to show current selection
+        this.updateThemeSelector();
     }
 
     setupKeyboardShortcuts() {
@@ -377,8 +415,71 @@ style.textContent = `
 [data-theme="high-contrast"] {
     --theme-primary: #0000ff !important;
     --theme-background: #000000 !important;
+    --theme-surface: #000000 !important;
     --theme-text: #ffffff !important;
+    --theme-textSecondary: #ffffff !important;
     --theme-accent: #ffff00 !important;
+    --theme-border: #ffffff !important;
+}
+
+[data-theme="high-contrast"] * {
+    border-color: #ffffff !important;
+}
+
+[data-theme="high-contrast"] .bg-white {
+    background-color: #000000 !important;
+}
+
+[data-theme="high-contrast"] .bg-gray-50,
+[data-theme="high-contrast"] .bg-gray-100 {
+    background-color: #000000 !important;
+}
+
+[data-theme="high-contrast"] .text-gray-700,
+[data-theme="high-contrast"] .text-gray-800,
+[data-theme="high-contrast"] .text-gray-900 {
+    color: #ffffff !important;
+}
+
+/* Warm theme adjustments */
+[data-theme="warm"] {
+    --theme-primary: #f59e0b !important;
+    --theme-background: #fef7ed !important;
+    --theme-surface: #fed7aa !important;
+    --theme-text: #92400e !important;
+    --theme-textSecondary: #d97706 !important;
+    --theme-accent: #dc2626 !important;
+    --theme-border: #fdba74 !important;
+}
+
+[data-theme="warm"] .bg-white {
+    background-color: #fef7ed !important;
+}
+
+[data-theme="warm"] .bg-gray-50 {
+    background-color: #fed7aa !important;
+}
+
+[data-theme="warm"] .bg-gray-100 {
+    background-color: #fdba74 !important;
+}
+
+[data-theme="warm"] .text-gray-700,
+[data-theme="warm"] .text-gray-800,
+[data-theme="warm"] .text-gray-900 {
+    color: #92400e !important;
+}
+
+[data-theme="warm"] .text-blue-600 {
+    color: #f59e0b !important;
+}
+
+[data-theme="warm"] .bg-blue-600 {
+    background-color: #f59e0b !important;
+}
+
+[data-theme="warm"] .hover\\:bg-blue-700:hover {
+    background-color: #d97706 !important;
 }
 
 /* Reduced motion adjustments */
@@ -386,6 +487,15 @@ style.textContent = `
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+}
+
+/* Theme selector styling */
+.theme-option.bg-blue-50 {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.mobile-theme-option.bg-blue-50 {
+    background-color: rgba(59, 130, 246, 0.1);
 }
 `;
 document.head.appendChild(style);
