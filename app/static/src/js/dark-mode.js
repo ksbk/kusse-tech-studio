@@ -386,8 +386,8 @@ function toggleDarkMode() {
 }
 
 // Add required CSS for ripple animation and accessibility
-const style = document.createElement('style');
-style.textContent = `
+const themeStyle = document.createElement('style');
+themeStyle.textContent = `
 @keyframes ripple-animation {
     0% {
         transform: scale(0);
@@ -498,7 +498,7 @@ style.textContent = `
     background-color: rgba(59, 130, 246, 0.1);
 }
 `;
-document.head.appendChild(style);
+document.head.appendChild(themeStyle);
 
 // Initialize advanced theme manager
 document.addEventListener('DOMContentLoaded', () => {
