@@ -147,6 +147,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
+        cache-to: type=gha,mode=max
     - name: Docker build status
       run: |
         if [ "${{ secrets.DOCKER_USERNAME }}" = "" ]; then
@@ -164,10 +165,19 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     needs: [build]
-    if: github.ref == 'refs/heads/develop' && secrets.DOCKER_USERNAME != ''
+    if: github.ref == 'refs/heads/develop'
     environment: staging
     
     steps:
+    - name: Check Docker credentials
+      run: |
+        if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+          echo "❌ Docker Hub credentials not configured"
+          echo "Deployment requires DOCKER_USERNAME and DOCKER_PASSWORD secrets"
+          exit 1
+        fi
+        echo "✅ Docker Hub credentials found"
+
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -189,10 +199,19 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: [build]
-    if: github.ref == 'refs/heads/main' && secrets.DOCKER_USERNAME != ''
+    if: github.ref == 'refs/heads/main'
     environment: production
     
     steps:
+    - name: Check Docker credentials
+      run: |
+        if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+          echo "❌ Docker Hub credentials not configured"
+          echo "Deployment requires DOCKER_USERNAME and DOCKER_PASSWORD secrets"
+          exit 1
+        fi
+        echo "✅ Docker Hub credentials found"
+
     - name: Checkout code
       uses: actions/checkout@v4
 
