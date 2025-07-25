@@ -248,7 +248,6 @@ class AdvancedUIManager {
     setupAdvancedInteractions() {
         this.setupSmartScrolling();
         this.setupAdvancedTooltips();
-        this.setupContextualMenus();
         this.setupGestureSupport();
     }
 
@@ -606,6 +605,11 @@ class AdvancedUIManager {
 // Initialize the advanced UI manager
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 DOM Content Loaded - Initializing UI Manager...');
+    
+    // Mark body as loaded to prevent CLS
+    document.body.classList.add('loaded');
+    document.body.classList.remove('loading');
+    
     window.uiManager = new AdvancedUIManager();
     console.log('✅ UI Manager initialization complete');
     

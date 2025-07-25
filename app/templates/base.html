@@ -150,6 +150,46 @@
         document.head.appendChild(tailwindScript);
     </script>
     
+    <!-- Critical CSS for layout stability and CLS prevention -->
+    <style>
+        /* Prevent Cumulative Layout Shift (CLS) */
+        body {
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        
+        /* Reserve space for images to prevent layout shift */
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+        
+        /* Prevent text shifting during font loading */
+        .hero-content, .services-grid, .projects-grid {
+            font-display: swap;
+        }
+        
+        /* Stable container sizing */
+        .container, .max-w-7xl, .max-w-6xl {
+            width: 100%;
+        }
+        
+        /* Prevent animation-related layout shifts */
+        .animate-on-scroll {
+            min-height: 1px; /* Reserve minimal space */
+        }
+        
+        /* Loading state to prevent content jumping */
+        .loading {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loaded {
+            opacity: 1;
+        }
+    </style>
+    
     <!-- Custom Tailwind Configuration -->
     <script>
         tailwind.config = {
@@ -223,7 +263,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200 min-h-screen flex flex-col">
+<body class="loading" data-theme="{{ session.get('theme', 'auto') }}">
     
     <!-- Professional Header -->
     {% include 'components/_header.html' %}
