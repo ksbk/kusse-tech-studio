@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 (currentPage.startsWith('/contact') && linkPage === '/contact/')) {
                 
                 // Add active state for desktop nav
-                if (link.classList.contains('nav-link') && !link.classList.contains('bg-blue-600')) {
+                if (link.classList.contains('nav-link')) {
                     link.classList.add('text-blue-600', 'dark:text-blue-400');
                     // Add active underline
                     const underline = link.querySelector('span');
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 // Add active state for mobile nav
-                if (link.classList.contains('mobile-nav-link') && !link.classList.contains('bg-blue-600')) {
+                if (link.classList.contains('mobile-nav-link')) {
                     link.classList.add('text-blue-600', 'dark:text-blue-400', 'bg-blue-50', 'dark:bg-blue-900/20');
                 }
             }
