@@ -1,11 +1,36 @@
+@use 'sass:color';
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mix;
+
 .btn {
+  @include mix.button-base;
   @apply px-4 py-2 rounded transition-all;
 
   &-primary {
     @apply bg-blue-600 hover:bg-blue-700 text-white;
+    background-color: vars.$primary;
+    
+    &:hover {
+      background-color: color.adjust(vars.$primary, $lightness: -10%);
+    }
   }
 
   &-outline {
     @apply border border-blue-600 text-blue-600 hover:bg-blue-50;
+    border-color: vars.$primary;
+    color: vars.$primary;
+    
+    &:hover {
+      background-color: color.adjust(vars.$primary, $lightness: 45%);
+    }
+  }
+  
+  &-secondary {
+    background-color: vars.$secondary;
+    color: white;
+    
+    &:hover {
+      background-color: color.adjust(vars.$secondary, $lightness: -10%);
+    }
   }
 }

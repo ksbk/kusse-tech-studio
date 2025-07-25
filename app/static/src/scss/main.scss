@@ -1,22 +1,16 @@
-// Abstracts
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
+// All @use statements must come first
+@use 'sass:color';
+@use 'abstracts/variables' as vars;
+@use 'abstracts/mixins' as mix;
+@use 'layouts/containers';
+@use 'components/buttons';
+@use 'components/cards';
+@use 'pages/home';
+@use 'pages/projects';
+@use 'pages/about';
+@use 'utilities/animations';
 
-// Tailwind (if using)
+// Tailwind CSS directives (must come after @use statements)
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-// Core
-@import 'layouts/containers';
-
-// Components
-@import 'components/buttons';
-@import 'components/cards';
-
-// Pages
-@import 'pages/home';
-@import 'pages/projects';
-
-// Utilities
-@import 'utilities/animations';

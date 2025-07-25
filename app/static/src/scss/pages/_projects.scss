@@ -1,7 +1,18 @@
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as mix;
+
 .projects-grid {
   @apply grid grid-cols-1 md:grid-cols-2 gap-8;
 
-  @include respond-to($breakpoint-lg) {
+  @include mix.respond-to(vars.$breakpoint-lg) {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.project-item {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
   }
 }
