@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, Response
 from flask_mail import Mail
 import os
 from dotenv import load_dotenv
@@ -34,17 +34,28 @@ def create_app():
     app.register_blueprint(main.bp)
     app.register_blueprint(home.bp)
     app.register_blueprint(portfolio.bp, url_prefix='/portfolio')
-    app.register_blueprint(projects.bp, url_prefix='/projects')
     app.register_blueprint(contact.bp, url_prefix='/contact')
+    app.register_blueprint(projects.bp, url_prefix='/projects')
     app.register_blueprint(health.bp, url_prefix='/api')
+    
+    # Register SEO routes
+    from app.utils.seo import generate_sitemap
+    generate_sitemap(app)
+    
+    # Add robots.txt
+    @app.route('/robots.txt')
+    def robots_txt():
+        return Response('''User-agent: *
+Allow: /
+Sitemap: {}/sitemap.xml'''.format(request.url_root.rstrip('/')), mimetype='text/plain')
     
     # Error handlers
     @app.errorhandler(404)
     def not_found_error(error):
         return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        return render_template('errors/500.html'), 500
     
     return app
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True, host='0.0.0.0', port=5000)
