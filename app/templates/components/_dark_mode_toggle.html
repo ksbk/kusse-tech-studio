@@ -1,6 +1,97 @@
-    <button onclick="toggleDarkMode()" 
-            class="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-lg z-50"
-            aria-label="Toggle dark mode">
-        <span class="dark:hidden">🌙</span>
-        <span class="hidden dark:inline">☀️</span>
-    </button>
+<!-- Dark Mode JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Dark mode functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkModeToggleAlt = document.getElementById('dark-mode-toggle');
+    
+    // Check for saved dark mode preference or default to system preference
+    function initDarkMode() {
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }
+    
+    // Toggle dark mode
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+        const isDark = document.documentElement.classList.contains('dark');
+        localStorage.setItem('darkMode', isDark);
+        
+        // Update icons if needed
+        updateThemeIcons();
+    }
+    
+    // Update theme toggle icons
+    function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        
+        // Update header theme toggle if it exists
+        if (themeToggle) {
+            const lightIcon = themeToggle.querySelector('.dark\\:hidden');
+            const darkIcon = themeToggle.querySelector('.hidden.dark\\:block');
+            
+            if (lightIcon && darkIcon) {
+                if (isDark) {
+                    lightIcon.classList.add('hidden');
+                    lightIcon.classList.remove('dark:hidden');
+                    darkIcon.classList.remove('hidden');
+                    darkIcon.classList.add('dark:block');
+                } else {
+                    lightIcon.classList.remove('hidden');
+                    lightIcon.classList.add('dark:hidden');
+                    darkIcon.classList.add('hidden');
+                    darkIcon.classList.remove('dark:block');
+                }
+            }
+        }
+        
+        // Update alternative toggle if it exists
+        if (darkModeToggleAlt) {
+            const icon = darkModeToggleAlt.querySelector('i');
+            if (icon) {
+                if (isDark) {
+                    icon.className = 'fas fa-sun';
+                } else {
+                    icon.className = 'fas fa-moon';
+                }
+            }
+        }
+    }
+    
+    // Initialize dark mode
+    initDarkMode();
+    updateThemeIcons();
+    
+    // Add event listeners
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleDarkMode);
+    }
+    
+    if (darkModeToggleAlt) {
+        darkModeToggleAlt.addEventListener('click', toggleDarkMode);
+    }
+    
+    // Listen for system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('darkMode')) {
+            if (e.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateThemeIcons();
+        }
+    });
+});
+</script>
+
+<!-- Alternative floating dark mode toggle (hidden by default since we have header toggle) -->
+<!-- 
+<button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110 z-40 hidden">
+    <i class="fas fa-moon"></i>
+</button>
+-->

@@ -63,6 +63,33 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJ4B5R12L4"></script>
     <script>
@@ -71,39 +98,31 @@
         gtag('js', new Date());
         gtag('config', 'G-XJ4B5R12L4');
     </script>
+
+    <!-- Additional page-specific head content -->
+    {% block head %}{% endblock %}
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-    {% block content %}{% endblock %}
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200 min-h-screen flex flex-col">
+    
+    <!-- Professional Header -->
+    {% include 'components/_header.html' %}
+    
+    <!-- Navigation JavaScript -->
+    {% include 'components/_navbar.html' %}
+    
+    <!-- Main Content Area -->
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Professional Footer -->
+    {% include 'components/_footer.html' %}
 
-    <!-- Dark Mode Toggle -->
-    <button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition">
-        <i class="fas fa-moon"></i>
-    </button>
+    <!-- Dark Mode JavaScript -->
+    {% include 'components/_dark_mode_toggle.html' %}
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-16">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <p>&copy; 2025 KusseTechStudio. All rights reserved.</p>
-            <p class="text-gray-400 mt-2">Reykjavík, Iceland</p>
-        </div>
-    </footer>
-
-    <!-- Consolidated JavaScript -->
-    <script>
-        // Dark mode functionality
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        
-        // Check for saved dark mode preference or default to system preference
-        if (localStorage.getItem('darkMode') === 'true' || 
-            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
-
-        darkModeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
-        });
-    </script>
+    <!-- Additional page-specific scripts -->
+    {% block scripts %}{% endblock %}
 </body>
 </html>
 
