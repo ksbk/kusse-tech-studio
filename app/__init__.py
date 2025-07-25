@@ -35,10 +35,11 @@ def create_app():
     mail.init_app(app)
 
     # Register blueprints
-    from app.routes import contact, health, home, main, portfolio, projects
+    from app.routes import blog, contact, health, home, main, portfolio, projects
 
     app.register_blueprint(main.bp)
     app.register_blueprint(home.bp)
+    app.register_blueprint(blog.bp, url_prefix="/blog")
     app.register_blueprint(portfolio.bp, url_prefix="/portfolio")
     app.register_blueprint(contact.bp, url_prefix="/contact")
     app.register_blueprint(projects.bp, url_prefix="/projects")
