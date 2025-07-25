@@ -82,17 +82,31 @@ class AdvancedAnalytics {
     }
 
     trackPageLoad() {
+        // Fixed page load time tracking with better error handling
         window.addEventListener('load', () => {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            
-            this.metrics.pageLoad = {
-                domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
-                loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
-                totalTime: perfData.loadEventEnd - perfData.fetchStart,
-                timestamp: Date.now()
-            };
+            setTimeout(() => {
+                try {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    
+                    if (perfData && perfData.loadEventEnd > 0 && perfData.fetchStart > 0) {
+                        this.metrics.pageLoad = {
+                            domContentLoaded: Math.max(0, perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
+                            loadComplete: Math.max(0, perfData.loadEventEnd - perfData.loadEventStart),
+                            totalTime: Math.max(0, perfData.loadEventEnd - perfData.fetchStart),
+                            timestamp: Date.now()
+                        };
 
-            this.sendMetric('page_load_time', this.metrics.pageLoad.totalTime);
+                        // Only send positive load times
+                        if (this.metrics.pageLoad.totalTime > 0) {
+                            this.sendMetric('page_load_time', this.metrics.pageLoad.totalTime);
+                        }
+                    } else {
+                        console.log('Analytics: Performance data not ready, skipping page load time');
+                    }
+                } catch (error) {
+                    console.warn('Analytics: Could not measure page load time:', error);
+                }
+            }, 100); // Small delay to ensure performance data is ready
         });
     }
 

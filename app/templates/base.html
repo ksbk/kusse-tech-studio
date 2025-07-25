@@ -141,6 +141,25 @@
     <meta name="msapplication-TileColor" content="#3b82f6">
     <meta name="msapplication-config" content="{{ url_for('static', filename='browserconfig.xml') }}">
 
+    <!-- Critical layout stability script - runs immediately -->
+    <script>
+        // Prevent layout shifts before CSS loads
+        document.documentElement.style.overflow = 'hidden';
+        document.addEventListener('DOMContentLoaded', function() {
+            document.documentElement.style.overflow = '';
+        });
+        
+        // Mark as JS enabled for progressive enhancement
+        document.documentElement.classList.add('js-enabled');
+        
+        // Prevent font loading layout shifts
+        if ('fonts' in document) {
+            document.fonts.ready.then(function() {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        }
+    </script>
+    
     <!-- Performance optimized Tailwind loading -->
     <script>
         // Load Tailwind CSS asynchronously to improve FCP
@@ -152,16 +171,30 @@
     
     <!-- Critical CSS for layout stability and CLS prevention -->
     <style>
-        /* Prevent Cumulative Layout Shift (CLS) */
+        /* Aggressive CLS Prevention */
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             min-height: 100vh;
             line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Prevent all layout shifts during loading */
+        .loading * {
+            transition: none !important;
+            animation: none !important;
         }
         
         /* Reserve space for images to prevent layout shift */
         img {
             height: auto;
             max-width: 100%;
+            display: block;
         }
         
         /* Prevent text shifting during font loading */
@@ -169,14 +202,28 @@
             font-display: swap;
         }
         
-        /* Stable container sizing */
+        /* Stable container sizing - prevent width changes */
         .container, .max-w-7xl, .max-w-6xl {
             width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Prevent animation-related layout shifts */
         .animate-on-scroll {
-            min-height: 1px; /* Reserve minimal space */
+            min-height: 50px; /* Reserve more space */
+            opacity: 1; /* Start visible, then hide with JS */
+        }
+        
+        /* Prevent Tailwind CSS from causing layout shifts */
+        [class*="grid"] {
+            min-height: 200px; /* Reserve space for grid layouts */
+        }
+        
+        /* Prevent navbar layout shifts */
+        nav, header {
+            height: auto;
+            min-height: 64px;
         }
         
         /* Loading state to prevent content jumping */
@@ -187,6 +234,24 @@
         
         .loaded {
             opacity: 1;
+        }
+        
+        /* Prevent font loading shifts */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        /* Critical layout stability */
+        main {
+            min-height: calc(100vh - 128px); /* Account for header/footer */
+        }
+        
+        /* Prevent service worker registration from causing shifts */
+        .pwa-install-prompt {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
         }
     </style>
     
