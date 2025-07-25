@@ -131,6 +131,15 @@
     <link rel="icon" href="{{ url_for('static', filename='src/img/favicon.ico') }}" sizes="any">
     <link rel="icon" href="{{ url_for('static', filename='src/img/logo.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='src/img/logo.svg') }}">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="KusseTechStudio">
+    <meta name="msapplication-TileColor" content="#3b82f6">
+    <meta name="msapplication-config" content="{{ url_for('static', filename='browserconfig.xml') }}">
 
     <!-- Performance optimized Tailwind loading -->
     <script>
