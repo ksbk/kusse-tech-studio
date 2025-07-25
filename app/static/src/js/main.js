@@ -195,9 +195,8 @@ class AdvancedUIManager {
 
     preloadCriticalResources() {
         const preloadLinks = [
-            { href: '/static/dist/css/styles.css', as: 'style' },
-            { href: '/static/dist/js/main.js', as: 'script' },
-            { href: '/static/src/img/logo.svg', as: 'image' }
+            { href: '/static/src/img/logo.svg', as: 'image' },
+            { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', as: 'style' }
         ];
 
         preloadLinks.forEach(({ href, as }) => {
