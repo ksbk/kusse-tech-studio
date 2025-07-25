@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 
 bp = Blueprint('projects', __name__)
 
-# Enhanced project data with real-world examples
+# Enhanced project data with interactive gallery features
 PROJECTS = [
     {
         'id': 1,
@@ -12,11 +12,15 @@ PROJECTS = [
         'github_url': 'https://github.com/kussetechstudio/price-monitor',
         'demo_url': None,
         'image': 'price-monitor.jpg',
+        'icon': 'chart-line',
         'featured': True,
         'status': 'completed',
         'client': 'Icelandic Retail Chain',
         'date': '2024-12',
-        'category': 'Data Automation'
+        'category': 'web-scraping',
+        'completion_rate': 100,
+        'duration': '6',
+        'impact': 'Reduced manual price checking by 95%, saving 20 hours per week'
     },
     {
         'id': 2,
@@ -26,11 +30,15 @@ PROJECTS = [
         'github_url': 'https://github.com/kussetechstudio/bi-dashboard',
         'demo_url': 'https://demo.kussetechstudio.com/bi-dashboard',
         'image': 'bi-dashboard.jpg',
+        'icon': 'chart-bar',
         'featured': True,
         'status': 'completed',
         'client': 'Icelandic SME Network',
         'date': '2024-11',
-        'category': 'Business Intelligence'
+        'category': 'data-analysis',
+        'completion_rate': 100,
+        'duration': '8',
+        'impact': 'Improved decision-making speed by 60%, increased revenue by 15%'
     },
     {
         'id': 3,
@@ -40,11 +48,15 @@ PROJECTS = [
         'github_url': None,  # Private repository
         'demo_url': 'https://demo.kussetechstudio.com/doc-processor',
         'image': 'doc-processing.jpg',
+        'icon': 'file-invoice',
         'featured': True,
         'status': 'completed',
         'client': 'Legal Services Firm',
         'date': '2024-09',
-        'category': 'Document Automation'
+        'category': 'automation',
+        'completion_rate': 100,
+        'duration': '10',
+        'impact': 'Reduced document processing time by 80%, improved accuracy to 99.2%'
     },
     {
         'id': 4,
@@ -54,11 +66,15 @@ PROJECTS = [
         'github_url': 'https://github.com/kussetechstudio/api-hub',
         'demo_url': None,
         'image': 'api-hub.jpg',
+        'icon': 'network-wired',
         'featured': False,
         'status': 'in_progress',
         'client': 'Tech Startup',
         'date': '2024-12',
-        'category': 'API Development'
+        'category': 'api',
+        'completion_rate': 75,
+        'duration': '4',
+        'impact': 'Streamlined API management, reduced integration time by 50%'
     },
     {
         'id': 5,
@@ -68,11 +84,33 @@ PROJECTS = [
         'github_url': 'https://github.com/kussetechstudio/iot-platform',
         'demo_url': None,
         'image': 'iot-system.jpg',
+        'icon': 'microchip',
         'featured': False,
         'status': 'in_progress',
         'client': 'Manufacturing Company',
         'date': '2025-01',
-        'category': 'IoT Development'
+        'category': 'automation',
+        'completion_rate': 60,
+        'duration': '12',
+        'impact': 'Early detection of equipment issues, preventing 3 major failures'
+    },
+    {
+        'id': 6,
+        'title': 'Social Media Analytics Engine',
+        'description': 'Advanced sentiment analysis and engagement tracking across multiple social platforms for Icelandic businesses.',
+        'technologies': ['Python', 'NLTK', 'scikit-learn', 'Apache Kafka', 'Elasticsearch', 'Kibana'],
+        'github_url': 'https://github.com/kussetechstudio/social-analytics',
+        'demo_url': 'https://demo.kussetechstudio.com/social-analytics',
+        'image': 'social-analytics.jpg',
+        'icon': 'hashtag',
+        'featured': False,
+        'status': 'completed',
+        'client': 'Digital Marketing Agency',
+        'date': '2024-08',
+        'category': 'data-analysis',
+        'completion_rate': 100,
+        'duration': '6',
+        'impact': 'Increased client engagement rates by 40%, improved campaign ROI by 25%'
     }
 ]
 
