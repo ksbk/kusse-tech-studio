@@ -143,10 +143,36 @@
 
     <!-- Critical layout stability script - runs immediately -->
     <script>
-        // Prevent layout shifts before CSS loads
+        // AGGRESSIVE CLS prevention - lock layout until fully loaded
         document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.height = '100vh';
+        
+        // Prevent any layout shifts during initial load
+        const style = document.createElement('style');
+        style.textContent = `
+            * { 
+                transition: none !important; 
+                animation: none !important; 
+                transform: none !important;
+            }
+            .hero-section, section, .grid { 
+                min-height: 400px !important; 
+            }
+            img { 
+                width: 100% !important; 
+                height: auto !important; 
+                display: block !important; 
+            }
+        `;
+        document.head.appendChild(style);
+        
         document.addEventListener('DOMContentLoaded', function() {
-            document.documentElement.style.overflow = '';
+            setTimeout(() => {
+                // Remove CLS prevention after layout is stable
+                document.head.removeChild(style);
+                document.documentElement.style.overflow = '';
+                document.documentElement.style.height = '';
+            }, 1000);
         });
         
         // Mark as JS enabled for progressive enhancement
@@ -257,29 +283,40 @@
     
     <!-- Custom Tailwind Configuration -->
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
+        // Wait for Tailwind to load before configuring
+        function configureTailwind() {
+            if (typeof tailwind !== 'undefined') {
+                tailwind.config = {
+                    darkMode: 'class',
+                    theme: {
+                        extend: {
+                            colors: {
+                                primary: {
+                                    50: '#eff6ff',
+                                    500: '#3b82f6',
+                                    600: '#2563eb',
+                                    700: '#1d4ed8',
+                                    900: '#1e3a8a',
+                                }
+                            },
+                            fontFamily: {
+                                'sans': ['Inter', 'system-ui', 'sans-serif'],
+                            },
+                            animation: {
+                                'fade-in': 'fadeIn 0.5s ease-in-out',
+                                'slide-up': 'slideUp 0.5s ease-out',
+                            }
                         }
-                    },
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-up': 'slideUp 0.5s ease-out',
                     }
-                }
+                };
+            } else {
+                // Retry after Tailwind loads
+                setTimeout(configureTailwind, 100);
             }
         }
+        
+        // Try to configure immediately, or wait for load
+        configureTailwind();
     </script>
     
     <!-- Performance optimized Google Analytics -->

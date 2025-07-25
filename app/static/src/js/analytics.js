@@ -127,8 +127,9 @@ class AdvancedAnalytics {
                 });
             }).observe({ entryTypes: ['first-input'] });
 
-            // Cumulative Layout Shift (CLS)
+            // Cumulative Layout Shift (CLS) - throttled reporting
             let clsValue = 0;
+            let clsReportTimeout;
             new PerformanceObserver((entryList) => {
                 const entries = entryList.getEntries();
                 entries.forEach(entry => {
@@ -136,7 +137,15 @@ class AdvancedAnalytics {
                         clsValue += entry.value;
                     }
                 });
-                this.sendMetric('cumulative_layout_shift', clsValue);
+                
+                // Throttle CLS reporting to reduce console spam
+                clearTimeout(clsReportTimeout);
+                clsReportTimeout = setTimeout(() => {
+                    if (clsValue > 0) {
+                        this.sendMetric('cumulative_layout_shift', clsValue);
+                        clsValue = 0; // Reset after reporting
+                    }
+                }, 1000); // Report maximum once per second
             }).observe({ entryTypes: ['layout-shift'] });
         }
     }

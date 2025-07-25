@@ -53,24 +53,24 @@ class AdvancedAnimations {
             });
         }, observerOptions);
 
-        // Observe elements with animation classes - improved for CLS
+        // Observe elements with animation classes - ultra-conservative for CLS
         const animateElements = document.querySelectorAll('.animate-on-scroll, [data-animate]');
         animateElements.forEach(el => {
-            // Only hide elements that won't cause significant layout shift
+            // Extremely conservative approach to prevent CLS
             const rect = el.getBoundingClientRect();
-            const isSmallElement = rect.height < 100;
+            const isVerySmallElement = rect.height < 50 && rect.width < 100;
             
             if (!this.isReducedMotion && !document.body.classList.contains('prefers-reduced-motion')) {
-                // Only hide elements if animations are enabled and they're small
+                // Only animate very small elements to prevent layout shifts
                 setTimeout(() => {
-                    if (isSmallElement) {
+                    if (isVerySmallElement) {
                         el.style.opacity = '0';
-                        el.style.transform = 'translateY(20px)'; // Smaller transform
+                        el.style.transform = 'translateY(10px)'; // Minimal transform
                     } else {
-                        // For large elements, just use opacity to prevent CLS
-                        el.style.opacity = '0.1';
+                        // For larger elements, no hiding - just track for intersection
+                        el.style.opacity = '1';
                     }
-                }, 50); // Smaller delay to reduce CLS
+                }, 200); // Longer delay to ensure layout is stable
             }
             observer.observe(el);
         });
