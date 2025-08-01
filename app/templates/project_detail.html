@@ -1,0 +1,219 @@
+{% extends "base.html" %} {% block title %}{{ project.title }} - Python Project
+Case Study | KusseTechStudio{% endblock %} {% block meta_description %}{{
+project.description[:155] }}{% if project.description|length > 155 %}...{% endif
+%}{% endblock %} {% block meta_keywords %}{{ project.title }}, {% for tech in
+project.technologies %}{{ tech }}{{ ", " if not loop.last }}{% endfor %}, Python
+project case study, Iceland software development{% endblock %} {% block og_title
+%}{{ project.title }} - Python Project Case Study{% endblock %} {% block
+og_description %}{{ project.description }}{% endblock %} {% block head %}
+<!-- Project Specific Schema -->
+<script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "{{ project.title }}",
+      "description": "{{ project.description }}",
+      "url": "{{ request.url }}",
+      "applicationCategory": "Business Software",
+      "operatingSystem": "Cross-platform",
+      "programmingLanguage": {{ project.technologies|tojson }},
+      "creator": {
+          "@type": "Organization",
+          "name": "KusseTechStudio",
+          "url": "{{ request.url_root }}"
+      },
+      "dateCreated": "{{ project.date }}-01",
+      "keywords": "{{ project.technologies|join(', ') }}",
+      {% if project.github_url %}
+      "codeRepository": "{{ project.github_url }}",
+      {% endif %}
+      {% if project.demo_url %}
+      "downloadUrl": "{{ project.demo_url }}",
+      {% endif %}
+      "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+      }
+  }
+</script>
+{% endblock %} {% block content %}
+<article class="max-w-4xl mx-auto py-12 px-4">
+  <!-- Project Header -->
+  <header class="mb-12">
+    <div class="flex items-center gap-4 mb-4">
+      {% if project.featured %}
+      <span
+        class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-sm font-semibold px-3 py-1 rounded-full"
+        >Featured Project</span
+      >
+      {% endif %}
+      <span
+        class="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-sm font-semibold px-3 py-1 rounded-full"
+        >{{ project.status|title }}</span
+      >
+    </div>
+
+    <h1
+      class="text-4xl font-bold text-gray-800 dark:text-white mb-4 animate-fade-in"
+    >
+      {{ project.title }}
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 animate-slide-up">
+      {{ project.description }}
+    </p>
+
+    <!-- Project Meta -->
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 gap-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg"
+    >
+      <div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">Client</div>
+        <div class="font-semibold text-gray-800 dark:text-white">
+          {{ project.client }}
+        </div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">Duration</div>
+        <div class="font-semibold text-gray-800 dark:text-white">
+          {{ project.duration }} weeks
+        </div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">Completion</div>
+        <div class="font-semibold text-green-600 dark:text-green-400">
+          {{ project.completion_rate }}%
+        </div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-500 dark:text-gray-400">Category</div>
+        <div class="font-semibold text-gray-800 dark:text-white">
+          {{ project.category|title|replace('-', ' ') }}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Project Content -->
+  <div class="grid md:grid-cols-2 gap-12 mb-12">
+    <!-- Project Image/Visualization -->
+    <div class="space-y-6">
+      <div
+        class="h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg"
+      >
+        <i class="fas fa-{{ project.icon or 'code' }} text-white text-6xl"></i>
+      </div>
+
+      <!-- Technologies Used -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">
+          Technologies Used
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          {% for tech in project.technologies %}
+          <span
+            class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-sm px-3 py-1 rounded-full"
+            >{{ tech }}</span
+          >
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Details -->
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+          Project Impact
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          {{ project.impact or 'This project delivered significant value through
+          process automation and efficiency improvements.' }}
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+          Key Features
+        </h3>
+        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i> Automated data
+            processing
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i> Real-time
+            monitoring and alerts
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i> Comprehensive
+            reporting dashboard
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i> Scalable
+            architecture
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex space-x-4">
+        {% if project.github_url %}
+        <a
+          href="{{ project.github_url }}"
+          target="_blank"
+          class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition flex items-center"
+        >
+          <i class="fab fa-github mr-2"></i> View Code
+        </a>
+        {% endif %} {% if project.demo_url %}
+        <a
+          href="{{ project.demo_url }}"
+          target="_blank"
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center"
+        >
+          <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Projects -->
+  <section class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">
+      More Projects
+    </h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- This would be populated with related projects -->
+      <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Explore More Projects
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          Check out other Python automation and data solutions.
+        </p>
+        <a
+          href="{{ url_for('projects.projects_list') }}"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+          >View All Projects →</a
+        >
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Need Similar Solution?
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          Let's discuss how we can create a custom solution for your business.
+        </p>
+        <a
+          href="{{ url_for('main.contact') }}"
+          class="text-blue-600 dark:text-blue-400 hover:underline"
+          >Start Conversation →</a
+        >
+      </div>
+    </div>
+  </section>
+</article>
+{% endblock %}

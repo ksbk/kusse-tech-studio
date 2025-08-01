@@ -1,4 +1,4 @@
-.PHONY: help install run test clean build deploy ci-setup frontend-build
+.PHONY: help install run test clean build deploy ci-setup frontend-build dev dev-build dev-down dev-logs staging staging-down staging-logs prod prod-down prod-logs
 
 # Variables
 PYTHON := python3
@@ -10,14 +10,34 @@ NPM := npm
 # Help target
 help:
 	@echo "Available commands:"
+	@echo ""
+	@echo "Basic Development:"
 	@echo "  install       - Install dependencies (Python + Node.js)"
 	@echo "  run           - Run the development server"
 	@echo "  test          - Run tests"
 	@echo "  clean         - Clean up temporary files"
-	@echo "  build         - Build Docker image"
-	@echo "  deploy        - Deploy with Docker Compose"
 	@echo "  lint          - Run code linting"
 	@echo "  format        - Format code"
+	@echo ""
+	@echo "Docker Development (Recommended):"
+	@echo "  dev           - Start development environment"
+	@echo "  dev-build     - Start development environment with rebuild"
+	@echo "  dev-down      - Stop development environment"
+	@echo "  dev-logs      - View development logs"
+	@echo ""
+	@echo "Docker Staging:"
+	@echo "  staging       - Start staging environment"
+	@echo "  staging-down  - Stop staging environment"
+	@echo "  staging-logs  - View staging logs"
+	@echo ""
+	@echo "Docker Production:"
+	@echo "  prod          - Start production environment"
+	@echo "  prod-down     - Stop production environment"
+	@echo "  prod-logs     - View production logs"
+	@echo ""
+	@echo "Legacy Commands:"
+	@echo "  build         - Build Docker image"
+	@echo "  deploy        - Deploy with Docker Compose (deprecated)"
 	@echo "  ci-setup      - Setup CI/CD environment"
 	@echo "  frontend-build - Build frontend assets"
 	@echo "  security-scan - Run security scans"
@@ -70,6 +90,38 @@ stop:
 logs:
 	docker-compose logs -f
 
+# Developer-friendly Docker commands
+dev:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up
+
+dev-build:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up --build
+
+dev-down:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml down
+
+staging:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml up -d
+
+staging-down:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml down
+
+prod:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
+
+prod-down:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml down
+
+# View logs for specific environments
+dev-logs:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml logs -f
+
+staging-logs:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml logs -f
+
+prod-logs:
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml logs -f
+
 # Run linting
 lint:
 	flake8 app/ --max-line-length=88 --extend-ignore=E203,W503
@@ -119,19 +171,19 @@ ci-local: lint test security-scan frontend-build
 
 # Deploy to staging
 deploy-staging:
-	docker-compose -f docker-compose.staging.yml down
-	docker-compose -f docker-compose.staging.yml pull
-	docker-compose -f docker-compose.staging.yml up -d
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml down
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml pull
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml up -d
 
 # Deploy to production
 deploy-production:
-	docker-compose -f docker-compose.prod.yml down
-	docker-compose -f docker-compose.prod.yml pull
-	docker-compose -f docker-compose.prod.yml up -d
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml down
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml pull
+	cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 
 # Health check
 health-check:
-	curl -f http://localhost:5000/api/health || echo "Health check failed"
+	curl -f http://localhost:5000/health || echo "Health check failed"
 
 # Monitor logs
 monitor:

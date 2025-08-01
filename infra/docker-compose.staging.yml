@@ -1,0 +1,46 @@
+version: "3.9"
+
+# Staging overrides for KusseTechStudio
+# Production-like environment for testing deployments
+
+services:
+  web:
+    environment:
+      - FLASK_ENV=staging
+      - FLASK_DEBUG=False
+    env_file:
+      - ../envs/.env.staging
+    # Don't expose ports directly in staging - use nginx
+    expose:
+      - 5000
+    command: gunicorn --bind 0.0.0.0:5000 --workers 2 --timeout 120 run:app
+
+  nginx:
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # Add SSL certificates for staging
+      - ../ssl:/etc/nginx/ssl:ro
+    environment:
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+      - DOMAIN_NAME=staging.kussetechstudio.com
+
+  # Optional staging database
+  db:
+    image: postgres:15-alpine
+    networks:
+      - kusse-tech-network
+    environment:
+      POSTGRES_DB: kussetechstudio_staging
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_staging_data:/var/lib/postgresql/data
+    profiles:
+      - postgres
+
+volumes:
+  postgres_staging_data:
+    driver: local

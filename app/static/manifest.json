@@ -19,14 +19,14 @@
       "purpose": "maskable any"
     },
     {
-      "src": "/static/src/img/logo.svg", 
+      "src": "/static/src/img/logo.svg",
       "sizes": "72x72",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
       "src": "/static/src/img/logo.svg",
-      "sizes": "96x96", 
+      "sizes": "96x96",
       "type": "image/svg+xml",
       "purpose": "any"
     },
@@ -63,7 +63,7 @@
     {
       "src": "/static/src/img/logo.svg",
       "sizes": "512x512",
-      "type": "image/svg+xml", 
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ],

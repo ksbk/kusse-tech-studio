@@ -1,0 +1,75 @@
+# Base Docker Compose configuration for KusseTechStudio
+# Contains common services and configuration shared across all environments
+
+networks:
+  kusse-tech-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local
+  static_files:
+    driver: local
+  media_files:
+    driver: local
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    networks:
+      - kusse-tech-network
+    volumes:
+      - static_files:/app/app/static/dist
+      - media_files:/app/uploads
+    restart: unless-stopped
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - kusse-tech-network
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    command: redis-server --appendonly yes
+
+  nginx:
+    image: nginx:alpine
+    networks:
+      - kusse-tech-network
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_files:/var/www/static:ro
+      - media_files:/var/www/media:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

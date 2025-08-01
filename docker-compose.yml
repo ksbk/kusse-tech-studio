@@ -1,33 +1,21 @@
-version: '3.8'
+# DEPRECATED: This file will be removed in a future version
+# Please use the explicit commands below for better clarity and control
+#
+# Development:
+#   docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.development.yml up
+#
+# Staging:
+#   docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.staging.yml up -d
+#
+# Production:
+#   docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.production.yml up -d
 
-services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    environment:
-      - FLASK_ENV=production
-      - DEBUG=False
-    volumes:
-      - ./app/static:/app/app/static
-    depends_on:
-      - redis
-    restart: unless-stopped
+# Minimal root Docker Compose file for KusseTechStudio
+# Acts as a thin wrapper to the organized infra/ configurations
 
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./app/static:/var/www/static:ro
-    depends_on:
-      - web
-    restart: unless-stopped
+include:
+  - infra/docker-compose.base.yml
+  - infra/docker-compose.override.yml
+# For other environments, use:
+# docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.staging.yml up -d
+# docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.production.yml up -d

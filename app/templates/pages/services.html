@@ -1,73 +1,127 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="max-w-6xl mx-auto py-12 px-4">
-    <header class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Our Services</h1>
-        <p class="text-xl text-gray-600 dark:text-gray-300">Comprehensive Python development and automation solutions</p>
-    </header>
+  <header class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+      Our Services
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300">
+      Comprehensive Python development and automation solutions
+    </p>
+  </header>
 
-    <div class="grid md:grid-cols-3 gap-8">
-        {% for service in services %}
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-            <div class="text-center mb-4">
-                <i class="{{ service.icon }} text-4xl text-blue-600"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-white">{{ service.title }}</h3>
-            <p class="text-gray-600 dark:text-gray-300 text-center mb-6">{{ service.description }}</p>
-            
-            <div class="space-y-2">
-                {% for feature in service.features %}
-                <div class="flex items-center">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span class="text-gray-600 dark:text-gray-300">{{ feature }}</span>
-                </div>
-                {% endfor %}
-            </div>
+  <div class="grid md:grid-cols-3 gap-8">
+    {% for service in services %}
+    <div
+      class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition"
+    >
+      <div class="text-center mb-4">
+        <i class="{{ service.icon }} text-4xl text-blue-600"></i>
+      </div>
+      <h3
+        class="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-white"
+      >
+        {{ service.title }}
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 text-center mb-6">
+        {{ service.description }}
+      </p>
+
+      <div class="space-y-2">
+        {% for feature in service.features %}
+        <div class="flex items-center">
+          <i class="fas fa-check text-green-500 mr-2"></i>
+          <span class="text-gray-600 dark:text-gray-300">{{ feature }}</span>
         </div>
         {% endfor %}
+      </div>
     </div>
+    {% endfor %}
+  </div>
 
-    <div class="mt-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-lg text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p class="text-xl mb-6">Let's discuss how we can help automate and improve your business processes.</p>
-        <a href="{{ url_for('contact.contact') }}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-            Contact Us Today
-        </a>
-    </div>
+  <div
+    class="mt-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-lg text-center"
+  >
+    <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+    <p class="text-xl mb-6">
+      Let's discuss how we can help automate and improve your business
+      processes.
+    </p>
+          <a
+        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        href="{{ url_for('main.contact') }}"
+      >
+        Get Started
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  </div>
 
-    <div class="mt-12">
-        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-white">Our Process</h2>
-        <div class="grid md:grid-cols-4 gap-6">
-            <div class="text-center">
-                <div class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-blue-600 dark:text-blue-300 font-bold text-xl">1</span>
-                </div>
-                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Consultation</h3>
-                <p class="text-gray-600 dark:text-gray-300 text-sm">We understand your requirements and challenges</p>
-            </div>
-            <div class="text-center">
-                <div class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-blue-600 dark:text-blue-300 font-bold text-xl">2</span>
-                </div>
-                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Planning</h3>
-                <p class="text-gray-600 dark:text-gray-300 text-sm">We design a solution tailored to your needs</p>
-            </div>
-            <div class="text-center">
-                <div class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-blue-600 dark:text-blue-300 font-bold text-xl">3</span>
-                </div>
-                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Development</h3>
-                <p class="text-gray-600 dark:text-gray-300 text-sm">We build and test your solution</p>
-            </div>
-            <div class="text-center">
-                <div class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-blue-600 dark:text-blue-300 font-bold text-xl">4</span>
-                </div>
-                <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Deployment</h3>
-                <p class="text-gray-600 dark:text-gray-300 text-sm">We deploy and provide ongoing support</p>
-            </div>
+  <div class="mt-12">
+    <h2
+      class="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-white"
+    >
+      Our Process
+    </h2>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="text-center">
+        <div
+          class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <span class="text-blue-600 dark:text-blue-300 font-bold text-xl"
+            >1</span
+          >
         </div>
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Consultation
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          We understand your requirements and challenges
+        </p>
+      </div>
+      <div class="text-center">
+        <div
+          class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <span class="text-blue-600 dark:text-blue-300 font-bold text-xl"
+            >2</span
+          >
+        </div>
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Planning
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          We design a solution tailored to your needs
+        </p>
+      </div>
+      <div class="text-center">
+        <div
+          class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <span class="text-blue-600 dark:text-blue-300 font-bold text-xl"
+            >3</span
+          >
+        </div>
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Development
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          We build and test your solution
+        </p>
+      </div>
+      <div class="text-center">
+        <div
+          class="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <span class="text-blue-600 dark:text-blue-300 font-bold text-xl"
+            >4</span
+          >
+        </div>
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">
+          Deployment
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 text-sm">
+          We deploy and provide ongoing support
+        </p>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
