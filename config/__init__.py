@@ -5,12 +5,14 @@ import os
 from .development import DevelopmentConfig
 from .production import ProductionConfig
 from .staging import StagingConfig
+from .testing import TestingConfig
 
 # Configuration mapping
 config = {
     "development": DevelopmentConfig,
     "production": ProductionConfig,
     "staging": StagingConfig,
+    "testing": TestingConfig,
     "default": DevelopmentConfig,
 }
 
