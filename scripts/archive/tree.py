@@ -38,6 +38,7 @@ IGNORE = {
     "tests/__snapshots__",
     ".trunk",
     "plugins",
+    "archive",
 }
 
 

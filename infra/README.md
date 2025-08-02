@@ -64,6 +64,24 @@ docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 - Docker and Docker Compose installed
 - Environment files configured in `/envs/` directory
 
+### First-Time Setup
+
+1. **Install Pre-commit Hook (Recommended)**
+
+   ```bash
+   # Install git hook for code quality
+   ln -sf ../../scripts/security/pre-commit.sh .git/hooks/pre-commit
+   chmod +x .git/hooks/pre-commit
+   ```
+
+2. **Create Local Override File (Optional)**
+
+   ```bash
+   # Copy template for local customization
+   cp infra/docker-compose.override.yml.template infra/docker-compose.override.yml
+   # Edit as needed (file is gitignored)
+   ```
+
 ### Common Development Workflow
 
 1. **Start Development Environment**
