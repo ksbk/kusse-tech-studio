@@ -77,7 +77,11 @@ jobs:
           name: codecov-umbrella
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+          disable_search: true
+          verbose: true
         continue-on-error: true
+        timeout-minutes: 2
+
   security:
     name: Security Scan
     runs-on: ubuntu-latest
