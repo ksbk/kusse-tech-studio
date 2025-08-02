@@ -13,7 +13,12 @@ def create_app(config_name=None):
     app = Flask(__name__)
 
     # Load configuration
-    config_class = get_config() if config_name is None else config_name
+    if config_name is None:
+        config_class = get_config()
+    else:
+        from config import config
+
+        config_class = config.get(config_name, config["default"])
     app.config.from_object(config_class)
     config_class.init_app(app)
 
