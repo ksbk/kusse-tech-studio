@@ -1,0 +1,222 @@
+// Professional Hero Section - Visually Balanced
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  // Clean gradient background - no high-noise patterns
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  // Reduced top padding to bring headline closer to nav
+  padding-top: 2rem;
+
+  // Subtle background enhancement
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(
+        circle at 30% 40%,
+        rgba(6, 182, 212, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 70% 60%,
+        rgba(147, 51, 234, 0.04) 0%,
+        transparent 50%
+      );
+    z-index: 1;
+  }
+
+  // Typography best practices - SOLID COLORS for readability
+  h1 {
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 900;
+    // High contrast solid white text - NO gradient for readability
+    color: white;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+
+    // Balanced font sizes
+    font-size: 2.5rem; // 40px base
+
+    @media (min-width: 768px) {
+      font-size: 3rem; // 48px medium
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 3.75rem; // 60px large - more balanced
+    }
+  }
+
+  h2 {
+    line-height: 1.5;
+    font-weight: 300;
+    // Bigger subheadline for better balance (+2px as suggested)
+    font-size: 1.375rem; // 22px base (+2px)
+    max-width: 80ch; // 80 characters max per line
+    // Increased line height for readability
+    line-height: 1.6;
+
+    @media (min-width: 768px) {
+      font-size: 1.625rem; // 26px medium (+2px)
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 1.625rem; // 26px large (+2px)
+    }
+  }
+
+  // CTA Button differentiation
+  .hero-cta {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    // Ensure minimum 44px touch target for mobile
+    min-height: 44px;
+    padding: 1rem 2rem;
+
+    // Primary CTA - filled with brand accent
+    &:first-child {
+      background: linear-gradient(to right, #10b981, #06b6d4);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
+
+      &:hover {
+        box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
+        transform: translateY(-2px);
+      }
+    }
+
+    // Secondary CTA - clearly outlined
+    &:last-child {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+
+  // Trust metrics horizontal band styling
+  .trust-metrics-band {
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.1)
+    );
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    // Better integration spacing
+    margin-top: 4rem;
+  }
+
+  // Hero mockup styling
+  .hero-mockup {
+    // Subtle glow effect
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+
+    &:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+  }
+
+  // Icon containers for trust metrics
+  .metric-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+  }
+}
+
+// Mobile-first responsive design with better balance
+@media (max-width: 640px) {
+  .hero-section {
+    // Ensure above-the-fold impact on mobile
+    min-height: 100vh;
+    padding-top: 1rem;
+
+    h1 {
+      font-size: 2rem; // 32px mobile - more readable
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.125rem; // 18px mobile
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    // Better mobile CTA layout
+    .cta-container {
+      flex-direction: column;
+      gap: 1rem;
+
+      .hero-cta {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 2rem;
+      }
+    }
+
+    // Mobile trust metrics
+    .trust-metrics-band {
+      margin-top: 3rem;
+      padding: 1.5rem;
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+    }
+  }
+}
+
+// Accessibility support
+@media (prefers-reduced-motion: reduce) {
+  .hero-section {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .hero-section {
+    background: #000;
+    color: #fff;
+
+    .trust-metrics-band {
+      border: 2px solid #fff;
+      background: #000;
+    }
+
+    .hero-cta {
+      border: 2px solid #fff;
+    }
+  }
+}
+
+// Simple gradient animation
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

@@ -1,0 +1,117 @@
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "ksbk"
+    assignees:
+      - "ksbk"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "python"
+    # Group updates for related packages
+    groups:
+      flask-ecosystem:
+        patterns:
+          - "flask*"
+          - "jinja2"
+          - "werkzeug"
+      security-tools:
+        patterns:
+          - "bandit"
+          - "safety"
+          - "pip-audit"
+      testing-tools:
+        patterns:
+          - "pytest*"
+          - "coverage"
+      development-tools:
+        patterns:
+          - "black"
+          - "flake8"
+          - "isort"
+          - "pre-commit"
+
+  # Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "ksbk"
+    assignees:
+      - "ksbk"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "javascript"
+    # Group updates for related packages
+    groups:
+      build-tools:
+        patterns:
+          - "vite*"
+          - "@vitejs/*"
+          - "tailwindcss"
+          - "@tailwindcss/*"
+      testing-tools:
+        patterns:
+          - "playwright*"
+          - "@playwright/*"
+          - "vitest"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "ksbk"
+    assignees:
+      - "ksbk"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "ksbk"
+    assignees:
+      - "ksbk"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "docker"

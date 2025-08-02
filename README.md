@@ -272,15 +272,29 @@ cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.
 cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 ```
 
-## 📊 Features
+## Features
 
+- **Modern Frontend**: Vite build system with hot reload and optimized bundles
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Performance Optimized**: Webpack asset pipeline, image optimization
+- **Performance Optimized**: 60-70% faster builds, tree-shaking, code splitting
+- **Legacy Browser Support**: Automatic polyfills for older browsers
 - **SEO Ready**: Meta tags, sitemap, structured data
 - **Analytics Integration**: Google Analytics support
 - **Contact Form**: With email notifications
 - **Project Showcase**: Interactive project gallery
 - **Professional UI/UX**: Clean, modern design
+
+## Frontend Architecture
+
+This project uses a modern frontend architecture with **Vite + Tailwind CSS**:
+
+- **Unified Directory**: `frontend/src/` with organized assets, components, styles, and scripts
+- **Vite Build System**: Lightning-fast development with hot module replacement
+- **Tailwind CSS**: Utility-first CSS framework with forms and typography plugins
+- **Flask Integration**: Manifest-based asset loading with automatic cache busting
+- **Development Workflow**: `npm run dev` for watch mode, `npm run build` for production
+
+See [`VITE-TAILWIND-INTEGRATION-COMPLETE.md`](VITE-TAILWIND-INTEGRATION-COMPLETE.md) for full migration details.
 
 ## 🔧 Configuration
 

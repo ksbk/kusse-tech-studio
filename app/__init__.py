@@ -23,10 +23,30 @@ def create_app(config_name=None):
     # Initialize extensions
     init_extensions(app)
 
-    # Register blueprints
-    from app.core.views import main
+    # Register Vite asset helper as Jinja context processor
+    from app.core.utils import get_vite_asset
+    
+    @app.context_processor
+    def inject_vite_assets():
+        """Make vite_asset function available in templates."""
+        return dict(vite_asset=get_vite_asset)
 
-    app.register_blueprint(main)
+    # Register hero configuration as Jinja context processor
+    from config.base import HeroConfig
+    
+    @app.context_processor
+    def inject_hero_config():
+        """Make hero configuration available in templates."""
+        return dict(hero=HeroConfig)
+
+    # Register blueprints using the new views package
+    from app.views import register_blueprints
+    register_blueprints(app)
+    
+    # Register error handlers
+    from app.core.errors import register_error_handlers, register_offline_route
+    register_error_handlers(app)
+    register_offline_route(app)
 
     # Add SEO routes
     @app.route("/robots.txt")

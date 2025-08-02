@@ -4,7 +4,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/frontend",
+  testDir: "./tests/e2e/playwright",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -12,7 +12,7 @@ export default defineConfig({
   reporter: "html",
 
   use: {
-    baseURL: "http://localhost:5000",
+    baseURL: "http://localhost:8000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",

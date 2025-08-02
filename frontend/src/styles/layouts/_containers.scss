@@ -1,0 +1,29 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mix;
+
+.container {
+  @apply mx-auto px-4;
+
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  &-wide {
+    @apply max-w-7xl;
+
+    max-width: 80rem;
+  }
+
+  &-narrow {
+    @apply max-w-4xl;
+
+    max-width: 56rem;
+  }
+
+  &-sm {
+    max-width: 36rem;
+  }
+
+  @include mix.respond-to(vars.$breakpoint-md) {
+    padding: 0 2rem;
+  }
+}

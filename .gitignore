@@ -52,6 +52,13 @@ cover/
 .env.test.local
 .env.production.local
 
+# Environment files in envs/ directory
+envs/.env*
+!envs/.env.example
+!envs/.env.development
+!envs/.env.staging
+!envs/.env.production
+
 # Virtual environments
 venv/
 ENV/
@@ -111,3 +118,4 @@ ssl/
 
 # Docker
 .dockerignore
+infra/docker-compose.override.yml

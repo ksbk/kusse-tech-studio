@@ -4,164 +4,20 @@
 
 {% block meta_description %}Professional Python development and data automation services in Iceland. Specializing in web scraping, process automation, and business intelligence solutions.{% endblock %}
 
-{% block og_description %}PhD researcher and software developer specializing in Python, AI, and data automation. Healthcare AI, research platforms, and full-stack development.{% endblock %}
-
-{% block head %}
-<meta name="keywords" content="Python development, data automation, healthcare AI, machine learning, PhD researcher, Flask development, web scraping, Iceland developer, academic research, software engineering">
-<link rel="canonical" href="{{ url_for('main.index', _external=True) }}">
-
-<!-- Structured Data JSON-LD -->
-<script type="application/ld+json">
-{% if config.ENV == 'production' -%}
-{"@context":"https://schema.org","@type":"Person","name":"Kusse Sukuta Bersha","alternateName":"KusseTechStudio","description":"PhD researcher and software developer specializing in Python, AI, and data automation","url":"{{ url_for('main.index', _external=True) }}","image":"{{ url_for('static', filename='images/og-image.jpg', _external=True) }}","sameAs":["https://github.com/ksbk","https://linkedin.com/in/kussetechstudio"],"jobTitle":"Senior Python Developer & Researcher","worksFor":{"@type":"Organization","name":"KusseTechStudio"},"alumniOf":[{"@type":"EducationalOrganization","name":"University of Iceland","description":"PhD in Chemistry"},{"@type":"EducationalOrganization","name":"Erasmus Mundus","description":"MSc in Computer Science"},{"@type":"EducationalOrganization","name":"Mekelle University","description":"BSc in Physics"}],"knowsAbout":["Python Development","Data Automation","Healthcare AI","Machine Learning","Web Development","Academic Research","Software Engineering","Flask Framework","Data Analysis"],"hasOccupation":{"@type":"Occupation","name":"Software Developer","occupationLocation":{"@type":"Place","name":"Iceland"},"skills":["Python","JavaScript","Flask","Django","Machine Learning","Data Science","Web Development","API Development"]},"offers":{"@type":"Service","name":"Python Development & Data Automation Services","description":"Professional Python development, healthcare AI solutions, data automation, and full-stack web development","provider":{"@type":"Person","name":"Kusse Sukuta Bersha"},"areaServed":{"@type":"Place","name":"Global"},"availableChannel":{"@type":"ServiceChannel","serviceUrl":"{{ url_for('main.contact', _external=True) }}","name":"Contact Form"}}}
-{%- else -%}
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Kusse Sukuta Bersha",
-  "alternateName": "KusseTechStudio",
-  "description": "PhD researcher and software developer specializing in Python, AI, and data automation",
-  "url": "{{ url_for('main.index', _external=True) }}",
-  "image": "{{ url_for('static', filename='images/og-image.jpg', _external=True) }}",
-  "sameAs": [
-    "https://github.com/ksbk",
-    "https://linkedin.com/in/kussetechstudio"
-  ],
-  "jobTitle": "Senior Python Developer & Researcher",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "KusseTechStudio"
-  },
-  "alumniOf": [
-    {
-      "@type": "EducationalOrganization",
-      "name": "University of Iceland",
-      "description": "PhD in Chemistry"
-    },
-    {
-      "@type": "EducationalOrganization", 
-      "name": "Erasmus Mundus",
-      "description": "MSc in Computer Science"
-    },
-    {
-      "@type": "EducationalOrganization",
-      "name": "Mekelle University", 
-      "description": "BSc in Physics"
-    }
-  ],
-  "knowsAbout": [
-    "Python Development",
-    "Data Automation", 
-    "Healthcare AI",
-    "Machine Learning",
-    "Web Development",
-    "Academic Research",
-    "Software Engineering",
-    "Flask Framework",
-    "Data Analysis"
-  ],
-  "hasOccupation": {
-    "@type": "Occupation",
-    "name": "Software Developer",
-    "occupationLocation": {
-      "@type": "Place",
-      "name": "Iceland"
-    },
-    "skills": [
-      "Python",
-      "JavaScript", 
-      "Flask",
-      "Django",
-      "Machine Learning",
-      "Data Science",
-      "Web Development",
-      "API Development"
-    ]
-  },
-  "offers": {
-    "@type": "Service",
-    "name": "Python Development & Data Automation Services",
-    "description": "Professional Python development, healthcare AI solutions, data automation, and full-stack web development",
-    "provider": {
-      "@type": "Person",
-      "name": "Kusse Sukuta Bersha"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Global"
-    },
-    "availableChannel": {
-      "@type": "ServiceChannel",
-      "serviceUrl": "{{ url_for('main.contact', _external=True) }}",
-      "name": "Contact Form"
-    }
-  }
-}
-{%- endif %}
-</script>
-
-<!-- Organization Schema for KusseTechStudio -->
-<script type="application/ld+json">
-{% if config.ENV == 'production' -%}
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"KusseTechStudio","description":"Professional Python development and data automation services specializing in healthcare AI and research platforms","url":"{{ url_for('main.index', _external=True) }}","logo":"{{ url_for('static', filename='images/og-image.jpg', _external=True) }}","foundingDate":"2023","founder":{"@type":"Person","name":"Kusse Sukuta Bersha"},"address":{"@type":"PostalAddress","addressCountry":"IS","addressLocality":"Iceland"},"contactPoint":{"@type":"ContactPoint","contactType":"customer service","url":"{{ url_for('main.contact', _external=True) }}"},"serviceType":["Python Development","Data Automation","Healthcare AI","Web Development","Software Engineering"],"areaServed":{"@type":"Place","name":"Worldwide"}}
-{%- else -%}
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "KusseTechStudio",
-  "description": "Professional Python development and data automation services specializing in healthcare AI and research platforms",
-  "url": "{{ url_for('main.index', _external=True) }}",
-  "logo": "{{ url_for('static', filename='images/og-image.jpg', _external=True) }}",
-  "foundingDate": "2023",
-  "founder": {
-    "@type": "Person",
-    "name": "Kusse Sukuta Bersha"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "IS",
-    "addressLocality": "Iceland"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "url": "{{ url_for('main.contact', _external=True) }}"
-  },
-  "serviceType": [
-    "Python Development",
-    "Data Automation",
-    "Healthcare AI",
-    "Web Development",
-    "Software Engineering"
-  ],
-  "areaServed": {
-    "@type": "Place", 
-    "name": "Worldwide"
-  }
-}
-{%- endif %}
-</script>
-{% endblock %}
-
 {% block content %}
+<!-- Skip Navigation for Accessibility -->
+<a href="#main-content" class="skip-nav focus-ring">Skip to main content</a>
+
 <!-- Hero Section -->
-<section aria-labelledby="hero-heading">
-  {% include "partials/_hero.html" %}
-</section>
+{% include "partials/_hero.html" %}
 
 <!-- Featured Projects Section -->
-<section aria-labelledby="featured-projects-heading" id="projects">
-  {% include "partials/_featured_projects.html" %}
-</section>
+{% include "partials/_featured_projects.html" %}
 
 <!-- Bio Preview Section -->
-<section aria-labelledby="bio-preview-heading" id="about">
-  {% include "partials/_bio_preview.html" %}
-</section>
+{% include "partials/_bio_preview.html" %}
 
 <!-- Call-to-Action Section -->
-<section aria-labelledby="cta-heading" id="contact-cta">
-  {% include "partials/_cta.html" %}
-</section>
+{% include "partials/_cta.html" %}
 
 {% endblock content %}

@@ -1,61 +1,74 @@
 #!/usr/bin/env python3
-
-"""Generate directory tree for the gold-standard structure."""
+# Save as `tree.py` in your project root
+# Usage: python tree.py [max_depth]
 
 from pathlib import Path
+import argparse
+
+# Color codes
+COLORS = {
+    "header": "\033[1;34m",
+    "root": "\033[1;33m",
+    "dir": "\033[0;36m",
+    "file": "\033[0;32m",
+    "reset": "\033[0m",
+    "tip": "\033[1;32m",
+}
+
+IGNORE = {
+    "node_modules",
+    ".git",
+    ".next",
+    "__pycache__",
+    ".venv",
+    ".idea",
+    "dist",
+    "build",
+    "bin",
+    ".tree.py",
+    ".DS_Store",
+    ".ruff_cache",
+    ".mypy_cache",
+    ".pytest_cache",
+    "coverage.xml",
+    "htmlcov",
+    "coverage",
+    ".pytest_cache",
+    "migrations",
+    "tests/__snapshots__",
+    ".trunk",
+    "plugins",
+}
 
 
-def generate_tree(start_path, prefix="", max_depth=None, current_depth=0):
-    """Generate a tree structure of directories and files."""
-    if max_depth is not None and current_depth > max_depth:
+def print_tree(path, prefix="", depth=0, max_depth=3):
+    if depth > max_depth:
         return
 
-    path = Path(start_path)
-    if not path.exists():
-        return
+    path = Path(path)
+    contents = sorted([p for p in path.iterdir() if p.name not in IGNORE])
 
-    # Get all items and sort them (directories first, then files)
-    items = list(path.iterdir())
-    items.sort(key=lambda x: (x.is_file(), x.name.lower()))
+    for i, child in enumerate(contents):
+        is_last = i == len(contents) - 1
+        marker = "└── " if is_last else "├── "
 
-    # Filter out unwanted directories and files
-    excluded = {
-        "__pycache__",
-        ".git",
-        "node_modules",
-        ".pytest_cache",
-        "migration_backup",
-        "temp_backup",
-        ".DS_Store",
-        "*.pyc",
-        "htmlcov",
-        ".coverage",
-        ".env",
-        "logs",
-    }
-
-    items = [
-        item
-        for item in items
-        if item.name not in excluded and not item.name.startswith(".")
-    ]
-
-    for i, item in enumerate(items):
-        is_last = i == len(items) - 1
-        current_prefix = "└── " if is_last else "├── "
-        print(f"{prefix}{current_prefix}{item.name}")
-
-        if item.is_dir() and (max_depth is None or current_depth < max_depth):
-            extension = "    " if is_last else "│   "
-            generate_tree(item, prefix + extension, max_depth, current_depth + 1)
+        if child.is_dir():
+            print(f"{prefix}{marker}{COLORS['dir']}{child.name}{COLORS['reset']}")
+            new_prefix = prefix + ("    " if is_last else "│   ")
+            print_tree(child, new_prefix, depth + 1, max_depth)
+        else:
+            print(f"{prefix}{marker}{COLORS['file']}{child.name}{COLORS['reset']}")
 
 
 def main():
-    """Main function."""
-    print("KusseTechStudio - Gold Standard Directory Structure")
-    print("=" * 55)
-    print("kusse-tech-studio/")
-    generate_tree(".", max_depth=4)
+    parser = argparse.ArgumentParser(description="Project tree visualizer")
+    parser.add_argument("--depth", type=int, default=3, help="Max depth to display")
+    args = parser.parse_args()
+
+    print(f"{COLORS['header']}RealSynthesis Project Structure{COLORS['reset']}")
+    print(f"{COLORS['root']}. (root){COLORS['reset']}")
+    print_tree(".", max_depth=args.depth)
+    print(f"\n{COLORS['tip']}Tip: Use '--depth N' to show more levels{COLORS['reset']}")
 
 
 if __name__ == "__main__":

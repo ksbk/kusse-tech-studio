@@ -3,14 +3,17 @@ import { resolve } from 'path';
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
+  // Set root to frontend directory
+  root: 'frontend',
+  
   // Entry point configuration
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'app/static/src/scripts/app/main.js'),
+        main: resolve(__dirname, 'frontend/src/scripts/app/main.js'),
       },
       output: {
-        dir: 'app/static/dist',
+        dir: resolve(__dirname, 'app/static/dist'),
         entryFileNames: 'js/[name].js',
         chunkFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -27,10 +30,11 @@ export default defineConfig({
         },
       },
     },
-    outDir: 'app/static/dist',
+    outDir: resolve(__dirname, 'app/static/dist'),
     assetsDir: '',
     sourcemap: process.env.NODE_ENV === 'production' ? true : 'inline',
     emptyOutDir: true,
+    manifest: true, // Enable manifest for Flask integration
   },
 
   // Public directory configuration
@@ -40,7 +44,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // Add any global SCSS variables or mixins here if needed
+        // Remove additionalData to avoid conflicts with @use rules
       },
     },
     devSourcemap: true,
@@ -49,10 +53,12 @@ export default defineConfig({
   // Resolve configuration (equivalent to webpack aliases)
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'app/static/src'),
-      '@scripts': resolve(__dirname, 'app/static/src/scripts'),
-      '@styles': resolve(__dirname, 'app/static/src/styles'),
-      '@img': resolve(__dirname, 'app/static/src/img'),
+      '@': resolve(__dirname, 'frontend/src'),
+      '@scripts': resolve(__dirname, 'frontend/src/scripts'),
+      '@styles': resolve(__dirname, 'frontend/src/styles'),
+      '@assets': resolve(__dirname, 'frontend/src/assets'),
+      '@components': resolve(__dirname, 'frontend/src/components'),
+      '@images': resolve(__dirname, 'frontend/src/assets/images'),
     },
   },
 

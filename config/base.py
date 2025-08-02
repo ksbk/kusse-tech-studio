@@ -4,6 +4,31 @@ import os
 from pathlib import Path
 
 
+class HeroConfig:
+    """Hero section configuration."""
+    
+    TITLE = os.getenv("HERO_TITLE", "Kusse Sukuta Bersha")
+    SUBTITLE = os.getenv("HERO_SUBTITLE", "Transforming quantum research into production AI")
+    TAGLINE = os.getenv("HERO_TAGLINE", "Building impactful digital solutions that bridge research, technology, and real-world impact.")
+    STATUS_BADGE = os.getenv("HERO_STATUS_BADGE", "Available for New Projects")
+    IMAGE_PATH = os.getenv("HERO_IMAGE_PATH", "images/hero/profile.webp")
+    
+    # Academic credentials
+    EDUCATION_DEGREES = os.getenv("HERO_EDUCATION_DEGREES", "PhD Chemistry • MSc Computer Science • BSc Physics")
+    EDUCATION_INSTITUTIONS = os.getenv("HERO_EDUCATION_INSTITUTIONS", "University of Iceland • Erasmus Mundus • Mekelle University")
+    CITATIONS = os.getenv("HERO_CITATIONS", "15+ citations in Nature, Science & IEEE")
+    
+    # Trust indicators
+    PROJECTS_COUNT = os.getenv("HERO_PROJECTS_COUNT", "50+")
+    COUNTRIES_COUNT = os.getenv("HERO_COUNTRIES_COUNT", "5")
+    
+    # CTA buttons
+    PRIMARY_CTA_TEXT = os.getenv("HERO_PRIMARY_CTA_TEXT", "View My Projects")
+    PRIMARY_CTA_URL = os.getenv("HERO_PRIMARY_CTA_URL", "/projects/")
+    SECONDARY_CTA_TEXT = os.getenv("HERO_SECONDARY_CTA_TEXT", "Learn More About Me")
+    SECONDARY_CTA_URL = os.getenv("HERO_SECONDARY_CTA_URL", "/about/")
+
+
 class Config:
     """Base configuration class."""
 
