@@ -1,0 +1,158 @@
+# Pre-commit hooks for code quality and consistency
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        description: Trims trailing whitespace from files
+      - id: end-of-file-fixer
+        name: Fix end of files
+        description: Ensures files end with a newline
+      - id: check-yaml
+        name: Check YAML syntax
+        description: Validates YAML files
+      - id: check-json
+        name: Check JSON syntax
+        description: Validates JSON files
+      - id: check-toml
+        name: Check TOML syntax
+        description: Validates TOML files
+      - id: check-xml
+        name: Check XML syntax
+        description: Validates XML files
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+        description: Checks for merge conflict markers
+      - id: check-case-conflict
+        name: Check for case conflicts
+        description: Checks for case-insensitive filename conflicts
+      - id: check-added-large-files
+        name: Check for large files
+        description: Prevents large files from being committed
+        args: ['--maxkb=1000']
+      - id: debug-statements
+        name: Check for debug statements
+        description: Checks for Python debug statements
+        language: python
+        types: [python]
+
+  # Python formatting with Black
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        name: Format Python code with Black
+        description: Auto-formats Python code
+        args: [--line-length=88]
+        language_version: python3
+
+  # Python import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Sort Python imports
+        description: Sorts Python imports alphabetically
+        args: ["--profile", "black"]
+
+  # Python linting with flake8
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        name: Lint Python code with flake8
+        description: Lints Python code for style and errors
+        args: [--max-line-length=88, --extend-ignore=E203,W503]
+
+  # Python security checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        name: Security linting with Bandit
+        description: Checks Python code for security issues
+        args: ["-r", "app/", "-f", "json", "-o", "reports/bandit-report.json"]
+        pass_filenames: false
+
+  # Python dependency security audit
+  - repo: local
+    hooks:
+      - id: pip-audit
+        name: Audit Python dependencies
+        description: Checks for known security vulnerabilities in Python packages
+        entry: pip-audit
+        language: system
+        args: ["--format=json", "--output=reports/pip-audit-report.json"]
+        pass_filenames: false
+        always_run: true
+
+  # JavaScript/TypeScript formatting with Prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        name: Format web files with Prettier
+        description: Auto-formats JavaScript, TypeScript, CSS, HTML, and JSON
+        types_or: [javascript, jsx, ts, tsx, css, scss, html, json, yaml, markdown]
+        args: [--write]
+
+  # CSS/SCSS linting
+  - repo: https://github.com/awebdeveloper/pre-commit-stylelint
+    rev: 0.0.2
+    hooks:
+      - id: stylelint
+        name: Lint CSS/SCSS with Stylelint
+        description: Lints CSS and SCSS files
+        files: \.(css|scss)$
+        additional_dependencies: [stylelint@15.10.0, stylelint-config-standard@34.0.0]
+
+  # Dockerfile linting
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.1-beta
+    hooks:
+      - id: hadolint-docker
+        name: Lint Dockerfile
+        description: Lints Dockerfile for best practices
+        args: [--format=json, --output=reports/hadolint-report.json]
+
+  # Shell script linting
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.9.0.6
+    hooks:
+      - id: shellcheck
+        name: Lint shell scripts
+        description: Lints shell scripts for errors and best practices
+        args: [--format=json]
+
+  # Secrets detection
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect secrets
+        description: Scans for potential secrets in code
+        args: ['--baseline', '.secrets.baseline']
+        exclude: ^(reports/|\.secrets\.baseline$)
+
+# Global configuration
+default_stages: [commit]
+fail_fast: false
+minimum_pre_commit_version: "3.0.0"
+
+# CI configuration
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

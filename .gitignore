@@ -119,3 +119,12 @@ ssl/
 # Docker
 .dockerignore
 infra/docker-compose.override.yml
+
+# Reports directory - keep structure but ignore generated reports
+reports/*.json
+reports/*.xml
+reports/*.log
+reports/*.html
+reports/coverage-*/
+!reports/.gitkeep
+!reports/README.md
