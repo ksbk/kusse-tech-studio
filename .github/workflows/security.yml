@@ -42,7 +42,7 @@ jobs:
           semgrep --config=auto app/ --json --output=semgrep-report.json || true
 
       - name: Upload security reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-security-reports
           path: |
@@ -99,7 +99,7 @@ jobs:
           vuln-type: "os,library"
 
       - name: Upload Trivy JSON results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-security-reports
           path: trivy-results.json
