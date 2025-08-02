@@ -1,0 +1,530 @@
+<!-- Modern Professional Hero Section -->
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden hero-section mobile-hero"
+  aria-labelledby="hero-heading"
+>
+  <!-- Clean Modern Background - Reduced to single gradient layer -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Professional Visual Elements with reduced motion support -->
+  <div
+    class="absolute inset-0 pointer-events-none overflow-hidden"
+    aria-hidden="true"
+    aria-live="polite"
+  >
+    <!-- Minimal Tech Elements - Reduced from 7+ to 4 -->
+    <div
+      class="absolute top-20 right-32 text-slate-300/30 text-lg font-mono will-change-transform"
+      style="animation: float 10s ease-in-out infinite; animation-delay: 2s"
+    >
+      &lt;/&gt;
+    </div>
+    <div
+      class="absolute bottom-32 left-32 text-blue-300/25 text-sm font-mono will-change-transform"
+      style="animation: float 14s ease-in-out infinite; animation-delay: 5s"
+    >
+      { }
+    </div>
+  </div>
+
+  <!-- Enhanced styles with theme awareness and reduced motion support -->
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float,
+      [style*="animation: float"],
+      [style*="animation-duration"] {
+        animation: none !important;
+      }
+      .animate-pulse,
+      .animate-ping {
+        animation: none !important;
+      }
+    }
+
+    /* Theme-aware gradients */
+    @media (prefers-color-scheme: dark) {
+      .hero-section {
+        background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      }
+      .bg-gradient-to-br {
+        background: linear-gradient(
+          to bottom right,
+          #1e293b,
+          #334155
+        ) !important;
+      }
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      33% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+      66% {
+        transform: translateY(-5px) rotate(-1deg);
+      }
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+
+  <!-- Simplified Modern Backdrop - Single layer -->
+  <div
+    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+    aria-hidden="true"
+  >
+    <div
+      class="w-96 h-96 bg-gradient-to-r from-blue-50/20 to-indigo-50/20 rounded-full blur-3xl"
+    ></div>
+  </div>
+
+  <!-- Centered Content Layout with Improved Proportions -->
+  <div
+    class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 safe-area-padding"
+  >
+    <!-- Desktop Layout: 60% Text, 40% Illustration -->
+    <div class="grid lg:grid-cols-5 gap-16 items-center">
+      <!-- Enhanced Text Content - 60% (3 of 5 columns) -->
+      <div class="lg:col-span-3 text-center lg:text-left space-y-8">
+        <!-- Premium Status Badge -->
+        <div class="animate-fade-in-up">
+          <div
+            class="inline-flex items-center px-5 py-3 rounded-full bg-gradient-to-r from-emerald-500/15 to-cyan-500/15 border border-emerald-500/25 text-emerald-300 text-sm font-medium backdrop-blur-xl shadow-lg hover:scale-105 transition-transform duration-300"
+            role="status"
+            aria-live="polite"
+          >
+            <span class="relative flex h-3 w-3 mr-3">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"
+              ></span>
+            </span>
+            {{ hero.STATUS_BADGE }}
+          </div>
+        </div>
+
+        <!-- Enhanced Name & Title with Better Typography -->
+        <div class="space-y-4 animate-fade-in-up animation-delay-200">
+          <h1
+            id="hero-heading"
+            class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tight"
+          >
+            <span class="block text-slate-900 mb-3 drop-shadow-sm"
+              >{{ hero.TITLE }}</span
+            >
+            <span
+              class="block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-gradient-x relative"
+            >
+              <span class="sr-only">{{ hero.SUBTITLE }}</span>
+              <span aria-hidden="true">{{ hero.SUBTITLE }}</span>
+              <!-- Fallback for gradient text -->
+              <span
+                class="absolute inset-0 text-blue-600 opacity-0 contrast-more:opacity-100 contrast-more:bg-clip-border contrast-more:text-current"
+                aria-hidden="true"
+              >
+                {{ hero.SUBTITLE }}
+              </span>
+            </span>
+          </h1>
+
+          <!-- Dynamic Citation Badge -->
+          <div
+            class="flex items-center justify-center lg:justify-start space-x-3 text-slate-600"
+          >
+            <div
+              class="h-px w-12 bg-gradient-to-r from-transparent to-blue-500/40"
+            ></div>
+            <span
+              class="text-sm font-medium tracking-wider uppercase bg-blue-50/60 px-3 py-1 rounded-full border border-blue-200/40"
+              ><i class="fas fa-quote-left mr-1 text-blue-500"></i>{{
+              hero.CITATIONS }}</span
+            >
+            <div
+              class="h-px w-12 bg-gradient-to-l from-transparent to-indigo-500/40"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Enhanced Professional Tagline with Impact Statement -->
+        <div class="space-y-4 animate-fade-in-up animation-delay-400">
+          <p
+            class="text-xl md:text-2xl lg:text-3xl text-slate-700 leading-relaxed font-light max-w-4xl mx-auto lg:mx-0 mobile-body"
+          >
+            {{ hero.TAGLINE }}
+          </p>
+
+          <!-- One-Line Impact Statement -->
+          <div class="text-center lg:text-left">
+            <p
+              class="text-lg md:text-xl text-blue-600 font-medium bg-blue-50/50 px-6 py-3 rounded-xl inline-block border border-blue-200/40 backdrop-blur-sm"
+            >
+              <i class="fas fa-rocket mr-2 text-blue-500"></i>
+              Helping researchers and startups scale with AI
+            </p>
+          </div>
+        </div>
+
+        <!-- Premium Academic Credentials - Moved to About Section Context -->
+        <div class="animate-fade-in-up animation-delay-500">
+          <!-- Simplified credential display for academic audience -->
+          <div class="text-center lg:text-left mb-4">
+            <p class="text-sm text-slate-600 font-medium">
+              <i class="fas fa-graduation-cap mr-1 text-blue-500"></i>
+              {{ hero.EDUCATION_DEGREES }}
+            </p>
+            <p class="text-xs text-slate-500 mt-1">
+              {{ hero.EDUCATION_INSTITUTIONS }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Enhanced CTA Buttons - Mobile Responsive Stack -->
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up animation-delay-600"
+        >
+          <a
+            href="{{ hero.PRIMARY_CTA_URL }}"
+            class="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/25 hover:-translate-y-2 text-lg btn-mobile touch-target focus-ring transform-gpu scroll-smooth"
+            aria-label="View my portfolio and project case studies"
+            onclick="document.querySelector('#projects')?.scrollIntoView({behavior: 'smooth'})"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <span class="relative z-10 flex items-center">
+              <i
+                class="fas fa-rocket mr-2 transition-transform group-hover:scale-110"
+              ></i>
+              {{ hero.PRIMARY_CTA_TEXT }}
+            </span>
+            <svg
+              class="relative z-10 w-5 h-5 ml-3 transition-transform group-hover:translate-x-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="{{ hero.SECONDARY_CTA_URL }}"
+            class="group relative inline-flex items-center px-8 py-4 border-2 border-slate-300/60 text-slate-700 font-semibold rounded-xl backdrop-blur-sm bg-white/50 transition-all duration-300 hover:border-blue-400/80 hover:bg-blue-50/80 hover:text-blue-700 hover:-translate-y-2 text-lg btn-mobile touch-target focus-ring transform-gpu hover:shadow-lg hover:shadow-blue-500/15"
+            aria-label="Learn more about my background and experience"
+          >
+            <span class="flex items-center">
+              <i
+                class="fas fa-user-graduate mr-2 transition-transform group-hover:scale-110"
+              ></i>
+              {{ hero.SECONDARY_CTA_TEXT }}
+            </span>
+            <svg
+              class="w-5 h-5 ml-3 transition-transform group-hover:translate-x-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Enhanced Trust Indicators -->
+        <div
+          class="grid grid-cols-3 gap-6 max-w-md mx-auto lg:max-w-none lg:mx-0 animate-fade-in-up animation-delay-700"
+          role="group"
+          aria-label="Professional credentials"
+        >
+          <div class="text-center lg:text-left group">
+            <div
+              class="text-3xl lg:text-4xl font-black text-white mb-1 group-hover:text-emerald-400 transition-colors duration-300"
+              aria-label="PhD level expertise"
+            >
+              PhD
+            </div>
+            <div class="text-sm text-slate-500 font-medium">Research Level</div>
+          </div>
+          <div class="text-center lg:text-left group">
+            <div
+              class="text-3xl lg:text-4xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors duration-300"
+              aria-label="{{ hero.PROJECTS_COUNT }} completed projects"
+            >
+              {{ hero.PROJECTS_COUNT }}
+            </div>
+            <div class="text-sm text-slate-500 font-medium">
+              Projects Delivered
+            </div>
+          </div>
+          <div class="text-center lg:text-left group">
+            <div
+              class="text-3xl lg:text-4xl font-black text-white mb-1 group-hover:text-blue-400 transition-colors duration-300"
+              aria-label="{{ hero.COUNTRIES_COUNT }} countries experience"
+            >
+              {{ hero.COUNTRIES_COUNT }}
+            </div>
+            <div class="text-sm text-slate-500 font-medium">Countries</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: DNA-Coil Logo Visual - 40% (2 of 5 columns) -->
+      <div
+        class="lg:col-span-2 flex justify-center lg:justify-end mt-12 lg:mt-0 animate-fade-in-up animation-delay-800"
+      >
+        <div class="relative group">
+          <!-- DNA-Coil Logo Container -->
+          <div class="relative w-80 h-80 lg:w-96 lg:h-96 mx-auto">
+            <!-- Clean Background -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-white/60 via-blue-50/40 to-indigo-50/60 rounded-3xl border border-blue-200/30 backdrop-blur-xl shadow-xl overflow-hidden"
+            >
+              <!-- Subtle Grid Pattern -->
+              <div
+                class="absolute inset-0 opacity-[0.03]"
+                style="
+                  background-image:
+                    radial-gradient(
+                      circle at 25% 25%,
+                      rgba(59, 130, 246, 0.2) 0%,
+                      transparent 50%
+                    ),
+                    radial-gradient(
+                      circle at 75% 75%,
+                      rgba(99, 102, 241, 0.15) 0%,
+                      transparent 50%
+                    );
+                  background-size:
+                    150px 150px,
+                    100px 100px;
+                "
+              ></div>
+
+              <!-- Central DNA-Coil Logo -->
+              <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+              >
+                <div
+                  class="relative group-hover:scale-110 transition-transform duration-700 ease-out"
+                >
+                  <!-- DNA Coil Structure with lazy loading -->
+                  <div class="relative w-32 h-48">
+                    <!-- DNA Strand 1 -->
+                    <div class="absolute left-0 top-0 w-full h-full">
+                      <svg
+                        viewBox="0 0 120 180"
+                        class="w-full h-full"
+                        loading="lazy"
+                        aria-label="DNA double helix structure"
+                      >
+                        <!-- Left DNA Strand -->
+                        <path
+                          d="M20 20 Q40 40, 20 60 Q0 80, 20 100 Q40 120, 20 140 Q0 160, 20 180"
+                          stroke="url(#gradient1)"
+                          stroke-width="6"
+                          fill="none"
+                          class="animate-pulse will-change-transform"
+                          style="animation-duration: 3s"
+                        />
+                        <!-- Right DNA Strand -->
+                        <path
+                          d="M100 20 Q80 40, 100 60 Q120 80, 100 100 Q80 120, 100 140 Q120 160, 100 180"
+                          stroke="url(#gradient2)"
+                          stroke-width="6"
+                          fill="none"
+                          class="animate-pulse will-change-transform"
+                          style="animation-duration: 3s; animation-delay: 0.5s"
+                        />
+
+                        <!-- DNA Base Pairs -->
+                        <line
+                          x1="20"
+                          y1="30"
+                          x2="100"
+                          y2="30"
+                          stroke="rgba(59, 130, 246, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="50"
+                          x2="100"
+                          y2="50"
+                          stroke="rgba(99, 102, 241, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="70"
+                          x2="100"
+                          y2="70"
+                          stroke="rgba(59, 130, 246, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="90"
+                          x2="100"
+                          y2="90"
+                          stroke="rgba(99, 102, 241, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="110"
+                          x2="100"
+                          y2="110"
+                          stroke="rgba(59, 130, 246, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="130"
+                          x2="100"
+                          y2="130"
+                          stroke="rgba(99, 102, 241, 0.4)"
+                          stroke-width="2"
+                        />
+                        <line
+                          x1="20"
+                          y1="150"
+                          x2="100"
+                          y2="150"
+                          stroke="rgba(59, 130, 246, 0.4)"
+                          stroke-width="2"
+                        />
+
+                        <!-- Gradients -->
+                        <defs>
+                          <linearGradient
+                            id="gradient1"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="100%"
+                          >
+                            <stop
+                              offset="0%"
+                              style="stop-color: #3b82f6; stop-opacity: 0.8"
+                            />
+                            <stop
+                              offset="50%"
+                              style="stop-color: #6366f1; stop-opacity: 0.9"
+                            />
+                            <stop
+                              offset="100%"
+                              style="stop-color: #8b5cf6; stop-opacity: 0.8"
+                            />
+                          </linearGradient>
+                          <linearGradient
+                            id="gradient2"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="100%"
+                          >
+                            <stop
+                              offset="0%"
+                              style="stop-color: #8b5cf6; stop-opacity: 0.8"
+                            />
+                            <stop
+                              offset="50%"
+                              style="stop-color: #6366f1; stop-opacity: 0.9"
+                            />
+                            <stop
+                              offset="100%"
+                              style="stop-color: #3b82f6; stop-opacity: 0.8"
+                            />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Subtle Glow Effect -->
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-indigo-400/15 to-purple-400/10 rounded-full blur-2xl animate-pulse"
+                    style="animation-duration: 4s"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Minimal Supporting Icons - Removed to reduce clutter -->
+            </div>
+
+            <!-- Corner Professional Icons (Simplified to 2 max: microchip and graduation-cap) -->
+            <div
+              class="absolute -top-4 -right-4 w-12 h-12 bg-white/80 border border-blue-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm animate-float shadow-md will-change-transform"
+              style="animation-duration: 6s"
+            >
+              <i class="fas fa-graduation-cap text-blue-500 text-sm"></i>
+            </div>
+
+            <div
+              class="absolute -bottom-4 -left-4 w-12 h-12 bg-white/80 border border-indigo-200/40 rounded-xl flex items-center justify-center backdrop-blur-sm animate-float shadow-md will-change-transform"
+              style="animation-delay: 1.5s; animation-duration: 7s"
+            >
+              <i class="fas fa-microchip text-indigo-500 text-sm"></i>
+            </div>
+          </div>
+
+          <!-- Professional Label -->
+          <div
+            class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-center"
+          >
+            <div
+              class="text-xs text-slate-600 font-medium bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-slate-200/50"
+            >
+              Science + Technology
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile-First Layout: Simplified DNA-Coil Logo - Removed floating text, keeping central icon -->
+    <div class="lg:hidden">
+      <div class="flex justify-center mb-8 animate-fade-in-up">
+        <div class="relative w-32 h-32 mx-auto">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-white/70 to-blue-50/50 rounded-2xl border border-blue-200/40 backdrop-blur-sm shadow-md overflow-hidden"
+          >
+            <!-- Simplified Central DNA Icon - No floating text -->
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+            >
+              <div class="w-12 h-12 flex items-center justify-center">
+                <i
+                  class="fas fa-dna text-3xl text-blue-500 will-change-transform"
+                  style="animation: float 4s ease-in-out infinite"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

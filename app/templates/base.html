@@ -1,394 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}KusseTechStudio{% endblock %}</title>
-    
-    <!-- Meta tags for SEO -->
-    <meta name="description" content="{% block meta_description %}KusseTechStudio: Python developer specializing in data automation and web scraping for Icelandic businesses. Professional software solutions for SMEs.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}Python, Data Automation, Web Scraping, Iceland, KusseTechStudio, Business Intelligence, API Integration{% endblock %}">
-    <meta name="author" content="KusseTechStudio">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
-    
-    <!-- Open Graph meta tags for social media -->
-    <meta property="og:title" content="{% block og_title %}{{ title or 'KusseTechStudio' }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Professional Python development and data automation services in Iceland{% endblock %}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:image" content="{{ url_for('static', filename='src/img/logo.svg', _external=True) }}">
-    <meta property="og:site_name" content="KusseTechStudio">
-    
-    <!-- Twitter Card meta tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ title or 'KusseTechStudio' }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Professional Python development and data automation services in Iceland{% endblock %}">
-    <meta name="twitter:image" content="{{ url_for('static', filename='src/img/logo.svg', _external=True) }}">
-    
-    <!-- Enhanced Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "KusseTechStudio",
-        "alternateName": "Kusse Tech Studio",
-        "description": "Professional Python development and data automation services specializing in web scraping, business intelligence, and API integration for Icelandic businesses",
-        "url": "{{ request.url_root }}",
-        "logo": "{{ url_for('static', filename='src/img/logo.svg', _external=True) }}",
-        "image": "{{ url_for('static', filename='src/img/logo.svg', _external=True) }}",
-        "telephone": "{{ config.BUSINESS_PHONE or '+354-123-4567' }}",
-        "email": "{{ config.BUSINESS_EMAIL or 'contact@kussetechstudio.com' }}",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Reykjavik",
-            "addressRegion": "Capital Region",
-            "addressCountry": "IS",
-            "addressCountryText": "Iceland"
-        },
-        "founder": {
-            "@type": "Person",
-            "name": "KusseTechStudio Developer",
-            "jobTitle": "Senior Python Developer",
-            "knowsAbout": ["Python", "Data Automation", "Web Scraping", "API Development", "Business Intelligence"]
-        },
-        "areaServed": {
-            "@type": "Country",
-            "name": "Iceland"
-        },
-        "serviceType": ["Python Development", "Data Automation", "Web Scraping", "Business Intelligence", "API Integration", "Process Automation"],
-        "offers": [
-            {
-                "@type": "Offer",
-                "name": "Python Development Services",
-                "description": "Custom Python applications and automation solutions"
-            },
-            {
-                "@type": "Offer", 
-                "name": "Data Automation Services",
-                "description": "Automated data processing and business intelligence solutions"
-            },
-            {
-                "@type": "Offer",
-                "name": "Web Scraping Services", 
-                "description": "Professional web scraping and data extraction services"
-            }
-        ],
-        "sameAs": [
-            "https://github.com/kussetechstudio",
-            "https://linkedin.com/company/kussetechstudio"
-        ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "12",
-            "bestRating": "5",
-            "worstRating": "1"
-        }
-    }
-    </script>
-    
-    <!-- Additional SEO Enhancements -->
-    <meta name="geo.region" content="IS">
-    <meta name="geo.placename" content="Reykjavik">
-    <meta name="ICBM" content="64.1466, -21.9426">
-    <meta name="distribution" content="global">
-    <meta name="rating" content="general">
-    <meta name="referrer" content="origin-when-cross-origin">
-    
-    <!-- Technical SEO -->
-    <link rel="canonical" href="{{ request.url }}">
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="color-scheme" content="light dark">
-    
-    <!-- Mobile App Links -->
-    <meta property="al:web:url" content="{{ request.url }}">
-    
-    <!-- Additional Open Graph optimizations -->
-    <meta property="og:locale" content="en_US">
-    <meta property="og:locale:alternate" content="is_IS">
-    <meta property="article:author" content="KusseTechStudio">
-    <meta property="business:contact_data:street_address" content="Reykjavik">
-    <meta property="business:contact_data:locality" content="Reykjavik">
-    <meta property="business:contact_data:region" content="Capital Region">
-    <meta property="business:contact_data:postal_code" content="101">
-    <meta property="business:contact_data:country_name" content="Iceland"
-    }
-    </script>
 
-    <!-- Critical Resource Preloading for Performance -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    
-    <!-- Preload critical CSS -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    
-    <!-- Favicon with multiple sizes for better performance -->
-    <link rel="icon" href="{{ url_for('static', filename='src/img/favicon.ico') }}" sizes="any">
-    <link rel="icon" href="{{ url_for('static', filename='src/img/logo.svg') }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='src/img/logo.svg') }}">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="KusseTechStudio">
-    <meta name="msapplication-TileColor" content="#3b82f6">
-    <meta name="msapplication-config" content="{{ url_for('static', filename='browserconfig.xml') }}">
+    <!-- Meta Description -->
+    <meta
+      name="description"
+      content="{% block meta_description %}Professional Python development and data automation services in Iceland{% endblock %}"
+    />
 
-    <!-- Critical layout stability script - runs immediately -->
-    <script>
-        // AGGRESSIVE CLS prevention - lock layout until fully loaded
-        document.documentElement.style.overflow = 'hidden';
-        document.documentElement.style.height = '100vh';
-        
-        // Prevent any layout shifts during initial load
-        const style = document.createElement('style');
-        style.textContent = `
-            * { 
-                transition: none !important; 
-                animation: none !important; 
-                transform: none !important;
-            }
-            .hero-section, section, .grid { 
-                min-height: 400px !important; 
-            }
-            img { 
-                width: 100% !important; 
-                height: auto !important; 
-                display: block !important; 
-            }
-        `;
-        document.head.appendChild(style);
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                // Remove CLS prevention after layout is stable
-                document.head.removeChild(style);
-                document.documentElement.style.overflow = '';
-                document.documentElement.style.height = '';
-            }, 1000);
-        });
-        
-        // Mark as JS enabled for progressive enhancement
-        document.documentElement.classList.add('js-enabled');
-        
-        // Prevent font loading layout shifts
-        if ('fonts' in document) {
-            document.fonts.ready.then(function() {
-                document.documentElement.classList.add('fonts-loaded');
-            });
-        }
-    </script>
-    
-    <!-- Performance optimized Tailwind loading -->
-    <script>
-        // Load Tailwind CSS asynchronously to improve FCP
-        const tailwindScript = document.createElement('script');
-        tailwindScript.src = 'https://cdn.tailwindcss.com';
-        tailwindScript.async = true;
-        document.head.appendChild(tailwindScript);
-    </script>
-    
-    <!-- Critical CSS for layout stability and CLS prevention -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
     <style>
-        /* Aggressive CLS Prevention */
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            min-height: 100vh;
-            line-height: 1.5;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-        
-        /* Prevent all layout shifts during loading */
-        .loading * {
-            transition: none !important;
-            animation: none !important;
-        }
-        
-        /* Reserve space for images to prevent layout shift */
-        img {
-            height: auto;
-            max-width: 100%;
-            display: block;
-        }
-        
-        /* Prevent text shifting during font loading */
-        .hero-content, .services-grid, .projects-grid {
-            font-display: swap;
-        }
-        
-        /* Stable container sizing - prevent width changes */
-        .container, .max-w-7xl, .max-w-6xl {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Prevent animation-related layout shifts */
-        .animate-on-scroll {
-            min-height: 50px; /* Reserve more space */
-            opacity: 1; /* Start visible, then hide with JS */
-        }
-        
-        /* Prevent Tailwind CSS from causing layout shifts */
-        [class*="grid"] {
-            min-height: 200px; /* Reserve space for grid layouts */
-        }
-        
-        /* Prevent navbar layout shifts */
-        nav, header {
-            height: auto;
-            min-height: 64px;
-        }
-        
-        /* Loading state to prevent content jumping */
-        .loading {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .loaded {
-            opacity: 1;
-        }
-        
-        /* Prevent font loading shifts */
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        
-        /* Critical layout stability */
-        main {
-            min-height: calc(100vh - 128px); /* Account for header/footer */
-        }
-        
-        /* Prevent service worker registration from causing shifts */
-        .pwa-install-prompt {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
+      /* Custom dark mode and theme variables */
+      :root {
+        --theme-primary: #3b82f6;
+        --theme-secondary: #1e40af;
+        --theme-accent: #10b981;
+      }
+
+      .dark {
+        --theme-primary: #60a5fa;
+        --theme-secondary: #3b82f6;
+        --theme-accent: #34d399;
+      }
+
+      /* Smooth transitions */
+      * {
+        transition-property: color, background-color, border-color;
+        transition-duration: 200ms;
+        transition-timing-function: ease-in-out;
+      }
+
+      /* Loading state */
+      body.loading {
+        opacity: 0;
+      }
+
+      body.loaded {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
     </style>
-    
-    <!-- Custom Tailwind Configuration -->
-    <script>
-        // Wait for Tailwind to load before configuring
-        function configureTailwind() {
-            if (typeof tailwind !== 'undefined') {
-                tailwind.config = {
-                    darkMode: 'class',
-                    theme: {
-                        extend: {
-                            colors: {
-                                primary: {
-                                    50: '#eff6ff',
-                                    500: '#3b82f6',
-                                    600: '#2563eb',
-                                    700: '#1d4ed8',
-                                    900: '#1e3a8a',
-                                }
-                            },
-                            fontFamily: {
-                                'sans': ['Inter', 'system-ui', 'sans-serif'],
-                            },
-                            animation: {
-                                'fade-in': 'fadeIn 0.5s ease-in-out',
-                                'slide-up': 'slideUp 0.5s ease-out',
-                            }
-                        }
-                    }
-                };
-            } else {
-                // Retry after Tailwind loads
-                setTimeout(configureTailwind, 100);
-            }
-        }
-        
-        // Try to configure immediately, or wait for load
-        configureTailwind();
-    </script>
-    
-    <!-- Performance optimized Google Analytics -->
-    <script>
-        // Load Google Analytics asynchronously to improve page speed
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XJ4B5R12L4', {
-            anonymize_ip: true,
-            send_page_view: false
-        });
-        
-        // Load GA script after page load
-        window.addEventListener('load', function() {
-            const gaScript = document.createElement('script');
-            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XJ4B5R12L4';
-            gaScript.async = true;
-            document.head.appendChild(gaScript);
-            
-            // Send page view after script loads
-            gaScript.onload = function() {
-                gtag('event', 'page_view', {
-                    page_title: document.title,
-                    page_location: window.location.href
-                });
-            };
-        });
-    </script>
 
-    <!-- Additional page-specific head content -->
     {% block head %}{% endblock %}
-    
-    <!-- Service Worker Registration for Performance -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/static/sw.js')
-                    .then(function(registration) {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-    </script>
-</head>
-<body class="loading" data-theme="{{ session.get('theme', 'auto') }}">
-    
-    <!-- Professional Header -->
-    {% include 'components/_header.html' %}
-    
-    <!-- Navigation JavaScript -->
-    {% include 'components/_navbar.html' %}
-    
-    <!-- Main Content Area -->
-    <main class="flex-1">
-        {% block content %}{% endblock %}
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white loading">
+    <!-- Header/Navigation -->
+    {% include "components/_header.html" %}
+
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen">
+      {% block content %}{% endblock %}
     </main>
-    
-    <!-- Professional Footer -->
-    {% include 'components/_footer.html' %}
 
-    <!-- Enhanced JavaScript Modules -->
-    <script src="{{ url_for('static', filename='src/js/analytics.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/js/dark-mode.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/js/animations.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/js/main.js') }}"></script>
+    <!-- Footer -->
+    {% include "partials/_footer.html" %}
 
-    <!-- Additional page-specific scripts -->
+    <!-- Vite Assets -->
+    <link rel="stylesheet" href="{{ vite_asset('css/main.css') }}" />
+    <script src="{{ vite_asset('js/main.js') }}"></script>
+
+    <!-- PostHog Analytics -->
+    {% if not config.DEBUG and config.POSTHOG_API_KEY %}
+    <script>
+      !(function (t, e) {
+        var o, n, p, r;
+        e.__SV ||
+          ((window.posthog = e),
+          (e._i = []),
+          (e.init = function (i, s, a) {
+            function g(t, e) {
+              var o = e.split(".");
+              2 == o.length && ((t = t[o[0]]), (e = o[1]));
+              var n = t;
+              return (
+                void 0 !== t &&
+                  (n = t[e] =
+                    function () {
+                      n.__a.push(arguments);
+                    }),
+                (n.__a = []),
+                n
+              );
+            }
+            (((p = t.createElement("script")).async = !0),
+              (p.src = s.api_host + "/static/array.js"),
+              (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
+                p,
+                r,
+              ));
+            var u = e;
+            for (
+              void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                u.people = u.people || [],
+                u.toString = function (t) {
+                  var e = "posthog";
+                  return (
+                    "posthog" !== a && (e += "." + a),
+                    t || (e += " (stub)"),
+                    e
+                  );
+                },
+                u.people.toString = function () {
+                  return u.toString(1) + ".people (stub)";
+                },
+                o =
+                  "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(
+                    " ",
+                  ),
+                n = 0;
+              n < o.length;
+              n++
+            )
+              g(u, o[n]);
+            e._i.push([i, s, a]);
+          }),
+          (e.__SV = 1));
+      })(document, window.posthog || []);
+      posthog.init("{{ config.POSTHOG_API_KEY }}", {
+        api_host: "{{ config.POSTHOG_HOST or 'https://app.posthog.com' }}",
+      });
+
+      // Track page views
+      posthog.capture("$pageview");
+    </script>
+    {% endif %}
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/static/sw.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered successfully:",
+                registration.scope,
+              );
+
+              // Check for updates
+              registration.addEventListener("updatefound", () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener("statechange", () => {
+                  if (
+                    newWorker.state === "installed" &&
+                    navigator.serviceWorker.controller
+                  ) {
+                    // New content is available
+                    if (
+                      confirm("New content is available! Click OK to refresh.")
+                    ) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+
+    <!-- Additional Scripts -->
     {% block scripts %}{% endblock %}
-</body>
+  </body>
 </html>
-

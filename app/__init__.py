@@ -1,74 +1,100 @@
-import os
+"""Application factory for the Flask app."""
 
-from dotenv import load_dotenv
-from flask import Flask, Response, render_template, request
-from flask_mail import Mail
+from datetime import datetime
 
-# Load environment variables
-load_dotenv()
+from flask import Flask, Response, request
 
-# Initialize extensions
-mail = Mail()
+from app.extensions import init_extensions
+from config import get_config
 
 
-def create_app():
-    """Application factory pattern"""
+def create_app(config_name=None):
+    """Application factory pattern."""
     app = Flask(__name__)
 
-    # Configuration
-    app.config["SECRET_KEY"] = os.environ.get(
-        "SECRET_KEY", "dev-secret-key-change-in-production"
-    )
-    app.config["DEBUG"] = os.environ.get("FLASK_ENV") == "development"
+    # Load configuration
+    config_class = get_config() if config_name is None else config_name
+    app.config.from_object(config_class)
+    config_class.init_app(app)
 
-    # Email configuration
-    app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER", "smtp.gmail.com")
-    app.config["MAIL_PORT"] = int(os.environ.get("MAIL_PORT", 587))
-    app.config["MAIL_USE_TLS"] = (
-        os.environ.get("MAIL_USE_TLS", "True").lower() == "true"
-    )
-    app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
-    app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
-    app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME")
+    # Set startup time for health checks
+    app.config["STARTUP_TIME"] = datetime.now().isoformat()
 
-    # Initialize extensions with app
-    mail.init_app(app)
+    # Initialize extensions
+    init_extensions(app)
 
-    # Register blueprints
-    from app.routes import blog, contact, health, home, main, portfolio, projects
+    # Register Vite asset helper as Jinja context processor
+    from app.core.utils import get_vite_asset
 
-    app.register_blueprint(main.bp)
-    app.register_blueprint(home.bp)
-    app.register_blueprint(blog.bp, url_prefix="/blog")
-    app.register_blueprint(portfolio.bp, url_prefix="/portfolio")
-    app.register_blueprint(contact.bp, url_prefix="/contact")
-    app.register_blueprint(projects.bp, url_prefix="/projects")
-    app.register_blueprint(health.bp, url_prefix="/api")
+    @app.context_processor
+    def inject_vite_assets():
+        """Make vite_asset function available in templates."""
+        return dict(vite_asset=get_vite_asset)
 
-    # Register SEO routes
-    from app.utils.seo import generate_sitemap
+    # Register hero configuration as Jinja context processor
+    from config.base import HeroConfig
 
-    generate_sitemap(app)
+    @app.context_processor
+    def inject_hero_config():
+        """Make hero configuration available in templates."""
+        return dict(hero=HeroConfig)
 
-    # Add robots.txt
+    # Register blueprints using the new views package
+    from app.views import register_blueprints
+
+    register_blueprints(app)
+
+    # Register error handlers
+    from app.core.errors import register_error_handlers, register_offline_route
+
+    register_error_handlers(app)
+    register_offline_route(app)
+
+    # Add SEO routes
     @app.route("/robots.txt")
     def robots_txt():
+        """Generate robots.txt."""
         return Response(
-            """User-agent: *
+            f"""User-agent: *
 Allow: /
-Sitemap: {}/sitemap.xml""".format(
-                request.url_root.rstrip("/")
-            ),
+Sitemap: {request.url_root.rstrip('/')}/sitemap.xml""",
             mimetype="text/plain",
         )
 
-    # Error handlers
-    @app.errorhandler(404)
-    def not_found_error(error):
-        return render_template("errors/404.html"), 404
-
-    @app.errorhandler(500)
-    def internal_error(error):
-        return render_template("errors/500.html"), 500
+    @app.route("/sitemap.xml")
+    def sitemap():
+        """Generate sitemap.xml."""
+        # In production, you might want to generate this dynamically
+        return Response(
+            f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{request.url_root}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>{request.url_root}about</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{request.url_root}services</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{request.url_root}projects</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{request.url_root}contact</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>""",
+            mimetype="application/xml",
+        )
 
     return app

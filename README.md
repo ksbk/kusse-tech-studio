@@ -1,161 +1,342 @@
-# Kusse Tech Studio
+# KusseTechStudio - Personal Portfolio
 
-A modern portfolio website showcasing innovative digital solutions and technical expertise.
+A professional portfolio website built with Flask, showcasing Python development and data automation expertise.
 
-## 🚀 Features
+## 🚀 Quick Start
 
-- **Responsive Design**: Mobile-first approach with Bootstrap 5
-- **Modern Architecture**: Flask-based backend with organized structure
-- **Portfolio Showcase**: Dynamic project displays with detailed views
-- **Contact System**: Interactive contact form with validation
-- **Docker Ready**: Containerized deployment with Docker Compose
-- **Development Tools**: Makefile for common tasks
+1. **Clone and Setup Environment**:
 
-## 🛠️ Tech Stack
+   ```bash
+   git clone <repository-url>
+   cd kusse-tech-studio
 
-- **Backend**: Python 3.11, Flask 2.3.3
-- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap 5
-- **Styling**: SCSS preprocessing
-- **Deployment**: Docker, Docker Compose, Gunicorn
-- **Development**: Make, Git
+   # Setup development environment (creates .env symlink)
+   bash scripts/env-setup.sh dev
+   ```
 
-## 📁 Project Structure
+2. **Run with Docker (Recommended)**:
 
-```
+   ```bash
+   # Development with hot reload
+   make dev
+
+   # View logs
+   make dev-logs
+   ```
+
+3. **Or run with Python directly**:
+   ```bash
+   python scripts/setup.py
+   source venv/bin/activate
+   python run.py
+   ```
+
+Visit `http://127.0.0.1:8000` (Docker) or `http://127.0.0.1:5000` (Python) to view the application.
+
+## 🏗️ Gold Standard Architecture
+
+This project follows a clean, production-ready directory structure optimized for maintainability and professional development workflows.
+
+### Infrastructure Structure
+
+```text
 kusse-tech-studio/
-├── app/                    # Main application
-│   ├── routes/            # Route handlers
-│   ├── templates/         # Jinja2 templates
-│   ├── static/           # Static assets
-│   │   ├── src/          # Source files (SCSS, JS, images)
-│   │   └── dist/         # Compiled assets
-│   └── utils/            # Utility functions
-├── docker-compose.yml    # Docker services
-├── Dockerfile           # Container configuration
-├── Makefile            # Development commands
-├── requirements.txt    # Python dependencies
-└── run.py             # Application entry point
+├── README.md                     # Project documentation
+├── .env.example                  # Environment template
+├── .env                         # Symlink to envs/.env.development
+├── requirements.txt             # Python dependencies
+├── package.json                 # Node.js dependencies
+├── run.py                       # Application entry point
+├── Dockerfile                   # Container configuration
+├── Makefile                     # Development automation
+│
+├── envs/                        # Environment configurations
+│   ├── .env.development         # Development environment
+│   ├── .env.staging            # Staging environment
+│   └── .env.production         # Production environment
+│
+├── infra/                       # Docker infrastructure
+│   ├── docker-compose.base.yml      # Base services
+│   ├── docker-compose.development.yml # Development overrides
+│   ├── docker-compose.staging.yml     # Staging overrides
+│   ├── docker-compose.production.yml  # Production overrides
+│   └── nginx/                        # Nginx configuration
+│
+├── scripts/                     # Automation scripts
+│   ├── env-setup.sh            # Environment management
+│   ├── build.sh               # Build automation
+│   └── deploy.sh              # Deployment script
+│
+├── config/                      # Configuration management
+│   ├── base.py                 # Base configuration
+│   ├── development.py          # Development settings
+│   ├── production.py           # Production settings
+│   └── staging.py              # Staging settings
+│
+├── app/                     # Main application
+│   ├── __init__.py         # Application factory
+│   ├── extensions.py       # Flask extensions
+│   ├── core/               # Core application logic
+│   │   ├── views.py        # Route handlers
+│   │   ├── utils.py        # Utility functions
+│   │   ├── security.py     # Security utilities
+│   │   └── analytics.py    # Analytics integration
+│   ├── templates/          # Jinja2 templates
+│   │   ├── base.html       # Base template
+│   │   ├── index.html      # Homepage
+│   │   ├── about.html      # About page
+│   │   ├── projects.html   # Projects showcase
+│   │   ├── contact.html    # Contact page
+│   │   ├── partials/       # Reusable components
+│   │   └── errors/         # Error pages
+│   └── static/             # Compiled static assets
+│       ├── css/           # Stylesheets
+│       ├── js/            # JavaScript
+│       └── images/        # Images
+│
+├── src/                     # Source assets
+│   ├── scss/               # Sass stylesheets
+│   ├── js/                 # JavaScript modules
+│   └── images/             # Source images
+│
+├── tests/                   # Test suite
+│   ├── unit/               # Unit tests
+│   ├── integration/        # Integration tests
+│   └── e2e/                # End-to-end tests
+│
+├── scripts/                 # Development scripts
+├── docs/                    # Documentation
+└── .github/workflows/       # CI/CD workflows
 ```
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.11+
-- Docker & Docker Compose (optional)
-- Node.js (for asset compilation)
+- Python 3.9+
+- Node.js 16+
+- Git
 
-### Development Setup
+### Installation
 
-1. **Clone the repository**
+1. **Clone the repository**:
+
    ```bash
    git clone <repository-url>
    cd kusse-tech-studio
    ```
 
-2. **Set up virtual environment**
+2. **Set up the environment**:
+
    ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   python scripts/setup.py
    ```
 
-3. **Install dependencies**
+3. **Activate virtual environment**:
+
    ```bash
-   make install
-   # or
-   pip install -r requirements.txt
+   source venv/bin/activate
    ```
 
-4. **Configure environment**
+4. **Configure environment variables**:
+
    ```bash
    cp .env.example .env
-   # Edit .env with your configuration
+   # Edit .env with your settings
    ```
 
-5. **Run the application**
+5. **Build assets**:
+
    ```bash
-   make run
-   # or
-   python run.py
+   npm run build
    ```
 
-6. **Visit the site**
-   Open http://localhost:5000 in your browser
+6. **Start the application**:
+   ```bash
+   flask run
+   ```
 
-## 🐳 Docker Deployment
+Visit `http://127.0.0.1:5000` to view the application.
 
-### Development
-```bash
-make build
-make deploy
-```
+## 🛠️ Development
 
-### Production
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
-
-## 📝 Available Commands
+### Building Assets
 
 ```bash
-make help          # Show all available commands
-make install       # Install dependencies
-make run           # Run development server
-make test          # Run tests
-make build         # Build Docker image
-make deploy        # Deploy with Docker Compose
-make clean         # Clean temporary files
-make lint          # Run code linting
-make format        # Format code
+# Production build
+npm run build
+
+# Development with watch
+npm run dev
 ```
+
+### Running Tests
+
+```bash
+# All tests
+pytest
+
+# Specific test types
+pytest tests/unit/
+pytest tests/integration/
+pytest tests/e2e/
+```
+
+### Code Quality
+
+```bash
+# Python linting
+flake8 app/ tests/
+black app/ tests/
+isort app/ tests/
+
+# JavaScript/CSS linting
+npm run lint:js
+npm run lint:css
+npm run format
+```
+
+## 🐳 Docker Infrastructure
+
+### Environment Management
+
+This project uses a centralized environment file policy. See [docs/environment-policy.md](docs/environment-policy.md) for complete details.
+
+**Quick Commands:**
+
+```bash
+# Setup development environment
+bash scripts/env-setup.sh dev
+
+# Check current environment status
+bash scripts/env-setup.sh status
+
+# Verify all environment files
+bash scripts/env-setup.sh verify
+```
+
+### Docker Deployment
+
+**Development:**
+
+```bash
+# Start development environment (with hot reload)
+make dev
+
+# Build and start development
+make dev-build
+
+# View development logs
+make dev-logs
+
+# Stop development environment
+make dev-down
+```
+
+**Staging:**
+
+```bash
+# Start staging environment
+make staging
+
+# View staging logs
+make staging-logs
+
+# Stop staging environment
+make staging-down
+```
+
+**Production:**
+
+```bash
+# Start production environment
+make prod
+
+# View production logs
+make prod-logs
+
+# Stop production environment
+make prod-down
+```
+
+**Manual Docker Compose:**
+
+```bash
+# Development
+cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up
+
+# Staging
+cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml up -d
+
+# Production
+cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
+```
+
+## Features
+
+- **Modern Frontend**: Vite build system with hot reload and optimized bundles
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Performance Optimized**: 60-70% faster builds, tree-shaking, code splitting
+- **Legacy Browser Support**: Automatic polyfills for older browsers
+- **SEO Ready**: Meta tags, sitemap, structured data
+- **Analytics Integration**: Google Analytics support
+- **Contact Form**: With email notifications
+- **Project Showcase**: Interactive project gallery
+- **Professional UI/UX**: Clean, modern design
+
+## Frontend Architecture
+
+This project uses a modern frontend architecture with **Vite + Tailwind CSS**:
+
+- **Unified Directory**: `frontend/src/` with organized assets, components, styles, and scripts
+- **Vite Build System**: Lightning-fast development with hot module replacement
+- **Tailwind CSS**: Utility-first CSS framework with forms and typography plugins
+- **Flask Integration**: Manifest-based asset loading with automatic cache busting
+- **Development Workflow**: `npm run dev` for watch mode, `npm run build` for production
+
+See [`VITE-TAILWIND-INTEGRATION-COMPLETE.md`](VITE-TAILWIND-INTEGRATION-COMPLETE.md) for full migration details.
 
 ## 🔧 Configuration
 
-### Environment Variables
+The application uses a modular configuration system:
 
-Create a `.env` file with:
+- `config/development.py`: Development settings
+- `config/staging.py`: Staging settings
+- `config/production.py`: Production settings
 
-```env
-FLASK_APP=run.py
-FLASK_ENV=development
-SECRET_KEY=your-secret-key
-DEBUG=True
-```
+Configure via environment variables in `.env` file.
 
-### Static Assets
+## 📚 Documentation
 
-- Source files: `app/static/src/`
-- Compiled files: `app/static/dist/`
-- Images: `app/static/src/img/`
-- Styles: `app/static/src/scss/`
-- Scripts: `app/static/src/js/`
+- [Development Guide](docs/development.md)
+- [Deployment Guide](docs/deployment.md)
+- [Architecture Overview](docs/architecture.md)
 
-## 📱 Pages
+## 🚀 Deployment
 
-- **Home** (`/`) - Landing page with hero section and service preview
-- **About** (`/about`) - Company information and team details
-- **Portfolio** (`/portfolio`) - Project showcase with detailed views
-- **Services** (`/services`) - Service offerings and capabilities
-- **Contact** (`/contact`) - Contact form and business information
+The application is configured for deployment on:
+
+- **Heroku**: Via Dockerfile
+- **DigitalOcean**: Via Docker Compose
+- **AWS**: Via container services
+- **Traditional VPS**: Via Docker or manual setup
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+4. Add tests if applicable
+5. Run the test suite
+6. Create a pull request
 
-## 📄 License
+## 📧 Contact
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+For questions or support, please contact:
 
-## 📞 Contact
-
-- **Website**: [kussetechstudio.com](https://kussetechstudio.com)
-- **Email**: hello@kussetechstudio.com
-- **Location**: San Francisco, CA
-
----
-
-Built with ❤️ by Kusse Tech Studio
+- Email: contact@kussetechstudio.com
+- Website: https://kussetechstudio.com

@@ -1,0 +1,154 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-4xl mx-auto">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Tech Blog
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300">
+        Insights on Python development, data automation, and modern web
+        technologies
+      </p>
+    </header>
+
+    <!-- Coming Soon Message -->
+    <div
+      class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-8 text-center"
+    >
+      <div class="mb-4">
+        <svg
+          class="w-16 h-16 text-blue-500 mx-auto"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+          ></path>
+        </svg>
+      </div>
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+        Blog Coming Soon
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        I'm working on creating valuable content about Python development, data
+        automation, and the latest web technologies. Check back soon for:
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto text-left">
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 dark:text-white">
+              Python Best Practices
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Tips and tricks for better Python code
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 dark:text-white">
+              Data Automation
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Automating workflows and data processing
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 dark:text-white">
+              Flask Development
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Building modern web applications
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+          </div>
+          <div>
+            <h3 class="font-medium text-gray-900 dark:text-white">
+              Project Case Studies
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Deep dives into real projects
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <a
+          href="{{ url_for('home.contact') }}"
+          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
+        >
+          Get Notified When Blog Launches
+          <svg
+            class="ml-2 -mr-1 w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Future blog post structure -->
+    <!--
+        <div class="space-y-8">
+            <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                        <time datetime="2024-01-15">January 15, 2024</time>
+                        <span class="mx-2">•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">
+                            Building Scalable Web Scrapers with Python
+                        </a>
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Learn how to build robust, scalable web scrapers that can handle large-scale data extraction while respecting rate limits and handling errors gracefully.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex space-x-2">
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-300">Python</span>
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-300">Web Scraping</span>
+                        </div>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
+                            Read more →
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+        -->
+  </div>
+</div>
+{% endblock %}

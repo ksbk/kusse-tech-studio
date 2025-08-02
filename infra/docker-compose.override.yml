@@ -1,0 +1,63 @@
+# Development overrides for KusseTechStudio
+# Provides hot reload, debugging, and development-specific configurations
+#
+# DEPRECATED: This file is kept for backward compatibility.
+# Use docker-compose.development.yml instead for new projects.
+
+include:
+  - docker-compose.base.yml
+  - docker-compose.development.yml
+
+services:
+  web:
+    ports:
+      - 5000:5000
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=True
+      - HOT_RELOAD=True
+    env_file:
+      - ../envs/.env.development
+    volumes:
+      # Mount source code for hot reload
+      - ..:/app:cached
+      - /app/node_modules
+      - /app/.venv
+    command: python run.py
+    profiles:
+      - development
+
+  redis:
+    ports:
+      - 6379:6379
+
+  # MailHog for development email testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - 1025:1025 # SMTP
+      - 8025:8025 # Web UI
+    networks:
+      - kusse-tech-network
+    profiles:
+      - development
+
+  # Optional PostgreSQL for development
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: kusse_tech_dev
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: devpass123
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - kusse-tech-network
+    profiles:
+      - development
+      - database
+
+volumes:
+  postgres_dev_data:

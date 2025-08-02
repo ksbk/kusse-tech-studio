@@ -1,59 +1,203 @@
 name: Security Audit
 
 on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
   schedule:
-    - cron: '0 2 * * 1' # Run every Monday at 2 AM UTC
+    - cron: "0 2 * * 1" # Run every Monday at 2 AM UTC
   workflow_dispatch:
 
 jobs:
-  security-audit:
-    name: Security Audit
+  # Python Security Audit
+  python-security:
+    name: Python Security Audit
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-    - name: Install security tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install safety bandit semgrep
+      - name: Install security tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install safety bandit semgrep
 
-    - name: Python dependency security check
-      run: |
-        safety check -r requirements.txt --json --output safety-report.json || true
+      - name: Python dependency security check
+        run: |
+          safety check -r requirements.txt --json --output safety-report.json || true
 
-    - name: Static security analysis
-      run: |
-        bandit -r app/ -f json -o bandit-report.json || true
+      - name: Static security analysis
+        run: |
+          bandit -r app/ -f json -o bandit-report.json || true
 
-    - name: Semgrep security scan
-      run: |
-        semgrep --config=auto app/ --json --output=semgrep-report.json || true
+      - name: Semgrep security scan
+        run: |
+          semgrep --config=auto app/ --json --output=semgrep-report.json || true
 
-    - name: Upload security reports
-      uses: actions/upload-artifact@v3
-      with:
-        name: security-reports
-        path: |
-          safety-report.json
-          bandit-report.json
-          semgrep-report.json
+      - name: Upload security reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-security-reports
+          path: |
+            safety-report.json
+            bandit-report.json
+            semgrep-report.json
 
-    - name: Create security issue
-      if: failure()
-      uses: actions/github-script@v7
-      with:
-        script: |
-          github.rest.issues.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            title: 'Security vulnerabilities found in automated scan',
-            body: 'Security scan failed. Please check the workflow logs and security reports.',
-            labels: ['security', 'priority-high']
-          })
+  # Docker Security Scanning
+  docker-security:
+    name: Docker Security Scan
+    runs-on: ubuntu-latest
+    needs: python-security
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: kussestudio:latest
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "kussestudio:latest"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          vuln-type: "os,library"
+          exit-code: "0" # Don't fail the build, just report
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Run Trivy vulnerability scanner (JSON output)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "kussestudio:latest"
+          format: "json"
+          output: "trivy-results.json"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          vuln-type: "os,library"
+
+      - name: Upload Trivy JSON results
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-security-reports
+          path: trivy-results.json
+
+      - name: Docker image analysis
+        run: |
+          echo "=== Docker Image Analysis ==="
+          docker images kussestudio:latest
+          docker history kussestudio:latest
+
+          echo "=== Image Layers Size Analysis ==="
+          docker inspect kussestudio:latest | jq '.[0].RootFS.Layers | length'
+
+          echo "=== Security Check Summary ==="
+          if [ -f trivy-results.json ]; then
+            jq '.Results[] | select(.Vulnerabilities) | .Vulnerabilities | group_by(.Severity) | map({severity: .[0].Severity, count: length})' trivy-results.json || echo "No vulnerabilities found or JSON parsing failed"
+          fi
+
+  # Container Hardening Check
+  container-hardening:
+    name: Container Hardening Check
+    runs-on: ubuntu-latest
+    needs: docker-security
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t kussestudio:latest .
+
+      - name: Install Docker Bench Security
+        run: |
+          git clone https://github.com/docker/docker-bench-security.git
+          cd docker-bench-security
+
+      - name: Run Docker Bench Security
+        run: |
+          cd docker-bench-security
+          sudo ./docker-bench-security.sh -c container_images -t kussestudio:latest
+
+      - name: Check non-root user
+        run: |
+          echo "=== Checking if container runs as non-root ==="
+          docker run --rm kussestudio:latest id
+          docker run --rm kussestudio:latest whoami
+
+      - name: Check exposed ports
+        run: |
+          echo "=== Checking exposed ports ==="
+          docker inspect kussestudio:latest | jq '.[0].Config.ExposedPorts'
+
+      - name: Check environment variables
+        run: |
+          echo "=== Checking environment variables ==="
+          docker inspect kussestudio:latest | jq '.[0].Config.Env'
+
+  # Security Issue Creation
+  create-security-issue:
+    name: Create Security Issue
+    runs-on: ubuntu-latest
+    needs: [python-security, docker-security, container-hardening]
+    if: failure()
+
+    steps:
+      - name: Create security issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Security vulnerabilities found in automated scan';
+            const body = `
+            # Security Scan Results
+
+            A security vulnerability was detected in the automated security scan.
+
+            ## Scan Details
+            - **Workflow**: ${{ github.workflow }}
+            - **Run ID**: ${{ github.run_id }}
+            - **Commit**: ${{ github.sha }}
+            - **Branch**: ${{ github.ref }}
+
+            ## Next Steps
+            1. Review the workflow logs and security reports
+            2. Check the uploaded artifacts for detailed vulnerability information
+            3. Address any critical or high-severity vulnerabilities
+            4. Re-run the security scan after fixes
+
+            ## Links
+            - [Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Security Tab](https://github.com/${{ github.repository }}/security)
+
+            This issue was automatically created by the security scanning workflow.
+            `;
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['security', 'priority-high', 'automated']
+            })
