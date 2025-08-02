@@ -102,10 +102,13 @@ repos:
           [javascript, jsx, ts, tsx, css, scss, html, json, yaml, markdown]
         args: [--write]
 
-  # CSS/SCSS linting (requires compatible stylelint version)
-  # TODO: Enable when stylelint v16+ is installed (currently v15.11.0 installed)
-  # Current issue: Version mismatch between stylelint (v15) and configs expecting v16+
-  # To fix: npm install stylelint@^16.0.0
+  # CSS/SCSS linting (requires compatible stylelint version and config)
+  # TODO: Fix stylelint configuration compatibility issues
+  # Current issues:
+  # - Version conflicts between stylelint-config-standard@39.0.0 and project config
+  # - Unknown rules and type errors in existing SCSS files
+  # - Need to update .stylelintrc.json to match stylelint v16 expectations
+  # To fix: Update .stylelintrc.json and resolve SCSS compatibility issues
   # - repo: https://github.com/awebdeveloper/pre-commit-stylelint
   #   rev: 0.0.2
   #   hooks:
@@ -114,19 +117,16 @@ repos:
   #       description: Lints CSS and SCSS files
   #       files: \.(css|scss)$
   #       additional_dependencies:
-  #         [stylelint@16.0.0, stylelint-config-standard@40.0.0, postcss-scss@4.0.9]
+  #         [stylelint@16.0.0, stylelint-config-standard@39.0.0, postcss-scss@4.0.9]
 
   # Dockerfile linting (requires Docker daemon)
-  # TODO: Enable when Docker daemon is running
-  # Current status: Docker installed ✅ but daemon not running ❌
-  # To fix: Start Docker Desktop or run: sudo systemctl start docker (Linux)
-  # - repo: https://github.com/hadolint/hadolint
-  #   rev: v2.12.1-beta
-  #   hooks:
-  #     - id: hadolint-docker
-  #       name: Lint Dockerfile
-  #       description: Lints Dockerfile for best practices
-  #       args: [--format=json, --output=reports/hadolint-report.json]
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.1-beta
+    hooks:
+      - id: hadolint-docker
+        name: Lint Dockerfile
+        description: Lints Dockerfile for best practices
+        args: [--format=json]
 
   # Shell script linting
   - repo: https://github.com/shellcheck-py/shellcheck-py
