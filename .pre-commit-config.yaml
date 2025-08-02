@@ -1,15 +1,6 @@
 # Pre-commit hooks for code quality and consistency
 # See https://pre-commit.com for more information
-# See https://pre-commit.com/ho  # TODO: Re-enable after fixing version compatibility
-# # Secrets detection
-# - repo: https://github.com/Yelp/detect-secrets
-#   rev: v1.4.0
-#   hooks:
-#     - id: detect-secrets
-#       name: Detect secrets
-#       description: Scans for potential secrets in code
-#       args: ['--baseline', '.secrets.baseline']
-#       exclude: ^(reports/|\.secrets\.baseline$)for more hooks
+# See https://pre-commit.com/hooks.html for more hooks
 
 repos:
   # Standard pre-commit hooks
