@@ -34,9 +34,15 @@ class ProductionConfig(Config):
 
         # Production logging
         import logging
+        import os
         from logging.handlers import RotatingFileHandler
 
         if not app.debug:
+            # Create logs directory if it doesn't exist
+            log_dir = "logs"
+            if not os.path.exists(log_dir):
+                os.makedirs(log_dir)
+
             file_handler = RotatingFileHandler(
                 "logs/app.log", maxBytes=10240, backupCount=10
             )
