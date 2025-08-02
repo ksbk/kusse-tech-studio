@@ -2,9 +2,9 @@ name: Security Audit
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   schedule:
     - cron: "0 2 * * 1" # Run every Monday at 2 AM UTC
   workflow_dispatch:
@@ -76,27 +76,27 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'kussestudio:latest'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          vuln-type: 'os,library'
-          exit-code: '0' # Don't fail the build, just report
+          image-ref: "kussestudio:latest"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          vuln-type: "os,library"
+          exit-code: "0" # Don't fail the build, just report
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
 
       - name: Run Trivy vulnerability scanner (JSON output)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'kussestudio:latest'
-          format: 'json'
-          output: 'trivy-results.json'
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          vuln-type: 'os,library'
+          image-ref: "kussestudio:latest"
+          format: "json"
+          output: "trivy-results.json"
+          severity: "CRITICAL,HIGH,MEDIUM"
+          vuln-type: "os,library"
 
       - name: Upload Trivy JSON results
         uses: actions/upload-artifact@v3
@@ -109,10 +109,10 @@ jobs:
           echo "=== Docker Image Analysis ==="
           docker images kussestudio:latest
           docker history kussestudio:latest
-          
+
           echo "=== Image Layers Size Analysis ==="
           docker inspect kussestudio:latest | jq '.[0].RootFS.Layers | length'
-          
+
           echo "=== Security Check Summary ==="
           if [ -f trivy-results.json ]; then
             jq '.Results[] | select(.Vulnerabilities) | .Vulnerabilities | group_by(.Severity) | map({severity: .[0].Severity, count: length})' trivy-results.json || echo "No vulnerabilities found or JSON parsing failed"
@@ -172,28 +172,28 @@ jobs:
             const title = 'Security vulnerabilities found in automated scan';
             const body = `
             # Security Scan Results
-            
+
             A security vulnerability was detected in the automated security scan.
-            
+
             ## Scan Details
             - **Workflow**: ${{ github.workflow }}
             - **Run ID**: ${{ github.run_id }}
             - **Commit**: ${{ github.sha }}
             - **Branch**: ${{ github.ref }}
-            
+
             ## Next Steps
             1. Review the workflow logs and security reports
             2. Check the uploaded artifacts for detailed vulnerability information
             3. Address any critical or high-severity vulnerabilities
             4. Re-run the security scan after fixes
-            
+
             ## Links
             - [Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - [Security Tab](https://github.com/${{ github.repository }}/security)
-            
+
             This issue was automatically created by the security scanning workflow.
             `;
-            
+
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,

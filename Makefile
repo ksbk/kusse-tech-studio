@@ -219,7 +219,7 @@ build:
 deploy:
 	@echo "⚠️  This command is deprecated. Use environment-specific targets:"
 	@echo "   make dev      - Development environment"
-	@echo "   make staging  - Staging environment" 
+	@echo "   make staging  - Staging environment"
 	@echo "   make prod     - Production environment"
 	@echo ""
 	@echo "Falling back to development environment..."
@@ -402,7 +402,7 @@ ci-local: lint test security-scan frontend-build
 health-check:
 	curl -f http://localhost:5000/health || echo "Health check failed"
 
-# Monitor logs  
+# Monitor logs
 monitor:
 	docker-compose logs -f web
 

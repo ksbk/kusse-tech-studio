@@ -5,7 +5,7 @@ from flask import Flask, render_template
 
 def register_error_handlers(app: Flask) -> None:
     """Register error handlers with the Flask application."""
-    
+
     @app.errorhandler(404)
     def not_found_error(error):
         """Handle 404 errors."""
@@ -19,8 +19,8 @@ def register_error_handlers(app: Flask) -> None:
 
 def register_offline_route(app: Flask) -> None:
     """Register offline route for service worker."""
-    
-    @app.route('/offline.html')
+
+    @app.route("/offline.html")
     def offline():
         """Serve offline page for service worker."""
         return render_template("errors/offline.html")

@@ -2,8 +2,8 @@
 # Save as `tree.py` in your project root
 # Usage: python tree.py [max_depth]
 
-from pathlib import Path
 import argparse
+from pathlib import Path
 
 # Color codes
 COLORS = {

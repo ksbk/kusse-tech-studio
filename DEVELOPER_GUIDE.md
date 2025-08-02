@@ -105,7 +105,7 @@ make dev-build
 make dev-down
 ```
 
-```
+````
 
 #### Option 2: Local Python Environment
 
@@ -125,19 +125,19 @@ npm run build
 
 # Watch mode for development
 npm run watch
-```
+````
 
 ### Common Development Commands
 
-| Command | Description |
-|---------|-------------|
-| `make dev` | Start development environment |
-| `make dev-build` | Rebuild and start development |
-| `make lint` | Run code linting |
-| `make format` | Auto-format code |
-| `make security-scan` | Run security scans |
-| `make clean-cache` | Clean Python cache files |
-| `make test` | Run test suite |
+| Command              | Description                   |
+| -------------------- | ----------------------------- |
+| `make dev`           | Start development environment |
+| `make dev-build`     | Rebuild and start development |
+| `make lint`          | Run code linting              |
+| `make format`        | Auto-format code              |
+| `make security-scan` | Run security scans            |
+| `make clean-cache`   | Clean Python cache files      |
+| `make test`          | Run test suite                |
 
 ## 🧪 Testing
 
@@ -234,11 +234,11 @@ services:
 
 ### GitHub Actions Workflows
 
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| **CI** | Push, PR | Linting, testing, security scans |
-| **Frontend** | Frontend changes | Build and test frontend assets |
-| **Security** | Schedule, Push | Security vulnerability scans |
+| Workflow     | Trigger          | Purpose                          |
+| ------------ | ---------------- | -------------------------------- |
+| **CI**       | Push, PR         | Linting, testing, security scans |
+| **Frontend** | Frontend changes | Build and test frontend assets   |
+| **Security** | Schedule, Push   | Security vulnerability scans     |
 
 ### Pipeline Stages
 
@@ -270,7 +270,7 @@ services:
 
 - **main**: Requires PR review, passing CI
 - **develop**: Automatic testing, staging deployment
-- **feature/***: Full CI pipeline
+- **feature/\***: Full CI pipeline
 
 ## ✨ Code Quality
 
@@ -336,15 +336,16 @@ make docker-security-scan
 
 ### Deployment Environments
 
-| Environment | URL | Purpose |
-|-------------|-----|---------|
-| **Development** | localhost:5000 | Local development |
-| **Staging** | staging.kussetech.studio | Pre-production testing |
-| **Production** | kussetech.studio | Live application |
+| Environment     | URL                      | Purpose                |
+| --------------- | ------------------------ | ---------------------- |
+| **Development** | localhost:5000           | Local development      |
+| **Staging**     | staging.kussetech.studio | Pre-production testing |
+| **Production**  | kussetech.studio         | Live application       |
 
 ### Deployment Process
 
 1. **Feature Development**
+
    ```bash
    git checkout -b feature/new-feature
    # Make changes
@@ -390,6 +391,7 @@ FLASK_DEBUG=False
 ### Common Issues
 
 #### Port Already in Use
+
 ```bash
 # Find process using port 5000
 lsof -i :5000
@@ -402,6 +404,7 @@ PORT=5001 make dev
 ```
 
 #### Docker Issues
+
 ```bash
 # Reset Docker environment
 make docker-clean
@@ -415,6 +418,7 @@ make dev-build
 ```
 
 #### Frontend Build Issues
+
 ```bash
 # Clear Node.js cache
 npm cache clean --force
@@ -428,6 +432,7 @@ npm run build
 ```
 
 #### Database Issues
+
 ```bash
 # Reset development database
 make db-reset

@@ -1,38 +1,38 @@
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import legacy from '@vitejs/plugin-legacy';
+import { defineConfig } from "vite";
+import { resolve } from "path";
+import legacy from "@vitejs/plugin-legacy";
 
 export default defineConfig({
   // Set root to frontend directory
-  root: 'frontend',
-  
+  root: "frontend",
+
   // Entry point configuration
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'frontend/src/scripts/app/main.js'),
+        main: resolve(__dirname, "frontend/src/scripts/app/main.js"),
       },
       output: {
-        dir: resolve(__dirname, 'app/static/dist'),
-        entryFileNames: 'js/[name].js',
-        chunkFileNames: 'js/[name]-[hash].js',
+        dir: resolve(__dirname, "app/static/dist"),
+        entryFileNames: "js/[name].js",
+        chunkFileNames: "js/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.css')) {
-            return 'css/[name][extname]';
+          if (assetInfo.name.endsWith(".css")) {
+            return "css/[name][extname]";
           }
           if (assetInfo.name.match(/\.(png|svg|jpg|jpeg|gif)$/i)) {
-            return 'images/[name][extname]';
+            return "images/[name][extname]";
           }
           if (assetInfo.name.match(/\.(woff|woff2|eot|ttf|otf)$/i)) {
-            return 'fonts/[name][extname]';
+            return "fonts/[name][extname]";
           }
-          return 'assets/[name]-[hash][extname]';
+          return "assets/[name]-[hash][extname]";
         },
       },
     },
-    outDir: resolve(__dirname, 'app/static/dist'),
-    assetsDir: '',
-    sourcemap: process.env.NODE_ENV === 'production' ? true : 'inline',
+    outDir: resolve(__dirname, "app/static/dist"),
+    assetsDir: "",
+    sourcemap: process.env.NODE_ENV === "production" ? true : "inline",
     emptyOutDir: true,
     manifest: true, // Enable manifest for Flask integration
   },
@@ -53,19 +53,19 @@ export default defineConfig({
   // Resolve configuration (equivalent to webpack aliases)
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'frontend/src'),
-      '@scripts': resolve(__dirname, 'frontend/src/scripts'),
-      '@styles': resolve(__dirname, 'frontend/src/styles'),
-      '@assets': resolve(__dirname, 'frontend/src/assets'),
-      '@components': resolve(__dirname, 'frontend/src/components'),
-      '@images': resolve(__dirname, 'frontend/src/assets/images'),
+      "@": resolve(__dirname, "frontend/src"),
+      "@scripts": resolve(__dirname, "frontend/src/scripts"),
+      "@styles": resolve(__dirname, "frontend/src/styles"),
+      "@assets": resolve(__dirname, "frontend/src/assets"),
+      "@components": resolve(__dirname, "frontend/src/components"),
+      "@images": resolve(__dirname, "frontend/src/assets/images"),
     },
   },
 
   // Plugins
   plugins: [
     legacy({
-      targets: ['defaults', 'not IE 11'],
+      targets: ["defaults", "not IE 11"],
     }),
   ],
 
@@ -80,10 +80,10 @@ export default defineConfig({
   },
 
   // Base path configuration
-  base: '/static/dist/',
+  base: "/static/dist/",
 
   // Define environment variables
   define: {
-    __DEV__: process.env.NODE_ENV === 'development',
+    __DEV__: process.env.NODE_ENV === "development",
   },
 });

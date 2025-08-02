@@ -61,6 +61,7 @@ docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
+
 - Docker and Docker Compose installed
 - Environment files configured in `/envs/` directory
 
@@ -85,16 +86,18 @@ docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 ### Common Development Workflow
 
 1. **Start Development Environment**
+
    ```bash
    # Using Makefile (recommended)
    make dev
-   
+
    # Or directly with Docker Compose
    cd infra
    docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up
    ```
 
 2. **View Logs**
+
    ```bash
    make dev-logs
    ```
@@ -106,11 +109,11 @@ docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d
 
 ### Environment Management
 
-| Environment | Makefile Command | Direct Command |
-|-------------|------------------|----------------|
-| **Development** | `make dev` | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up` |
-| **Staging** | `make staging` | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml up -d` |
-| **Production** | `make prod` | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d` |
+| Environment     | Makefile Command | Direct Command                                                                                 |
+| --------------- | ---------------- | ---------------------------------------------------------------------------------------------- |
+| **Development** | `make dev`       | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.development.yml up`   |
+| **Staging**     | `make staging`   | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.staging.yml up -d`    |
+| **Production**  | `make prod`      | `cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d` |
 
 ### Local Development Customization
 
@@ -129,7 +132,7 @@ services:
     # Example: Override environment variables
     environment:
       - DEBUG_LEVEL=verbose
-      
+
   # Example: Add a local service
   localdb:
     image: postgres:15-alpine
@@ -204,6 +207,7 @@ make prod-down     # Stop services
 ### Environment-Specific Examples
 
 #### Development with Custom Overrides
+
 ```bash
 # Copy the template for local customization
 cp infra/docker-compose.override.yml.template infra/docker-compose.override.yml
@@ -214,6 +218,7 @@ make dev
 ```
 
 #### Staging with Database Migration
+
 ```bash
 # Deploy staging with database
 make staging
@@ -224,6 +229,7 @@ make staging-logs
 ```
 
 #### Production Zero-Downtime Deployment
+
 ```bash
 # Scale up new instances
 cd infra && docker-compose -f docker-compose.base.yml -f docker-compose.production.yml up -d --scale web=2

@@ -4,9 +4,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -18,8 +16,5 @@
     "quotes": ["error", "single"],
     "semi": ["error", "never"]
   },
-  "ignorePatterns": [
-    "node_modules/",
-    "app/static/dist/"
-  ]
+  "ignorePatterns": ["node_modules/", "app/static/dist/"]
 }

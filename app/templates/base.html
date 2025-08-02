@@ -1,112 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}KusseTechStudio{% endblock %}</title>
-    
+
     <!-- Meta Description -->
-    <meta name="description" content="{% block meta_description %}Professional Python development and data automation services in Iceland{% endblock %}">
-    
+    <meta
+      name="description"
+      content="{% block meta_description %}Professional Python development and data automation services in Iceland{% endblock %}"
+    />
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <!-- Custom CSS -->
     <style>
-        /* Custom dark mode and theme variables */
-        :root {
-            --theme-primary: #3b82f6;
-            --theme-secondary: #1e40af;
-            --theme-accent: #10b981;
-        }
-        
-        .dark {
-            --theme-primary: #60a5fa;
-            --theme-secondary: #3b82f6;
-            --theme-accent: #34d399;
-        }
-        
-        /* Smooth transitions */
-        * {
-            transition-property: color, background-color, border-color;
-            transition-duration: 200ms;
-            transition-timing-function: ease-in-out;
-        }
-        
-        /* Loading state */
-        body.loading {
-            opacity: 0;
-        }
-        
-        body.loaded {
-            opacity: 1;
-            transition: opacity 0.3s ease-in-out;
-        }
+      /* Custom dark mode and theme variables */
+      :root {
+        --theme-primary: #3b82f6;
+        --theme-secondary: #1e40af;
+        --theme-accent: #10b981;
+      }
+
+      .dark {
+        --theme-primary: #60a5fa;
+        --theme-secondary: #3b82f6;
+        --theme-accent: #34d399;
+      }
+
+      /* Smooth transitions */
+      * {
+        transition-property: color, background-color, border-color;
+        transition-duration: 200ms;
+        transition-timing-function: ease-in-out;
+      }
+
+      /* Loading state */
+      body.loading {
+        opacity: 0;
+      }
+
+      body.loaded {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
     </style>
-    
+
     {% block head %}{% endblock %}
-</head>
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white loading">
-    
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white loading">
     <!-- Header/Navigation -->
     {% include "components/_header.html" %}
-    
+
     <!-- Main Content -->
     <main id="main-content" class="min-h-screen">
-        {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
     </main>
-    
+
     <!-- Footer -->
     {% include "partials/_footer.html" %}
-    
+
     <!-- Vite Assets -->
-    <link rel="stylesheet" href="{{ vite_asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ vite_asset('css/main.css') }}" />
     <script src="{{ vite_asset('js/main.js') }}"></script>
-    
+
     <!-- PostHog Analytics -->
     {% if not config.DEBUG and config.POSTHOG_API_KEY %}
     <script>
-        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);var n=t;return void 0!==t&&(n=t[e]=function(){n.__a.push(arguments)}),n.__a=[],n}(p=t.createElement("script")).async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-        posthog.init("{{ config.POSTHOG_API_KEY }}", { api_host: "{{ config.POSTHOG_HOST or 'https://app.posthog.com' }}" });
-        
-        // Track page views
-        posthog.capture('$pageview');
+      !(function (t, e) {
+        var o, n, p, r;
+        e.__SV ||
+          ((window.posthog = e),
+          (e._i = []),
+          (e.init = function (i, s, a) {
+            function g(t, e) {
+              var o = e.split(".");
+              2 == o.length && ((t = t[o[0]]), (e = o[1]));
+              var n = t;
+              return (
+                void 0 !== t &&
+                  (n = t[e] =
+                    function () {
+                      n.__a.push(arguments);
+                    }),
+                (n.__a = []),
+                n
+              );
+            }
+            (((p = t.createElement("script")).async = !0),
+              (p.src = s.api_host + "/static/array.js"),
+              (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(
+                p,
+                r,
+              ));
+            var u = e;
+            for (
+              void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                u.people = u.people || [],
+                u.toString = function (t) {
+                  var e = "posthog";
+                  return (
+                    "posthog" !== a && (e += "." + a),
+                    t || (e += " (stub)"),
+                    e
+                  );
+                },
+                u.people.toString = function () {
+                  return u.toString(1) + ".people (stub)";
+                },
+                o =
+                  "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(
+                    " ",
+                  ),
+                n = 0;
+              n < o.length;
+              n++
+            )
+              g(u, o[n]);
+            e._i.push([i, s, a]);
+          }),
+          (e.__SV = 1));
+      })(document, window.posthog || []);
+      posthog.init("{{ config.POSTHOG_API_KEY }}", {
+        api_host: "{{ config.POSTHOG_HOST or 'https://app.posthog.com' }}",
+      });
+
+      // Track page views
+      posthog.capture("$pageview");
     </script>
     {% endif %}
-    
+
     <!-- Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/static/sw.js')
-                    .then((registration) => {
-                        console.log('Service Worker registered successfully:', registration.scope);
-                        
-                        // Check for updates
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // New content is available
-                                    if (confirm('New content is available! Click OK to refresh.')) {
-                                        window.location.reload();
-                                    }
-                                }
-                            });
-                        });
-                    })
-                    .catch((error) => {
-                        console.log('Service Worker registration failed:', error);
-                    });
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/static/sw.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registered successfully:",
+                registration.scope,
+              );
+
+              // Check for updates
+              registration.addEventListener("updatefound", () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener("statechange", () => {
+                  if (
+                    newWorker.state === "installed" &&
+                    navigator.serviceWorker.controller
+                  ) {
+                    // New content is available
+                    if (
+                      confirm("New content is available! Click OK to refresh.")
+                    ) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
             });
-        }
+        });
+      }
     </script>
-    
+
     <!-- Additional Scripts -->
     {% block scripts %}{% endblock %}
-    
-</body>
+  </body>
 </html>

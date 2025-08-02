@@ -183,7 +183,7 @@ This directory contains environment-specific configuration files.
 ## Files
 
 - `.env.development` - Development environment settings
-- `.env.staging` - Staging environment settings  
+- `.env.staging` - Staging environment settings
 - `.env.production` - Production environment settings
 
 ## Security

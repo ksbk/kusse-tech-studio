@@ -5,11 +5,13 @@ This directory contains active project management documentation and processes fo
 ## 📄 Current Documents
 
 ### Project Deployment
+
 - **`SHIP-CHECKLIST.md`** - Pre-deployment checklist and validation procedures
 
 ## 🎯 Purpose
 
 This directory serves as the central location for:
+
 - Active project management templates and checklists
 - Deployment procedures and validation steps
 - Process documentation for development workflow
@@ -23,4 +25,4 @@ This directory serves as the central location for:
 
 ---
 
-*For completed milestone documentation, see: `docs/archive/milestones/`*
+_For completed milestone documentation, see: `docs/archive/milestones/`_

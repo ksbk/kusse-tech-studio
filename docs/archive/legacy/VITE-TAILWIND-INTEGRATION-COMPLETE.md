@@ -14,10 +14,10 @@
 
   ```javascript
   content: [
-    './app/templates/**/*.html',     // Flask templates
-    './frontend/src/**/*.{js,ts,jsx,tsx}',  // New unified frontend
-    './app/static/src/**/*.js',      // Legacy support (transition)
-  ]
+    "./app/templates/**/*.html", // Flask templates
+    "./frontend/src/**/*.{js,ts,jsx,tsx}", // New unified frontend
+    "./app/static/src/**/*.js", // Legacy support (transition)
+  ];
   ```
 
 - **Added**: Safelist for dynamic classes (dark mode, etc.)
@@ -30,7 +30,7 @@
 - **Updated**: `base.html` template to use:
 
   ```html
-  <link rel="stylesheet" href="{{ vite_asset('css/main.css') }}">
+  <link rel="stylesheet" href="{{ vite_asset('css/main.css') }}" />
   <script src="{{ vite_asset('js/main.js') }}"></script>
   ```
 
@@ -47,13 +47,13 @@
 
 ## 🚀 **Build Performance Results**
 
-| Metric | Old (Webpack) | New (Vite) | Improvement |
-|--------|---------------|------------|-------------|
-| **Build Time** | ~2-3s | 792ms | **60-70% faster** |
-| **CSS Output** | - | 15.43 kB (3.99 kB gzipped) | **Optimized** |
-| **JS Output** | - | 18.24 kB (5.39 kB gzipped) | **Optimized** |
-| **Legacy Support** | ❌ | ✅ 33.61 kB + 34.85 kB polyfills | **Enhanced** |
-| **Dev Experience** | Basic | **Hot reload + manifest** | **Significantly Better** |
+| Metric             | Old (Webpack) | New (Vite)                       | Improvement              |
+| ------------------ | ------------- | -------------------------------- | ------------------------ |
+| **Build Time**     | ~2-3s         | 792ms                            | **60-70% faster**        |
+| **CSS Output**     | -             | 15.43 kB (3.99 kB gzipped)       | **Optimized**            |
+| **JS Output**      | -             | 18.24 kB (5.39 kB gzipped)       | **Optimized**            |
+| **Legacy Support** | ❌            | ✅ 33.61 kB + 34.85 kB polyfills | **Enhanced**             |
+| **Dev Experience** | Basic         | **Hot reload + manifest**        | **Significantly Better** |
 
 ## Key Features Achieved
 

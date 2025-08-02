@@ -25,15 +25,15 @@ class OpenAIClient:
         try:
             prompt = f"""
             Create a professional project description for a portfolio website.
-            
+
             Project: {project_title}
             Technologies: {', '.join(technologies)}
-            
+
             Write a compelling 2-3 sentence description that highlights:
             - The problem solved
             - Technical approach
             - Business impact
-            
+
             Keep it professional and engaging for potential clients.
             """
 
@@ -66,10 +66,10 @@ class OpenAIClient:
         try:
             prompt = f"""
             Enhance this service description for a professional portfolio:
-            
+
             Service: {service_title}
             Current description: {current_description}
-            
+
             Rewrite to be more compelling and professional while keeping the same length.
             Focus on client benefits and technical expertise.
             """
@@ -101,13 +101,13 @@ class OpenAIClient:
         try:
             prompt = f"""
             Create a blog post outline for a technical blog about: {topic}
-            
+
             Return a JSON structure with:
             - title: Engaging blog post title
             - introduction: Brief intro paragraph
             - sections: Array of section objects with title and key_points
             - conclusion: Brief conclusion
-            
+
             Focus on practical, actionable content for developers.
             """
 

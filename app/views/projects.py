@@ -2,8 +2,8 @@
 
 from flask import Blueprint, abort, render_template
 
+from app.core.utils import track_event, track_route_event
 from app.models.project import ProjectRepository
-from app.core.utils import track_route_event, track_event
 
 # Create blueprint
 projects_bp = Blueprint("projects", __name__, url_prefix="/projects")
@@ -17,13 +17,13 @@ project_repo = ProjectRepository()
 def index():
     """Projects listing page."""
     projects_list = project_repo.get_all()
-    
+
     # Track additional project listing metrics
-    track_event("Projects Listed", {
-        "project_count": len(projects_list),
-        "page_type": "projects_index"
-    })
-    
+    track_event(
+        "Projects Listed",
+        {"project_count": len(projects_list), "page_type": "projects_index"},
+    )
+
     return render_template(
         "pages/projects.html",
         projects=projects_list,
@@ -39,18 +39,20 @@ def detail(project_id):
 
     if not project:
         # Track 404 events for projects
-        track_event("Project Not Found", {
-            "project_id": project_id,
-            "error_type": "404"
-        })
+        track_event(
+            "Project Not Found", {"project_id": project_id, "error_type": "404"}
+        )
         abort(404)
 
     # Track successful project views
-    track_event("Project Detail Viewed", {
-        "project_id": project_id,
-        "project_title": project.title,
-        "project_type": getattr(project, 'type', 'unknown')
-    })
+    track_event(
+        "Project Detail Viewed",
+        {
+            "project_id": project_id,
+            "project_title": project.title,
+            "project_type": getattr(project, "type", "unknown"),
+        },
+    )
 
     return render_template(
         "project_detail.html",

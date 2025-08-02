@@ -1,6 +1,6 @@
 # Docker Compose Override Template for Local Development
 # Copy this file to docker-compose.override.yml and customize as needed
-# 
+#
 # Usage:
 #   cp docker-compose.override.yml.template docker-compose.override.yml
 #   # Edit docker-compose.override.yml with your local customizations
@@ -17,12 +17,12 @@ services:
     #   - DEBUG_LEVEL=verbose
     #   - LOG_LEVEL=debug
     #   - CUSTOM_ENV_VAR=local_value
-    
+
     # Uncomment to mount additional local directories
     # volumes:
     #   - ../local-data:/app/local-data
     #   - ../custom-configs:/app/configs
-    
+
     # Uncomment to expose additional ports for debugging
     # ports:
     #   - "8080:8080"  # Debug port

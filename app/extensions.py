@@ -1,6 +1,7 @@
 """Flask extensions initialization."""
 
 import os
+
 # Import extensions here as they're added
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_mail import Mail
@@ -21,23 +22,27 @@ def init_sentry(app):
                 import sentry_sdk
                 from sentry_sdk.integrations.flask import FlaskIntegration
                 from sentry_sdk.integrations.logging import LoggingIntegration
-                
+
                 # Configure logging integration
                 logging_integration = LoggingIntegration(
-                    level=None,        # Capture records from INFO level and above
-                    event_level=None   # Send records as breadcrumbs
+                    level=None,  # Capture records from INFO level and above
+                    event_level=None,  # Send records as breadcrumbs
                 )
-                
+
                 sentry_sdk.init(
                     dsn=sentry_dsn,
                     integrations=[
-                        FlaskIntegration(transaction_style='endpoint'),
-                        logging_integration
+                        FlaskIntegration(transaction_style="endpoint"),
+                        logging_integration,
                     ],
                     # Set traces_sample_rate to 1.0 to capture 100% of transactions
                     # We recommend adjusting this value in production
-                    traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.1")),
-                    profiles_sample_rate=float(os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1")),
+                    traces_sample_rate=float(
+                        os.getenv("SENTRY_TRACES_SAMPLE_RATE", "0.1")
+                    ),
+                    profiles_sample_rate=float(
+                        os.getenv("SENTRY_PROFILES_SAMPLE_RATE", "0.1")
+                    ),
                     # Set environment
                     environment=os.getenv("FLASK_ENV", "production"),
                     # Set release version
@@ -62,6 +67,7 @@ def init_posthog(app):
     if not app.debug:
         try:
             import posthog
+
             api_key = os.getenv("POSTHOG_API_KEY")
             if api_key:
                 posthog.api_key = api_key
@@ -82,7 +88,7 @@ def init_extensions(app):
     # db.init_app(app)
     # mail.init_app(app)
     # csrf.init_app(app)
-    
+
     # Initialize error tracking and analytics
     init_sentry(app)
     init_posthog(app)

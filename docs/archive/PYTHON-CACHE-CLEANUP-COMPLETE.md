@@ -76,14 +76,14 @@ python scripts/clean-pycaches.py
 ```python
 def clean_python_caches():
     """Clean Python cache files and directories safely."""
-    
+
     # Intelligent exclusion rules
     exclude_dirs = {
         'venv', '.venv', 'env', '.env',
         'node_modules', '.git', '.github',
         'site-packages', 'dist-packages'
     }
-    
+
     # Comprehensive file type coverage
     # - __pycache__ directories
     # - .pyc compiled files
@@ -98,7 +98,7 @@ clean:
     @echo "🧹 Cleaning up temporary files..."
     @python scripts/clean-pycaches.py
     # ... additional cleanup tasks
-    
+
 # Dedicated Python cache cleanup
 clean-pycache:
     @python scripts/clean-pycaches.py

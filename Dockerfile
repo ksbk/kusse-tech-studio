@@ -2,7 +2,7 @@
 # Multi-Stage Docker Build for Production
 # =========================================
 
-# Stage 1: Builder - Install dependencies and build assets  
+# Stage 1: Builder - Install dependencies and build assets
 FROM python:3.11-slim as builder
 
 # Set build arguments

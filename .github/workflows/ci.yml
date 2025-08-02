@@ -77,11 +77,11 @@ jobs:
         run: |
           echo "Validating development configuration..."
           docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.development.yml config --quiet
-          
+
           echo "Validating staging configuration..."
           docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.staging.yml config --quiet
-          
+
           echo "Validating production configuration..."
           docker-compose -f infra/docker-compose.base.yml -f infra/docker-compose.production.yml config --quiet
-          
+
           echo "✅ All Docker Compose configurations are valid"
