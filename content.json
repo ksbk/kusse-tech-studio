@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "headline": "Transforming Ideas into",
+    "subheadline": "Intelligent Software Solutions",
+    "value_proposition": "Empowering businesses with custom-built software, intelligent automation, and data-driven solutions — delivered from Iceland to the world.",
+    "cta_primary": "View My Work",
+    "cta_secondary": "Get in Touch"
+  },
+  "about": {
+    "title": "About KusseTechStudio",
+    "description": "I'm a passionate Python developer specializing in data automation, web scraping, and business intelligence solutions. Based in Iceland, I help companies worldwide streamline their operations and unlock insights from their data.",
+    "skills": [
+      "Python Development",
+      "Data Automation",
+      "Web Scraping",
+      "API Integration",
+      "Business Intelligence",
+      "Process Optimization"
+    ],
+    "experience_years": "5+",
+    "projects_completed": "50+",
+    "client_satisfaction": "100%"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Ready to Transform Your Business?",
+    "description": "Let's discuss how I can help automate your processes and unlock the power of your data.",
+    "email": "hello@kussetechstudio.com",
+    "phone": "+354-XXX-XXXX",
+    "location": "Reykjavik, Iceland"
+  },
+  "meta": {
+    "site_title": "KusseTechStudio - Python Development & Data Automation",
+    "site_description": "Professional Python development and data automation services in Iceland. Specializing in web scraping, process automation, and business intelligence solutions.",
+    "keywords": "Python development, data automation, web scraping, Iceland, business intelligence, API integration, process optimization, KusseTechStudio"
+  }
+}
