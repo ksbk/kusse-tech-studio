@@ -14,7 +14,7 @@ module.exports = {
         dataLayer: "readonly",
     },
     rules: {
-        quotes: ["error", "single"],
+        quotes: ["error", "double"],
         semi: ["error", "always"],
         "no-unused-vars": ["warn"],
         "no-console": ["off"],
