@@ -9,11 +9,16 @@ module.exports = {
         ecmaVersion: "latest",
         sourceType: "module",
     },
+    globals: {
+        gtag: "readonly",
+        dataLayer: "readonly",
+    },
     rules: {
         quotes: ["error", "single"],
         semi: ["error", "always"],
         "no-unused-vars": ["warn"],
         "no-console": ["off"],
+        "no-undef": ["off"],
         indent: ["error", 2],
         "comma-dangle": ["error", "never"],
     },

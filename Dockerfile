@@ -29,7 +29,7 @@ COPY --chown=appuser:appuser . .
 # Build frontend assets if package.json exists
 RUN if [ -f "package.json" ]; then \
         apt-get update && apt-get install -y --no-install-recommends nodejs npm && \
-        npm ci --only=production && \
+        npm ci && \
         npm run build && \
         apt-get remove -y nodejs npm && \
         apt-get autoremove -y && \
