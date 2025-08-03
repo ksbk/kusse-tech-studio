@@ -336,13 +336,13 @@ logs-all-prod:
 
 # Run linting
 lint:
-	flake8 app/ --max-line-length=88 --extend-ignore=E203,W503
-	black --check app/
+	ruff check app/
+	ruff check tests/
 
 # Format code
 format:
-	black app/
-	isort app/
+	ruff format app/
+	ruff format tests/
 
 # Enhanced linting with pre-commit integration
 lint-all: lint format security-scan check-env
