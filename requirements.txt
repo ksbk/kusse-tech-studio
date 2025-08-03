@@ -7,4 +7,4 @@ requests==2.32.4
 Flask-Mail==0.10.0
 posthog==3.8.0
 pip-audit==2.9.0
-sentry-sdk[flask]==2.20.0
+sentry-sdk[flask]==2.34.1
