@@ -14,91 +14,91 @@ import shutil
 import sys
 from pathlib import Path
 
+# Directories to exclude from cleanup
+EXCLUDE_DIRS = {
+    "venv",
+    ".venv",
+    "env",
+    ".env",
+    "node_modules",
+    ".git",
+    ".github",
+    "site-packages",
+    "dist-packages",
+}
 
-def clean_python_caches():
-    """Clean Python cache files and directories safely."""
 
-    # Directories to exclude from cleanup
-    exclude_dirs = {
-        "venv",
-        ".venv",
-        "env",
-        ".env",
-        "node_modules",
-        ".git",
-        ".github",
-        "site-packages",
-        "dist-packages",
-    }
+def should_skip_path(path):
+    """Check if a path should be skipped based on excluded directories."""
+    return any(excluded in path.parts for excluded in EXCLUDE_DIRS)
 
-    # Start from current directory
-    root_path = Path(".")
 
-    # Track what we're cleaning
-    pycache_count = 0
-    pyc_count = 0
-    pyo_count = 0
-
-    print("🧹 Starting Python cache cleanup...")
-    print(f"Scanning from: {root_path.resolve()}")
-    print()
-
-    # Clean __pycache__ directories
+def clean_pycache_directories(root_path):
+    """Clean __pycache__ directories and return count."""
+    count = 0
     print("Removing __pycache__ directories:")
+
     for pycache in root_path.rglob("__pycache__"):
-        # Check if this cache dir is in an excluded directory
-        if any(excluded in pycache.parts for excluded in exclude_dirs):
+        if should_skip_path(pycache):
             print(f"  ⏭️  Skipped (excluded): {pycache}")
             continue
 
         try:
             shutil.rmtree(pycache, ignore_errors=True)
             print(f"  ✅ Removed: {pycache}")
-            pycache_count += 1
+            count += 1
         except Exception as e:
             print(f"  ❌ Failed to remove {pycache}: {e}")
 
-    print()
+    return count
 
-    # Clean .pyc files
-    print("Removing .pyc files:")
-    for pyc in root_path.rglob("*.pyc"):
-        # Check if this pyc file is in an excluded directory
-        if any(excluded in pyc.parts for excluded in exclude_dirs):
-            print(f"  ⏭️  Skipped (excluded): {pyc}")
+
+def clean_python_files(root_path, pattern, file_type):
+    """Clean Python files matching a pattern and return count."""
+    count = 0
+    print(f"\nRemoving {file_type} files:")
+
+    for file_path in root_path.rglob(pattern):
+        if should_skip_path(file_path):
+            print(f"  ⏭️  Skipped (excluded): {file_path}")
             continue
 
         try:
-            pyc.unlink(missing_ok=True)
-            print(f"  ✅ Removed: {pyc}")
-            pyc_count += 1
+            file_path.unlink(missing_ok=True)
+            print(f"  ✅ Removed: {file_path}")
+            count += 1
         except Exception as e:
-            print(f"  ❌ Failed to remove {pyc}: {e}")
+            print(f"  ❌ Failed to remove {file_path}: {e}")
 
-    print()
+    return count
 
-    # Clean .pyo files (Python optimized bytecode)
-    print("Removing .pyo files:")
-    for pyo in root_path.rglob("*.pyo"):
-        # Check if this pyo file is in an excluded directory
-        if any(excluded in pyo.parts for excluded in exclude_dirs):
-            print(f"  ⏭️  Skipped (excluded): {pyo}")
-            continue
 
-        try:
-            pyo.unlink(missing_ok=True)
-            print(f"  ✅ Removed: {pyo}")
-            pyo_count += 1
-        except Exception as e:
-            print(f"  ❌ Failed to remove {pyo}: {e}")
+def print_summary(pycache_count, pyc_count, pyo_count):
+    """Print cleanup summary."""
+    total = pycache_count + pyc_count + pyo_count
 
-    print()
-    print("🎉 Python cache cleanup completed!")
+    print("\n�� Python cache cleanup completed!")
     print("Summary:")
     print(f"  📁 __pycache__ directories removed: {pycache_count}")
     print(f"  🐍 .pyc files removed: {pyc_count}")
     print(f"  ⚡ .pyo files removed: {pyo_count}")
-    print(f"  📦 Total items cleaned: {pycache_count + pyc_count + pyo_count}")
+    print(f"  📦 Total items cleaned: {total}")
+
+
+def clean_python_caches():
+    """Clean Python cache files and directories safely."""
+    root_path = Path(".")
+
+    print("🧹 Starting Python cache cleanup...")
+    print(f"Scanning from: {root_path.resolve()}")
+    print()
+
+    # Clean different types of cache files
+    pycache_count = clean_pycache_directories(root_path)
+    pyc_count = clean_python_files(root_path, "*.pyc", ".pyc")
+    pyo_count = clean_python_files(root_path, "*.pyo", ".pyo")
+
+    print_summary(pycache_count, pyc_count, pyo_count)
 
 
 if __name__ == "__main__":

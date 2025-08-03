@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feature/vite-migration]
   pull_request:
     branches: [main]
 
@@ -75,6 +75,12 @@ jobs:
           file: ./coverage.xml
           flags: unittests
           name: codecov-umbrella
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+          disable_search: true
+          verbose: true
+        continue-on-error: true
+        timeout-minutes: 2
 
   security:
     name: Security Scan

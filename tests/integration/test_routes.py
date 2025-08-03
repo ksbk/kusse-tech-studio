@@ -29,7 +29,7 @@ class TestRoutes:
 
     def test_projects_page(self, client):
         """Test projects page."""
-        response = client.get("/projects")
+        response = client.get("/projects/")
         assert response.status_code == 200
 
     def test_contact_page(self, client):
