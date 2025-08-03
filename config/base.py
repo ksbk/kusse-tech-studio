@@ -72,4 +72,3 @@ class Config:
     @staticmethod
     def init_app(app):
         """Initialize application with this configuration."""
-        pass

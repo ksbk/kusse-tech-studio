@@ -114,7 +114,7 @@ def contact():
             )
 
         except Exception as e:
-            current_app.logger.error(f"Contact form error: {str(e)}")
+            current_app.logger.error(f"Contact form error: {e!s}")
             track_event(
                 "Contact Form Error",
                 {"error_type": type(e).__name__, "error_message": str(e)},

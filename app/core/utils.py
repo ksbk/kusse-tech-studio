@@ -35,7 +35,9 @@ def truncate_text(text, length=100, suffix="..."):
     return text[:length].rsplit(" ", 1)[0] + suffix
 
 
-def track_event(name: str, metadata: dict = None, distinct_id: str = "anonymous"):
+def track_event(
+    name: str, metadata: dict | None = None, distinct_id: str = "anonymous"
+):
     """
     Track user events with PostHog (disabled in debug mode).
 
@@ -117,7 +119,7 @@ def get_vite_asset(filename):
             )
 
         if os.path.exists(manifest_path):
-            with open(manifest_path, "r") as f:
+            with open(manifest_path) as f:
                 manifest = json.load(f)
 
             # Look for the file in manifest

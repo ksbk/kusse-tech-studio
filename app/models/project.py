@@ -1,7 +1,6 @@
 """Project model for portfolio data management."""
 
 from dataclasses import dataclass
-from typing import List, Optional
 
 
 @dataclass
@@ -11,9 +10,9 @@ class Project:
     id: int
     title: str
     description: str
-    technologies: List[str]
-    github_url: Optional[str]
-    demo_url: Optional[str]
+    technologies: list[str]
+    github_url: str | None
+    demo_url: str | None
     image: str
     icon: str
     featured: bool
@@ -53,7 +52,7 @@ class Service:
     title: str
     description: str
     icon: str
-    features: List[str]
+    features: list[str]
 
     @property
     def feature_list(self) -> str:
@@ -247,23 +246,23 @@ class ProjectRepository:
     ]
 
     @classmethod
-    def get_all(cls) -> List[Project]:
+    def get_all(cls) -> list[Project]:
         """Get all projects."""
         return [Project.from_dict(data) for data in cls._projects_data]
 
     @classmethod
-    def get_featured(cls) -> List[Project]:
+    def get_featured(cls) -> list[Project]:
         """Get featured projects."""
         return [project for project in cls.get_all() if project.is_featured]
 
     @classmethod
-    def get_by_id(cls, project_id: int) -> Optional[Project]:
+    def get_by_id(cls, project_id: int) -> Project | None:
         """Get project by ID."""
         projects = cls.get_all()
         return next((p for p in projects if p.id == project_id), None)
 
     @classmethod
-    def get_by_category(cls, category: str) -> List[Project]:
+    def get_by_category(cls, category: str) -> list[Project]:
         """Get projects by category."""
         return [project for project in cls.get_all() if project.category == category]
 
@@ -308,6 +307,6 @@ class ServiceRepository:
     ]
 
     @classmethod
-    def get_all(cls) -> List[Service]:
+    def get_all(cls) -> list[Service]:
         """Get all services."""
         return [Service.from_dict(data) for data in cls._services_data]

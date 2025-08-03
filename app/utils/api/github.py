@@ -1,6 +1,5 @@
 """GitHub API client for repository information."""
 
-from typing import Dict, List, Optional
 
 import requests
 from flask import current_app
@@ -9,7 +8,7 @@ from flask import current_app
 class GitHubClient:
     """GitHub API client for fetching repository information."""
 
-    def __init__(self, token: Optional[str] = None):
+    def __init__(self, token: str | None = None):
         """Initialize GitHub client."""
         self.token = token
         self.base_url = "https://api.github.com"
@@ -21,7 +20,7 @@ class GitHubClient:
         if self.token:
             self.headers["Authorization"] = f"Bearer {self.token}"
 
-    def get_repository(self, owner: str, repo: str) -> Optional[Dict]:
+    def get_repository(self, owner: str, repo: str) -> dict | None:
         """Get repository information."""
         try:
             url = f"{self.base_url}/repos/{owner}/{repo}"
@@ -29,15 +28,14 @@ class GitHubClient:
 
             if response.status_code == 200:
                 return response.json()
-            else:
-                current_app.logger.warning(f"GitHub API error: {response.status_code}")
-                return None
+            current_app.logger.warning(f"GitHub API error: {response.status_code}")
+            return None
 
         except requests.RequestException as e:
             current_app.logger.error(f"GitHub API request failed: {e}")
             return None
 
-    def get_user_repositories(self, username: str) -> List[Dict]:
+    def get_user_repositories(self, username: str) -> list[dict]:
         """Get user's public repositories."""
         try:
             url = f"{self.base_url}/users/{username}/repos"
@@ -50,15 +48,14 @@ class GitHubClient:
 
             if response.status_code == 200:
                 return response.json()
-            else:
-                current_app.logger.warning(f"GitHub API error: {response.status_code}")
-                return []
+            current_app.logger.warning(f"GitHub API error: {response.status_code}")
+            return []
 
         except requests.RequestException as e:
             current_app.logger.error(f"GitHub API request failed: {e}")
             return []
 
-    def get_repository_languages(self, owner: str, repo: str) -> Dict[str, int]:
+    def get_repository_languages(self, owner: str, repo: str) -> dict[str, int]:
         """Get repository language statistics."""
         try:
             url = f"{self.base_url}/repos/{owner}/{repo}/languages"
@@ -66,14 +63,13 @@ class GitHubClient:
 
             if response.status_code == 200:
                 return response.json()
-            else:
-                return {}
+            return {}
 
         except requests.RequestException as e:
             current_app.logger.error(f"GitHub languages API request failed: {e}")
             return {}
 
-    def get_repository_stats(self, owner: str, repo: str) -> Optional[Dict]:
+    def get_repository_stats(self, owner: str, repo: str) -> dict | None:
         """Get repository statistics (stars, forks, etc.)."""
         repo_data = self.get_repository(owner, repo)
 

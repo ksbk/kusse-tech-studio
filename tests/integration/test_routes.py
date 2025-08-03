@@ -5,13 +5,12 @@ import pytest
 from app import create_app
 
 
-@pytest.fixture
+@pytest.fixture()
 def client():
     """Create test client."""
     app = create_app("testing")
-    with app.test_client() as client:
-        with app.app_context():
-            yield client
+    with app.test_client() as client, app.app_context():
+        yield client
 
 
 class TestRoutes:

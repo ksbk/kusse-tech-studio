@@ -33,7 +33,6 @@ IGNORE = {
     "coverage.xml",
     "htmlcov",
     "coverage",
-    ".pytest_cache",
     "migrations",
     "tests/__snapshots__",
     ".trunk",

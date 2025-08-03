@@ -1,6 +1,5 @@
 """OpenAI API client for content generation and enhancement."""
 
-from typing import Dict, List, Optional
 
 import openai
 from flask import current_app
@@ -9,15 +8,15 @@ from flask import current_app
 class OpenAIClient:
     """OpenAI API client for content generation."""
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: str | None = None):
         """Initialize OpenAI client."""
         self.api_key = api_key or current_app.config.get("OPENAI_API_KEY")
         if self.api_key:
             openai.api_key = self.api_key
 
     def generate_project_description(
-        self, project_title: str, technologies: List[str]
-    ) -> Optional[str]:
+        self, project_title: str, technologies: list[str]
+    ) -> str | None:
         """Generate an enhanced project description."""
         if not self.api_key:
             return None
@@ -58,7 +57,7 @@ class OpenAIClient:
 
     def enhance_service_description(
         self, service_title: str, current_description: str
-    ) -> Optional[str]:
+    ) -> str | None:
         """Enhance a service description."""
         if not self.api_key:
             return None
@@ -93,7 +92,7 @@ class OpenAIClient:
             current_app.logger.error(f"OpenAI API error: {e}")
             return None
 
-    def generate_blog_post_outline(self, topic: str) -> Optional[Dict]:
+    def generate_blog_post_outline(self, topic: str) -> dict | None:
         """Generate a blog post outline."""
         if not self.api_key:
             return None
