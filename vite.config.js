@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
-import legacy from "@vitejs/plugin-legacy";
 
 export default defineConfig({
   // Entry point configuration
@@ -32,6 +31,7 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV === "production" ? true : "inline",
     emptyOutDir: true,
     manifest: true,
+    target: "es2015", // Modern browser support without legacy plugin
   },
 
   publicDir: "frontend/src/assets",
@@ -54,11 +54,8 @@ export default defineConfig({
     },
   },
 
-  plugins: [
-    legacy({
-      targets: ["defaults", "not IE 11"],
-    }),
-  ],
+  // Removed legacy plugin to fix crypto.hash error
+  plugins: [],
 
   server: {
     port: 3000,
