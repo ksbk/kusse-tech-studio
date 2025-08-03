@@ -3,7 +3,7 @@
 # =========================================
 
 # Stage 1: Builder - Install dependencies and build assets
-FROM python:3.11-slim as builder
+FROM python:3.13-slim as builder
 
 # Set build arguments
 ARG BUILD_ENV=production
@@ -43,7 +43,7 @@ RUN if [ -f "package.json" ]; then \
     fi
 
 # Stage 2: Runtime - Minimal production image
-FROM python:3.11-slim as runtime
+FROM python:3.13-slim as runtime
 
 # Set runtime labels
 LABEL maintainer="kusse@kussetechstudio.com"
