@@ -27,7 +27,7 @@ class OpenAIClient:
             Create a professional project description for a portfolio website.
 
             Project: {project_title}
-            Technologies: {', '.join(technologies)}
+            Technologies: {", ".join(technologies)}
 
             Write a compelling 2-3 sentence description that highlights:
             - The problem solved

@@ -62,7 +62,7 @@ def create_app(config_name=None):
         return Response(
             f"""User-agent: *
 Allow: /
-Sitemap: {request.url_root.rstrip('/')}/sitemap.xml""",
+Sitemap: {request.url_root.rstrip("/")}/sitemap.xml""",
             mimetype="text/plain",
         )
 
