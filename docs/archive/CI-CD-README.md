@@ -7,6 +7,7 @@ This document explains the complete CI/CD pipeline setup for the KusseTechStudio
 The CI/CD pipeline consists of:
 
 1. **Continuous Integration (CI)**
+
    - Code linting and formatting
    - Unit and integration tests
    - Security scans
@@ -144,21 +145,25 @@ cp .env.example .env
 **Jobs:**
 
 1. **Test Suite**
+
    - Python linting (flake8, black, isort)
    - Frontend linting (ESLint, Stylelint)
    - Unit tests with coverage
    - Integration tests
 
 2. **Security Scan**
+
    - Python dependency vulnerability check (safety)
    - Static code analysis (bandit)
    - SAST scanning (semgrep)
 
 3. **Build**
+
    - Multi-platform Docker image build
    - Push to Docker Hub (on main/develop)
 
 4. **Deploy Staging** (develop branch only)
+
    - SSH deployment to staging server
    - Health check verification
 
@@ -245,11 +250,13 @@ make backup         # Backup database
 ## 🔒 Security Features
 
 1. **Automated Security Scans**
+
    - Dependency vulnerability scanning
    - Static code analysis
    - Container image scanning
 
 2. **Secrets Management**
+
    - GitHub Secrets for sensitive data
    - Environment variable injection
    - SSH key management
@@ -307,11 +314,13 @@ python -c "from app import create_app; app = create_app(); print('App created su
 ## 📈 Performance Optimization
 
 1. **Docker Image Optimization**
+
    - Multi-stage builds
    - Minimal base images
    - Layer caching
 
 2. **Frontend Optimization**
+
    - Asset minification
    - Image optimization
    - Bundle splitting

@@ -25,17 +25,20 @@ The migration from Webpack to Vite has been **successfully completed** with sign
 ## 🛠️ What Was Done
 
 1. **Dependencies**
+
    - ✅ Installed Vite and plugins
    - ✅ Removed all webpack-specific packages
    - ✅ Kept SASS for SCSS processing
 
 2. **Configuration**
+
    - ✅ Created `vite.config.js` with equivalent functionality
    - ✅ Updated `package.json` scripts
    - ✅ Added ESLint configuration
    - ✅ Updated `.gitignore` for Vite cache
 
 3. **Code Updates**
+
    - ✅ Enabled SCSS imports in main.js
    - ✅ Updated entry point configuration
    - ✅ Maintained all existing functionality

@@ -161,7 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Set initial state
       element.style.opacity = "0";
       element.style.transform = "translateY(20px)";
-      element.style.transition = `opacity 0.8s ease-out ${index * 0.2}s, transform 0.8s ease-out ${index * 0.2}s`;
+      element.style.transition = `opacity 0.8s ease-out ${
+        index * 0.2
+      }s, transform 0.8s ease-out ${index * 0.2}s`;
 
       revealObserver.observe(element);
     });

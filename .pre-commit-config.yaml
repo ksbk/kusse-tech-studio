@@ -32,7 +32,7 @@ repos:
     hooks:
       - id: flake8
         name: Lint Python code with flake8
-        args: [--max-line-length=88, --extend-ignore=E203,W503]
+        args: [--max-line-length=88, --extend-ignore=E203, W503]
 
   # Security scanning
   - repo: https://github.com/PyCQA/bandit
@@ -40,7 +40,7 @@ repos:
     hooks:
       - id: bandit
         name: Security linting with Bandit
-        args: [-r, --skip=B101,B601]
+        args: [-r, --skip=B101, B601]
 
   # Web formatting
   - repo: https://github.com/pre-commit/mirrors-prettier

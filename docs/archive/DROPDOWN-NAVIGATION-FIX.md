@@ -187,11 +187,13 @@ $ python -m pytest tests/ -v
 ## 🔧 **Files Modified**
 
 1. **`app/static/src/js/main.js`**
+
    - Enhanced `setupSmoothScrollNavigation()` method
    - Added comprehensive error handling and debugging
    - Implemented animation recovery system
 
 2. **`app/static/src/js/animations.js`**
+
    - Added `triggerAnimationsInViewport()` method
    - Improved animation initialization with fallbacks
    - Enhanced CSS with progressive enhancement

@@ -243,21 +243,25 @@ services:
 ### Pipeline Stages
 
 1. **Code Quality**
+
    - Linting (flake8, eslint)
    - Formatting (black, prettier)
    - Type checking (mypy)
 
 2. **Testing**
+
    - Unit tests
    - Integration tests
    - End-to-end tests
 
 3. **Security**
+
    - Dependency scanning
    - SAST analysis
    - Container scanning
 
 4. **Build**
+
    - Docker image building
    - Frontend asset compilation
    - Artifact generation
@@ -354,11 +358,13 @@ make docker-security-scan
    ```
 
 2. **Create Pull Request**
+
    - CI pipeline runs automatically
    - Code review required
    - Merge to main after approval
 
 3. **Staging Deployment**
+
    - Automatic deployment to staging
    - Run integration tests
    - Stakeholder review

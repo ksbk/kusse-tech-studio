@@ -175,10 +175,12 @@ window.themeManager.addObserver((theme, themeData) => {
 ### **If Dark Mode Still Doesn't Work:**
 
 1. **Check Console**: Open browser dev tools (F12) → Console tab
+
    - Look for theme manager initialization messages
    - Check for any JavaScript errors
 
 2. **Verify Elements**: In browser dev tools → Elements tab
+
    - Check if `<html>` element has `data-theme` attribute
    - Check if `<html>` element has `dark` class when in dark mode
 
