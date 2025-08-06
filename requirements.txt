@@ -5,6 +5,6 @@ python-dotenv==1.0.0
 gunicorn==23.0.0
 requests==2.32.4
 Flask-Mail==0.10.0
-posthog==3.8.0
+posthog==6.3.3
 pip-audit==2.9.0
 sentry-sdk[flask]==2.20.0
