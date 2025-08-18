@@ -1,5 +1,5 @@
 # Simplified Docker Build for Production
-FROM python:3.11-slim
+FROM python:3.13.7-slim
 
 # Set shell options for pipefail
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
